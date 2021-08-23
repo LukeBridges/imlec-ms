@@ -3,7 +3,7 @@
 /app/dist/
 /app/coverage/
 /app/.idea/
-/backend/
+/backend/auth_users.php
 /70.js
 /192.js
 /294.js
