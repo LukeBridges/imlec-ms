@@ -69,8 +69,11 @@ export class ScoreModel {
   }
 
   static scoreSort(a, b) {
+    if (a.workDone == 0 || typeof a.score == 'string') {
+      a.score = -1;
+    }
     if (b.workDone == 0 || typeof b.score == 'string') {
-      return -1;
+      b.score = 0;
     }
     return b.score - a.score;
   }
