@@ -1,0 +1,68 @@
+.day {
+  clear: both;
+
+  h1 {
+    margin-left: 5px;
+  }
+
+  .entries {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .entryPhoto {
+    width: 100%;
+    height: 187px;
+    margin-bottom: -4px;
+    aspect-ratio: 3 / 2;
+  }
+
+  .entry {
+    height: 300px;
+    flex: 0 0 295px;
+
+    div {
+      min-height: 70px;
+    }
+
+    .runNo, .driver, .time {
+      font-weight: bold;
+    }
+
+    .time {
+      font-style: italic;
+      float: right;
+      margin-right: 5px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .day {
+    .entries {
+      flex-direction: column;
+    }
+
+    .entry {
+      height: unset;
+      flex: 100%;
+
+      img {
+        height: auto;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .day {
+    .entry {
+      height: unset;
+      flex: 50%;
+
+      img {
+        height: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+#score-container {
+  display: block;
+  margin-top: 5px !important;
+}
+
+app-score, app-score-mobile {
+  margin: 0 auto;
+
+  .mat-cell.mat-column-place {
+    background-color: black;
+    color: white;
+  }
+}
+
+.scrollpoint {
+  height: 1px;
+}
+
+app-score {
+  width: 100%;
+
+  .mat-table {
+    width: 100%;
+  }
+
+  .mat-column-place {
+    flex: unset;
+    width: 22px;
+    padding: 0 7px 0 7px;
+    margin-right: 7px;
+    border-right: 1px solid #efefef;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .mat-column-runNo {
+    flex: unset;
+    width: 30px;
+    padding: 0 7px 0 7px;
+    margin-right: 7px;
+  }
+
+  .mat-column-runningTime,
+  .mat-column-distanceTravelled,
+  .mat-column-workDone,
+  .mat-column-averageHP,
+  .mat-column-coalUsed {
+    margin-left: 5px;
+  }
+
+  .mat-column-driversName, .mat-column-load {
+    margin-left: 30px;
+  }
+
+  .mat-column-gauge, .mat-column-load {
+    max-width: 50px;
+  }
+
+  .mat-column-runningTime {
+    max-width: 75px;
+  }
+
+  .mat-column-distanceTravelled,
+  .mat-column-workDone,
+  .mat-column-averageHP,
+  .mat-column-coalUsed,
+  .mat-column-overallThermalEfficiency {
+    max-width: 115px;
+  }
+
+  .mat-column-loco, .mat-column-driversName {
+    min-width: 150px;
+  }
+
+  .mat-column-driversClub {
+    min-width: 125px;
+  }
+
+  .mat-cell {
+    font-size: 16px;
+  }
+}
+
+.position {
+  width: 17px;
+}
+
+.element-row {
+  position: relative;
+}
+
+.detail-row {
+  padding: 8px;
+  width: 100%;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+app-score-mobile {
+  .mat-column-place {
+    flex: unset;
+    width: 10px;
+    padding: 0 7px 0 7px;
+    margin-right: 7px;
+  }
+
+  .mat-column-coalUsed {
+    flex: unset;
+    width: 40px;
+  }
+
+  .mat-column-overallThermalEfficiency {
+    flex: unset;
+    width: 25px;
+  }
+
+  .mat-cell:first-of-type, .mat-header-cell:first-of-type {
+    padding-left: 7px;
+  }
+}
+

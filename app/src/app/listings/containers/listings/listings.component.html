@@ -1,0 +1,6 @@
+<app-spinner [show]="!hasEntries"></app-spinner>
+<div class="entry-list" *ngIf="hasEntries">
+  <app-entry [entries]="entries" *ngIf="features.fullListings"></app-entry>
+  <app-count [count]="entries.length" *ngIf="!features.fullListings"></app-count>
+</div>
+

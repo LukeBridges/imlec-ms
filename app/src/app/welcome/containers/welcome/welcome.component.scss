@@ -1,0 +1,34 @@
+a {
+  color: #0b72b8;
+}
+
+.logo {
+  float: left;
+  max-width: 250px;
+  width: 15%;
+  margin: 10px;
+}
+
+app-contentbox {
+  flex-grow: 1;
+  text-align: center;
+
+  a {
+    img {
+      height: 150px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+@media all and (min-width: 600px) {
+  .content {
+    margin-left: 270px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  app-contentbox {
+    flex: 50%;
+  }
+}

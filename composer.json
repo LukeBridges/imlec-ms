@@ -1,0 +1,10 @@
+{
+  "name": "luke.bridges/imlec",
+  "description": "IMLEC front and backend online digital scoreboard",
+  "require": {
+    "php": ">=7.3",
+    "ext-fileinfo": "*",
+    "phpoffice/phpspreadsheet": "^1.17",
+    "ext-json": "*"
+  }
+}

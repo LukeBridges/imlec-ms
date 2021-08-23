@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" *ngIf="showToolbar">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()" aria-label="Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/welcome" skipLocationChange>IMLEC 2021</a>
+  </div>
+  <div class="desktop" *ngIf="features.scoreboard">
+    <a routerLink="/scores" skipLocationChange>Live Scoreboard</a>
+  </div>
+  <div class="desktop" *ngIf="features.listings">
+    <a routerLink="/listings" skipLocationChange>Entries</a>
+  </div>
+  <div class="desktop" *ngIf="features.rules">
+    <a routerLink="/rules" skipLocationChange>Competition Rules</a>
+  </div>
+</mat-toolbar>

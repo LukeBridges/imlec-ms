@@ -1,0 +1,42 @@
+* {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+router-outlet {
+  background-color: #efefef;
+}
+
+.content {
+  margin: 5px;
+}
+
+.center {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+app-main {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  .mobile {
+    display: block;
+  }
+  .desktop {
+    display: none;
+  }
+}
+
+@media all and (min-width: 600px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: block;
+  }
+}

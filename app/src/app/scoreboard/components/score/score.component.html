@@ -1,0 +1,125 @@
+<span #tableTop class="scrollpoint">&nbsp;</span>
+<mat-table [dataSource]="scores" class="mat-elevation-z8 demo-table">
+  <ng-container matColumnDef="place">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index">{{i + 1}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="runNo">
+    <mat-header-cell *matHeaderCellDef>Run No</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.runNo}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="gauge">
+    <mat-header-cell *matHeaderCellDef><span class="bold">Gauge</span></mat-header-cell>
+    <mat-cell *matCellDef="let element"><span class="bold">{{element.loco?.gauge}}"</span></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="loco">
+    <mat-header-cell *matHeaderCellDef><span class="bold">Loco</span></mat-header-cell>
+    <mat-cell *matCellDef="let element"><span class="bold">{{element.loco?.model}}</span></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="driversName">
+    <mat-header-cell *matHeaderCellDef><span class="bold">Driver</span></mat-header-cell>
+    <mat-cell *matCellDef="let element"><span class="bold">{{element.loco?.driver?.name}}</span></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="driversClub">
+    <mat-header-cell *matHeaderCellDef>Club</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.loco?.driver?.club}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="load">
+    <mat-header-cell *matHeaderCellDef>Load</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.load}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="runningTime">
+    <mat-header-cell *matHeaderCellDef>Run Time</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.runningTime}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="distanceTravelled">
+    <mat-header-cell *matHeaderCellDef>Distance Travelled</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.distanceTravelled}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="workDone">
+    <mat-header-cell *matHeaderCellDef>Work Done</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.workDone}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="averageHP">
+    <mat-header-cell *matHeaderCellDef>Average HP</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.averageDbHorsepowerToDisplay}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="coalUsed">
+    <mat-header-cell *matHeaderCellDef>Coal Used</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.coalUsed}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="specificConsumption">
+    <mat-header-cell *matHeaderCellDef>Specific Consumption</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{element.specificCoalConsumptionToDisplay}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="overallThermalEfficiency">
+    <mat-header-cell *matHeaderCellDef><span class="bold">{{desktop ? 'Thermal Efficiency' : 'Score'}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"><span class="bold">{{score(element).score}}</span></mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <ng-container *ngIf="desktop">
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </ng-container>
+
+  <ng-container *ngIf="!desktop">
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+             matRipple
+             class="element-row"
+             [detailRow]="row"
+             [detailRowTpl]="tpl">
+    </mat-row>
+    <ng-template #tpl let-element>
+      <table class="detail-row">
+        <tr>
+          <td>Club</td>
+          <td>{{score(element).loco?.driver?.club}}</td>
+        </tr>
+        <tr>
+          <td>Load</td>
+          <td>{{score(element).load}}</td>
+        </tr>
+        <tr>
+          <td>Running time</td>
+          <td>{{score(element).runningTime}}</td>
+        </tr>
+        <tr>
+          <td>Distance travelled</td>
+          <td>{{score(element).distanceTravelled}}</td>
+        </tr>
+        <tr>
+          <td>Work done</td>
+          <td>{{score(element).workDone}}</td>
+        </tr>
+        <tr>
+          <td>Average db hp</td>
+          <td>{{score(element).averageDbHorsepowerToDisplay}}</td>
+        </tr>
+        <tr>
+          <td>Coal used</td>
+          <td>{{score(element).coalUsed}}</td>
+        </tr>
+        <tr>
+          <td>Specific consumption</td>
+          <td>{{score(element).specificCoalConsumptionToDisplay}}</td>
+        </tr>
+      </table>
+    </ng-template>
+  </ng-container>
+</mat-table>
+<span #tableEnd class="scrollpoint">&nbsp;</span>

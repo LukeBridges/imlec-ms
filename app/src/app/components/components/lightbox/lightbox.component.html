@@ -1,0 +1,9 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <img *ngIf="data.src" src="/imlec/assets/{{data.src}}" alt="{{data.title}}"/>
+  <iframe *ngIf="data.href" [src]="data.href | safe" width="600" height="450" style="border: 0;"
+          allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+</div>
