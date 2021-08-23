@@ -43,6 +43,11 @@ const routes: Routes = [
           m => m.WelcomeModule),
       },
       {
+        path: 'about',
+        loadChildren: () => import('./../about/about.module').then(
+          m => m.AboutModule),
+      },
+      {
         path: '',
         loadChildren: () => import('./../welcome/welcome.module').then(
           m => m.WelcomeModule),
