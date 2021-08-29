@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {LocoModel} from '../../core/models/loco.model';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -12,8 +12,8 @@ export class EntriesService extends BaseFetchFromJsonService {
   protected url = environment.url + '/api/entries/';
 
   constructor(
-    http: HttpClient,
-    store: Store<State>,
+    @Inject(HttpClient) http: HttpClient,
+    @Inject(Store) store: Store<State>,
   ) {
     super(http, store);
   }

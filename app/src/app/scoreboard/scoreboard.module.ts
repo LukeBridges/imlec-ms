@@ -8,12 +8,10 @@ import {ScoresEffects} from './effects/scores.effects';
 import {StoreModule} from '@ngrx/store';
 import {HttpClientModule} from '@angular/common/http';
 import * as fromScores from './reducers/scores.reducer';
-import {EntriesEffects} from '../listings/effects/entries.effects';
-import {EntriesService} from '../listings/services/entries.service';
-import * as fromEntries from '../listings/reducers/entries.reducer';
 import {CoreModule} from '../core/core.module';
 import {ScoreboardRoutingModule} from './scoreboard-routing.module';
 import {ComponentsModule} from '../components/components.module';
+import {ListingsModule} from '../listings/listings.module';
 
 @NgModule({
   declarations: [
@@ -23,15 +21,14 @@ import {ComponentsModule} from '../components/components.module';
     CommonModule,
     ScoreboardRoutingModule,
     StoreModule.forFeature('scores', fromScores.reducer),
-    StoreModule.forFeature('entries', fromEntries.reducer),
-    EffectsModule.forFeature([ScoresEffects, EntriesEffects]),
+    EffectsModule.forFeature([ScoresEffects]),
     HttpClientModule,
     CoreModule,
     ComponentsModule,
+    ListingsModule,
   ],
   providers: [
     ScoresService,
-    EntriesService,
   ],
   exports: [
     RouterModule,

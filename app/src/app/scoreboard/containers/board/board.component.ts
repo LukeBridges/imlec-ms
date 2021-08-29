@@ -69,23 +69,23 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.innerWidth = this.window.innerWidth;
     this.isMobile = this.innerWidth <= 600;
 
-    this.entries$.pipe(takeUntil(this.ngUnsubscribe$)).
-      subscribe((entries: LocoModel[]) => {
-        if (!entries || entries && entries.length < 1) {
-          this.store.dispatch(EntriesActions.getEntries());
-        } else {
-          this.entries = entries;
-          this.store.dispatch(ScoresActions.getScores());
-        }
-      });
+    this.entries$.pipe(
+      takeUntil(this.ngUnsubscribe$),
+    ).subscribe((entries: LocoModel[]) => {
+      if (!entries || entries && entries.length < 1) {
+        this.store.dispatch(EntriesActions.getEntries());
+      } else {
+        this.entries = entries;
+        this.store.dispatch(ScoresActions.getScores());
+      }
+    });
     this.scores$.pipe(
       filter(scores => !!(scores && scores.length)),
       filter(scores => JSON.stringify(scores) !== this.rawScores),
       takeUntil(this.ngUnsubscribe$),
-    ).subscribe(scores => {
+    ).subscribe((scores: ScoreModel[]) => {
       this.rawScores = JSON.stringify(scores);
       this.scores = [];
-      scores.sort(ScoreModel.scoreSort);
       scores.forEach(score => {
         this.scores.push(new ScoreModel({
           ...score,

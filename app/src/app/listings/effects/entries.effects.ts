@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {EntriesService} from '../services/entries.service';
 import * as EntriesActions from '../actions/entries.actions';
@@ -21,8 +21,8 @@ export class EntriesEffects {
   ));
 
   constructor(
-    private actions$: Actions,
-    private entriesService: EntriesService,
+    @Inject(Actions) private actions$: Actions,
+    @Inject(EntriesService) private entriesService: EntriesService,
   ) {
   }
 }

@@ -6,7 +6,12 @@ import {ListingsComponent} from './containers/listings/listings.component';
 import {CountComponent} from './components/count/count.component';
 import {EntryComponent} from './components/entry/entry.component';
 import {ComponentsModule} from '../components/components.module';
-import {ScoreboardModule} from '../scoreboard/scoreboard.module';
+import {StoreModule} from '@ngrx/store';
+import * as fromEntries from './reducers/entries.reducer';
+import {EntriesService} from './services/entries.service';
+import {EffectsModule} from '@ngrx/effects';
+import {EntriesEffects} from './effects/entries.effects';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [ListingsComponent, CountComponent, EntryComponent],
@@ -15,7 +20,12 @@ import {ScoreboardModule} from '../scoreboard/scoreboard.module';
     ListingsRoutingModule,
     CoreModule,
     ComponentsModule,
-    ScoreboardModule,
+    HttpClientModule,
+    StoreModule.forFeature('entries', fromEntries.reducer),
+    EffectsModule.forFeature([EntriesEffects]),
+  ],
+  providers: [
+    EntriesService,
   ],
 })
 export class ListingsModule {
