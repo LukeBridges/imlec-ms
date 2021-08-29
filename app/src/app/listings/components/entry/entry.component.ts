@@ -39,6 +39,6 @@ export class EntryComponent implements OnChanges {
   }
 
   get hasReserves(): boolean {
-    return this.reserveEntries.length > 0;
+    return this.reserveEntries?.length > 0;
   }
 }

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {map, mergeMap} from 'rxjs/operators';
 import {ScoresService} from '../services/scores.service';
@@ -21,8 +21,8 @@ export class ScoresEffects {
   ));
 
   constructor(
-    private actions$: Actions,
-    private scoresService: ScoresService,
+    @Inject(Actions) private actions$: Actions,
+    @Inject(ScoresService) private scoresService: ScoresService,
   ) {
   }
 }

@@ -1,14 +1,6 @@
 import {createSelector} from '@ngrx/store';
-import {LocoModel} from '../../core/models/loco.model';
+import {State} from '../reducers/entries.reducer';
 
-export const selectEntries = (state: { entries: { entries: Array<LocoModel> } }) => {
-  return state && state.entries && state.entries.entries;
-};
+export const selectEntries = (state): State => state && state.entries;
 
-export const getEntries = createSelector(selectEntries,
-  state => state);
-
-export const getEntryByRunNo = (runNo: number) => createSelector(selectEntries,
-  state => {
-    return state && state.find && state.find(entry => entry.runNo === runNo);
-  });
+export const getEntries = createSelector(selectEntries, (state: State) => state && state.entries);

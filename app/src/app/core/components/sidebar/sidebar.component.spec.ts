@@ -4,11 +4,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {CommonModule} from '@angular/common';
-import {AppRoutingModule} from '../../app-routing.module';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MainComponent} from '../../containers/main/main.component';
 import {HeaderComponent} from '../header/header.component';
+import {RouterModule} from '@angular/router';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -17,12 +17,13 @@ describe('SidebarComponent', () => {
   setupTestBed({
     imports: [
       CommonModule,
-      AppRoutingModule,
+      RouterModule,
       MatListModule,
       MatToolbarModule,
       MatSidenavModule,
       MatIconModule,
-      MatButtonModule],
+      MatButtonModule,
+    ],
     declarations: [SidebarComponent, MainComponent, HeaderComponent],
   });
 

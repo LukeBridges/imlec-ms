@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {HotelsComponent} from './hotels.component';
+import {AboutComponent} from './about.component';
 import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 
-describe('WelcomeComponent', () => {
-  let component: HotelsComponent;
-  let fixture: ComponentFixture<HotelsComponent>;
+describe('AboutComponent', () => {
+  let component: AboutComponent;
+  let fixture: ComponentFixture<AboutComponent>;
 
   setupTestBed({
-    declarations: [HotelsComponent, ContentBoxComponent],
+    declarations: [AboutComponent, ContentBoxComponent],
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HotelsComponent);
+    fixture = TestBed.createComponent(AboutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
