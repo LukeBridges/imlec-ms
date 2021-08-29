@@ -14,12 +14,12 @@ import {
 import {ScoreModel} from '../../../core/models/score.model';
 import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
-import {getScores} from '../../selectors/scores.selector';
+import {selectScores} from '../../selectors/scores.selector';
 import {filter, takeUntil} from 'rxjs/operators';
 import * as ScoresActions from '../../actions/scores.actions';
 import * as EntriesActions from '../../../listings/actions/entries.actions';
 import {LocoModel} from '../../../core/models/loco.model';
-import {getEntries} from '../../../listings/selectors/entries.selector';
+import {selectEntries} from '../../../listings/selectors/entries.selector';
 import {State} from '../../../core/models/state.model';
 import {WINDOW} from '../../../core/services/window.service';
 import {ScoreComponent} from '../../components/score/score.component';
@@ -58,10 +58,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     @Inject(WINDOW) public window: Window,
     @Inject(ComponentFactoryResolver) private cfr: ComponentFactoryResolver,
     @Inject(Injector) private injector: Injector) {
-    this.scores$ = this.store.pipe(select(getScores));
+    this.scores$ = this.store.pipe(select(selectScores));
     this.scores = [];
     this.rawScores = '';
-    this.entries$ = this.store.pipe(select(getEntries));
+    this.entries$ = this.store.pipe(select(selectEntries));
     this.entries = [];
   }
 

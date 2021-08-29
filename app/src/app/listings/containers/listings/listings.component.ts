@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {LocoModel} from '../../../core/models/loco.model';
 import {select, Store} from '@ngrx/store';
-import {getEntries} from '../../selectors/entries.selector';
+import {selectEntries} from '../../selectors/entries.selector';
 import * as EntriesActions from '../../actions/entries.actions';
 import {takeUntil} from 'rxjs/operators';
 import {State} from '../../../core/models/state.model';
@@ -23,7 +23,7 @@ export class ListingsComponent implements OnInit {
   protected ngUnsubscribe$: Subject<any> = new Subject();
 
   constructor(@Inject(Store) private store: Store<State>) {
-    this.entries$ = this.store.pipe(select(getEntries));
+    this.entries$ = this.store.pipe(select(selectEntries));
   }
 
   ngOnInit() {
