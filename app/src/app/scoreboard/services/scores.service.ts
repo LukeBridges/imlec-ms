@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {HttpClient} from '@angular/common/http';
@@ -14,8 +14,8 @@ export class ScoresService extends BaseFetchFromJsonService {
   protected list: ScoreModel[] = null;
 
   constructor(
-    http: HttpClient,
-    store: Store<State>,
+    @Inject(HttpClient) http: HttpClient,
+    @Inject(Store) store: Store<State>,
   ) {
     super(http, store);
   }
