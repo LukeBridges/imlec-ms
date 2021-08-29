@@ -22,6 +22,7 @@ export class BaseFetchFromJsonService {
     this.list = [];
   }
 
+  /* istanbul ignore next */
   public fetchFromJson(action?: Action) {
     this.http.get(this.url + '?' + Date.now().valueOf(), {
       responseType: 'json',
