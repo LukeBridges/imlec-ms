@@ -2,9 +2,9 @@
   "name": "luke.bridges/imlec",
   "description": "IMLEC front and backend online digital scoreboard",
   "require": {
-    "php": ">=7.3",
+    "php": ">=7.4",
     "ext-fileinfo": "*",
-    "phpoffice/phpspreadsheet": "^1.17",
-    "ext-json": "*"
+    "ext-json": "*",
+    "phpoffice/phpspreadsheet": "^1.18.0"
   }
 }
