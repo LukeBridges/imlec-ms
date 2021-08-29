@@ -9,12 +9,17 @@ import {State} from '../models/state.model';
 export class BaseFetchFromJsonService {
   protected url = null;
 
-  protected list: any[] = [];
+  protected list: any;
 
   constructor(
     @Inject(HttpClient) protected http: HttpClient,
-    protected store: Store<State>,
+    @Inject(Store) protected store: Store<State>,
   ) {
+    this.initList();
+  }
+
+  protected initList() {
+    this.list = [];
   }
 
   public fetchFromJson(action?: Action) {
