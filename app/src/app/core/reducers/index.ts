@@ -3,6 +3,7 @@ import {Params, RouterStateSnapshot} from '@angular/router';
 import * as fromRouter from '@ngrx/router-store';
 import * as fromScores from '../../scoreboard/reducers/scores.reducer';
 import * as fromEntries from '../../listings/reducers/entries.reducer';
+import * as fromConfig from '../reducers/config.reducer';
 import {Injectable} from '@angular/core';
 import {State} from '../models/state.model';
 
@@ -35,6 +36,7 @@ export const reducers: ActionReducerMap<State> = {
   router: fromRouter.routerReducer,
   scores: fromScores.reducer,
   entries: fromEntries.reducer,
+  config: fromConfig.reducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = [];

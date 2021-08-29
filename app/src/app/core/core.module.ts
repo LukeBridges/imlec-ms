@@ -10,6 +10,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {ConfigService} from './services/config.service';
+import {EffectsModule} from '@ngrx/effects';
+import {ConfigEffects} from './effects/config.effects';
+import {HttpClientModule} from '@angular/common/http';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -27,10 +31,13 @@ const COMPONENTS = [
     MatSidenavModule,
     MatIconModule,
     MatButtonModule,
+    HttpClientModule,
+    EffectsModule.forFeature([ConfigEffects]),
   ],
   exports: COMPONENTS,
   providers: [
     WINDOW_PROVIDERS,
+    ConfigService,
   ],
 })
 export class CoreModule {

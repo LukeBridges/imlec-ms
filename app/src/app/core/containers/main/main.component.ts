@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as RouterActions from '../../actions/router.actions';
+import * as ConfigActions from '../../actions/config.actions';
 import {State} from '../../models/state.model';
 
 @Component({
@@ -14,6 +15,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(ConfigActions.getConfig());
     this.store.dispatch(RouterActions.Go({path: ['/welcome']}));
   }
 }
