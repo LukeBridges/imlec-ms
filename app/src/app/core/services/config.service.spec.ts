@@ -1,5 +1,6 @@
 import {ConfigService} from './config.service';
 import {take} from 'rxjs/operators';
+import {initialState} from '../reducers/config.reducer';
 
 describe('ConfigService', () => {
   let service: ConfigService;
@@ -22,7 +23,7 @@ describe('ConfigService', () => {
 
   describe('getConfig', () => {
     it('should return observable of config', (done) => {
-      const expected = {};
+      const expected = initialState;
       service['list'] = expected;
 
       service.getConfig().pipe(take(1)).subscribe(value => {
