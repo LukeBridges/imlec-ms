@@ -1,7 +1,12 @@
-import {Component, Inject, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {LightboxComponent} from '../../../components/components/lightbox/lightbox.component';
-import {environment} from '../../../../environments/environment';
+import {Observable, Subject} from 'rxjs';
+import {Config} from '../../../core/models/config.model';
+import {select, Store} from '@ngrx/store';
+import {selectConfig} from '../../../core/selectors/config.selector';
+import {State} from '../../../core/models/state.model';
+import {filter, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-welcome',
@@ -9,11 +14,26 @@ import {environment} from '../../../../environments/environment';
   styleUrls: ['./welcome.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom,
 })
-export class WelcomeComponent {
+export class WelcomeComponent implements OnInit, OnDestroy {
 
-  public features = environment.features;
+  public config: Config;
+  private config$: Observable<Config> = new Observable<Config>();
+  private ngUnsubscribe$: Subject<any> = new Subject<any>();
 
-  constructor(@Inject(MatDialog) public dialog: MatDialog) {
+  constructor(private store: Store<State>, @Inject(MatDialog) public dialog: MatDialog) {
+    this.config$ = this.store.pipe(select(selectConfig));
+  }
+
+  ngOnInit() {
+    this.config$.pipe(takeUntil(this.ngUnsubscribe$), filter(config => !!config)).
+      subscribe(config => {
+        this.config = config;
+      });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe$.next(true);
+    this.ngUnsubscribe$.complete();
   }
 
   openGMap() {

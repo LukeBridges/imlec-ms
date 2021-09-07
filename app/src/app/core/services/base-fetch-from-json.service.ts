@@ -33,9 +33,11 @@ export class BaseFetchFromJsonService {
         let self = this;
         this.list = [];
         file.forEach(row => self.list.push(Object.values(row)));
-        if (action) {
-          this.store.dispatch(action);
-        }
+      } else {
+        this.list = file;
+      }
+      if (action) {
+        this.store.dispatch(action);
       }
     });
   }

@@ -1,3 +1,9 @@
+$primary: var(--primary-colour);
+
+.mat-primary {
+  background-color: $primary !important;
+}
+
 mat-sidenav-container, mat-sidenav-content, mat-sidenav {
   height: 100%;
 }

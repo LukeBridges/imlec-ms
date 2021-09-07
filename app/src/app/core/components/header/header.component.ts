@@ -1,5 +1,5 @@
-import {Component, EventEmitter, HostListener, Output} from '@angular/core';
-import {environment} from '../../../../environments/environment';
+import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {Config} from '../../models/config.model';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +10,7 @@ export class HeaderComponent {
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  public features = environment.features;
+  @Input() config: Config;
 
   showToolbar = true;
 
