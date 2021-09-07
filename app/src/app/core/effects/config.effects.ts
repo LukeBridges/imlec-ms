@@ -9,14 +9,14 @@ export class ConfigEffects {
   getConfig$ = createEffect(() => this.actions$.pipe(
     ofType(ConfigActions.getConfig),
     map(() => {
-      this.configService.fetchFromJson(ConfigActions.updateConfig);
+      this.configService.fetchFromJson(ConfigActions.updateConfig());
       return ConfigActions.getConfigSuccess();
     }),
   ));
   updateConfig$ = createEffect(() => this.actions$.pipe(
     ofType(ConfigActions.updateConfig),
     mergeMap(() => this.configService.getConfig().pipe(
-      map(entries => ConfigActions.updateConfigSuccess({payload: entries})),
+      map(config => ConfigActions.updateConfigSuccess({payload: config})),
     )),
   ));
 

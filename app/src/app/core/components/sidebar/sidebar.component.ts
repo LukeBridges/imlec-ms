@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {environment} from '../../../../environments/environment';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Config} from '../../models/config.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +10,7 @@ export class SidebarComponent {
 
   @Output() sidenavClose = new EventEmitter();
 
-  public features = environment.features;
+  @Input() config: Config;
 
   constructor() {
   }

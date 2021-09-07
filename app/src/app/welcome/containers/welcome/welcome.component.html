@@ -40,24 +40,24 @@
     More information on the club may be found at
     <a href="http://www.maidstonemes.co.uk" target="_blank" rel="noreferrer">www.maidstonemes.co.uk</a>
   </p>
-  <p *ngIf="!features.applicationForm">
+  <p *ngIf="!config?.features?.applicationForm">
     <b>Entries are now closed. The entries and running list can be found
       <a routerLink="/listings" skipLocationChange>Here</a>
     </b>
   </p>
-  <p *ngIf="features.applicationForm">
+  <p *ngIf="config?.features?.applicationForm">
     Send completed application forms to Tom Parham at <a
     href="mailto:tom_parham@hotmail.co.uk">tom_parham@hotmail.co.uk</a>
   </p>
 </div>
 <div class="center">
-  <app-contentbox *ngIf="features.applicationForm && !features.scoreboard" class="links">
+  <app-contentbox *ngIf="config?.features?.applicationForm && !config?.features?.scoreboard" class="links">
     <a href="/imlec/assets/IMLEC 2020 Fillable Application form.pdf" mat-button target="_blank">
       <img src="/imlec/assets/download.png" alt="Download" height="150" width="150"/><br/>
       <span>Entry Application Form</span>
     </a>
   </app-contentbox>
-  <app-contentbox *ngIf="!features.applicationForm && features.scoreboard" class="links">
+  <app-contentbox *ngIf="!config?.features?.applicationForm && config?.features?.scoreboard" class="links">
     <a routerLink="/scores" mat-button skipLocationChange>
       <img src="/imlec/assets/percent.svg" alt="Score" height="150" width="150"/><br/>
       <span>Live! Scoreboard</span>

@@ -3,20 +3,23 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
-  <a *ngIf="features.scoreboard" mat-list-item routerLink="/scores" (click)="onSidenavClose()" skipLocationChange>
+  <a (click)="onSidenavClose()" *ngIf="config?.features?.scoreboard" mat-list-item routerLink="/scores"
+     skipLocationChange>
     <mat-icon>assignment_ind</mat-icon>
     <span class="nav-caption">Scoreboard</span>
   </a>
-  <a *ngIf="features.listings" mat-list-item routerLink="/listings" (click)="onSidenavClose()" skipLocationChange>
+  <a (click)="onSidenavClose()" *ngIf="config?.features?.listings" mat-list-item routerLink="/listings"
+     skipLocationChange>
     <mat-icon>account_balance</mat-icon>
     <span class="nav-caption">Entries</span>
   </a>
-  <a *ngIf="features.rules" mat-list-item routerLink="/rules" (click)="onSidenavClose()" skipLocationChange>
+  <a (click)="onSidenavClose()" *ngIf="config?.features?.rules" mat-list-item routerLink="/rules" skipLocationChange>
     <mat-icon>list</mat-icon>
     <span class="nav-caption">Competition Rules</span>
   </a>
   <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
-  <a *ngIf="features.applicationForm" mat-list-item href="/imlec/assets/IMLEC 2020 Fillable Application form.pdf"
+  <a *ngIf="config?.features?.applicationForm" href="/imlec/assets/IMLEC 2020 Fillable Application form.pdf"
+     mat-list-item
      (click)="onSidenavClose()"
      target="_blank">
     <mat-icon>list</mat-icon>

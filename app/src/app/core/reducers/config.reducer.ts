@@ -4,7 +4,16 @@ import {Config} from '../models/config.model';
 
 export type State = Config;
 
-export const initialState: State = {};
+export const initialState: State = {
+  primaryColour: null,
+  features: {
+    applicationForm: false,
+    scoreboard: false,
+    listings: false,
+    fullListings: false,
+    rules: false,
+  },
+};
 
 const configReducer = createReducer(
   initialState,
