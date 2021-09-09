@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './containers/main/main.component';
 
+// istanbul ignore next
 const routes: Routes = [
   {
     path: '',

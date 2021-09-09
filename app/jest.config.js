@@ -34,4 +34,5 @@ module.exports = {
       'statements': 91,
     },
   },
+  testRunner: 'jest-jasmine2',
 };
