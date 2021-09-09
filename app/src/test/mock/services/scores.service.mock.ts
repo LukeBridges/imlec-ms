@@ -13,7 +13,7 @@ export class ScoresServiceMock extends ScoresService {
     ],
   ];
 
-  fetchFromJson() {
+  public fetchFromJson() {
     super.list = <any[]>this.mockScores;
   }
 }

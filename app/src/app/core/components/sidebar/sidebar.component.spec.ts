@@ -8,7 +8,9 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MainComponent} from '../../containers/main/main.component';
 import {HeaderComponent} from '../header/header.component';
-import {RouterModule} from '@angular/router';
+import {initialState} from '../../reducers/config.reducer';
+import {AppRoutingModule} from '../../app-routing.module';
+import {AppModule} from '../../../app.module';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -16,8 +18,9 @@ describe('SidebarComponent', () => {
 
   setupTestBed({
     imports: [
+      AppModule,
       CommonModule,
-      RouterModule,
+      AppRoutingModule,
       MatListModule,
       MatToolbarModule,
       MatSidenavModule,
@@ -25,11 +28,13 @@ describe('SidebarComponent', () => {
       MatButtonModule,
     ],
     declarations: [SidebarComponent, MainComponent, HeaderComponent],
+    providers: [],
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
+    component.config = {...initialState};
     fixture.detectChanges();
   });
 

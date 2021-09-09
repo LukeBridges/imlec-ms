@@ -17,7 +17,7 @@ describe('ConfigService', () => {
     it('should return service instance and init list', () => {
       const localService = new ConfigService(null, null);
 
-      expect(localService['list']).toEqual({});
+      expect(localService['list']).toEqual(initialState);
     });
   });
 
@@ -33,7 +33,7 @@ describe('ConfigService', () => {
     });
 
     it('should return observable of blank object', (done) => {
-      const expected = {};
+      const expected = initialState;
       service['list'] = null;
 
       service.getConfig().pipe(take(1)).subscribe(value => {
