@@ -51,7 +51,7 @@ export class DetailRowDirective {
     this.opened = this.vcRef.length > 0;
   }
 
-  private render(): void {
+  public render(): void {
     this.vcRef.clear();
     if (this.tRef && this.row) {
       this.vcRef.createEmbeddedView(this.tRef, {$implicit: this.row});
