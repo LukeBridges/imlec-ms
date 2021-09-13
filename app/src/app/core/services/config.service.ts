@@ -10,7 +10,7 @@ import {initialState} from '../reducers/config.reducer';
 
 @Injectable()
 export class ConfigService extends BaseFetchFromJsonService {
-  protected url = environment.url + '/config.json';
+  protected url = environment.url + '/api/config/';
 
   protected list: Config = initialState;
 
