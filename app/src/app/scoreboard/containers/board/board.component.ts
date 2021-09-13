@@ -112,6 +112,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
+  // istanbul ignore next
   async getScoreComponent(): Promise<ScoreComponent> {
     let scoreFactory: ComponentFactory<ScoreComponent>;
     if (this.isMobile) {
@@ -136,6 +137,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe$.complete();
   }
 
+  // istanbul ignore next
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.innerWidth = this.window.innerWidth;

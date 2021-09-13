@@ -26,7 +26,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   @ViewChild('tableEnd') tableEnd: ElementRef;
   private static TOP_WAIT = 30 * 1000;
   private static BOTTOM_WAIT = 20 * 1000;
-  private static SCROLL_TIME = 8 * 1000;
+  static SCROLL_TIME = 8 * 1000;
 
   public desktop = true;
 
@@ -99,23 +99,23 @@ export class ScoreComponent implements OnInit, OnDestroy {
       ScoreComponent.SCROLL_TIME * 2);
   }
 
+  // istanbul ignore next
   scrollTo(to: number, duration: number) {
-    let element: HTMLElement = this.document.querySelector(
-      '.mat-drawer-content');
-
-    let t = element.scrollTop;
+    let element = this.document.querySelector('.mat-drawer-content');
+    let top = element.scrollTop;
 
     if (element.scrollTop === 0) {
       ++element.scrollTop;
-      element = (t + 1 === element.scrollTop--) ?
+      element = (top + 1 === element.scrollTop--) ?
         element :
         this.document.querySelector('.mat-drawer-content');
     }
 
-    return this.scrollToX(element, t, to, 0, 1 / duration, 20);
+    return this.scrollToX(element, top, to, 0, 1 / duration, 20);
   };
 
-  scrollToX(element: HTMLElement, xFrom: number, xTo: number, t01: number,
+  // istanbul ignore next
+  scrollToX(element: Element, xFrom: number, xTo: number, t01: number,
             speed: number, step: number) {
     if (t01 < 0 || t01 > 1 || speed <= 0) {
       element.scrollTop = xTo;
@@ -159,6 +159,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
     });
   }
 
+  // istanbul ignore next
   score = (element: any) => element as ScoreModel;
 }
 

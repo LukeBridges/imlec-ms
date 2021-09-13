@@ -16,6 +16,8 @@ export class ScoreModel {
 
   expanded = false;
 
+  private readonly COAL_USED_MAGIC = 14000 * 778;
+
   constructor(config?: any) {
     if (config) {
       this.runNo = config && config.runNo;
@@ -26,16 +28,21 @@ export class ScoreModel {
       this.load = config && config.load;
       this.loco = config && config.loco;
 
-      this.score = this.workDone && this.coalUsed && this.calculatedScore;
+      this.score = this.workDone && this.coalUsed && this.calculatedScoreToDisplay;
       if (this.workDone == 0) {
         this.score = 'Retired / Did not start';
+        this.dnf = true;
       }
     }
   }
 
   get calculatedScore(): number {
-    return Math.round(
-      ((this.workDone * 100) / (this.coalUsed * 14000 * 778)) * 10000) / 10000;
+    return (this.workDone * 100) / (this.coalUsed * this.COAL_USED_MAGIC);
+  }
+
+  get calculatedScoreToDisplay(): number {
+    const score = this.calculatedScore;
+    return isNaN(score) ? null : Math.round(score * 10000) / 10000;
   }
 
   get averageDbHorsepower(): number {
@@ -43,10 +50,8 @@ export class ScoreModel {
   }
 
   get averageDbHorsepowerToDisplay(): number {
-    if (isNaN(this.averageDbHorsepower)) {
-      return null;
-    }
-    return Math.round(this.averageDbHorsepower * 10000) / 10000;
+    const hp = this.averageDbHorsepower;
+    return isNaN(hp) ? null : Math.round(hp * 10000) / 10000;
   }
 
   get coalConsumptionRate(): number {
@@ -58,17 +63,15 @@ export class ScoreModel {
   }
 
   get specificCoalConsumptionToDisplay(): number {
-    if (isNaN(this.specificCoalConsumption)) {
-      return null;
-    }
-    return Math.round(this.specificCoalConsumption * 100) / 100;
+    const consumption = this.specificCoalConsumption;
+    return isNaN(consumption) ? null : Math.round(consumption * 100) / 100;
   }
 
   get averageDrawBarPull(): number {
     return this.workDone / this.distanceTravelled;
   }
 
-  static scoreSort(a, b) {
+  static scoreSort(a: ScoreModel, b: ScoreModel) {
     if (a.workDone == 0 || typeof a.score == 'string') {
       a.score = -1;
     }
