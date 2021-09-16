@@ -28,10 +28,10 @@ module.exports = {
   ],
   coverageThreshold: {
     'global': {
-      'branches': 60,
-      'functions': 60,
-      'lines': 85,
-      'statements': 83,
+      'branches': 78,
+      'functions': 72,
+      'lines': 92,
+      'statements': 90,
     },
   },
   testRunner: 'jest-jasmine2',
