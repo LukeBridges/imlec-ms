@@ -14,6 +14,7 @@ import {RouterModule} from '@angular/router';
 import {CustomRouterStateSerializer, metaReducers, reducers} from './core/reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
+import {WINDOW, WINDOW_PROVIDERS} from './core/services/window.service';
 
 @NgModule({
   declarations: [
@@ -43,10 +44,11 @@ import {environment} from '../environments/environment';
       {serializer: DefaultRouterStateSerializer, stateKey: 'router'}),
   ],
   providers: [
+    WINDOW_PROVIDERS,
     {
       provide: APP_BASE_HREF,
       useFactory: getBaseHref,
-      deps: [PlatformLocation],
+      deps: [PlatformLocation, WINDOW],
     },
     {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
   ],
@@ -57,6 +59,6 @@ export class AppModule {
   }
 }
 
-export function getBaseHref(platformLocation: PlatformLocation): string {
-  return '/imlec';
+export function getBaseHref(platformLocation: PlatformLocation, window: Window): string {
+  return '/' + window.location.pathname.split('/')[1];
 }
