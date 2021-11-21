@@ -4,7 +4,6 @@ import {
   ComponentFactoryResolver,
   HostListener,
   Inject,
-  Injector,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -56,8 +55,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(Store) public store: Store<State>,
     @Inject(WINDOW) public window: Window,
-    @Inject(ComponentFactoryResolver) private cfr: ComponentFactoryResolver,
-    @Inject(Injector) private injector: Injector) {
+    @Inject(ComponentFactoryResolver) private cfr: ComponentFactoryResolver) {
     this.scores$ = this.store.pipe(select(selectScores));
     this.scores = [];
     this.rawScores = '';
@@ -125,9 +123,8 @@ export class BoardComponent implements OnInit, OnDestroy {
         ScoreComponent);
     }
     this.scoreContainer.clear();
-    const {instance} = this.scoreContainer.createComponent(
-      scoreFactory, null, this.injector);
-    return <ScoreComponent>instance;
+    const {instance} = this.scoreContainer.createComponent<ScoreComponent>(scoreFactory);
+    return instance;
   }
 
   ngOnDestroy(): void {
