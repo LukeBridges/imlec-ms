@@ -1,7 +1,7 @@
 import {AboutModule} from './about.module';
 
 describe('AboutModule', () => {
-  it('should create', () => {
+  test('should create', () => {
     expect(AboutModule).toBeTruthy();
   });
 });

@@ -2,7 +2,6 @@ import {DetailRowDirective} from './detail-row.directive';
 import {ElementRef, EmbeddedViewRef, TemplateRef, ViewContainerRef} from '@angular/core';
 
 describe('DetailRowDirective', () => {
-  7;
   let directive: DetailRowDirective;
   const vcRef: ViewContainerRef = <ViewContainerRef>{
     clear() {
@@ -18,12 +17,12 @@ describe('DetailRowDirective', () => {
     directive = new DetailRowDirective(vcRef);
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(DetailRowDirective).toBeTruthy();
   });
 
   describe('get expanded', () => {
-    it('should return value of opened', () => {
+    test('should return value of opened', () => {
       directive['opened'] = true;
 
       expect(directive.expended).toBeTruthy();
@@ -35,7 +34,7 @@ describe('DetailRowDirective', () => {
   });
 
   describe('cdkDetailRow', () => {
-    it('should update row value', () => {
+    test('should update row value', () => {
       const newValue = 'newValue';
       directive['row'] = null;
 
@@ -50,7 +49,7 @@ describe('DetailRowDirective', () => {
   });
 
   describe('template', () => {
-    it('should update template value', () => {
+    test('should update template value', () => {
       const newValue: TemplateRef<any> = {
         get elementRef(): ElementRef {
           return null;
@@ -72,8 +71,8 @@ describe('DetailRowDirective', () => {
   });
 
   describe('onClick', () => {
-    it('should call toggle', () => {
-      spyOn(directive, 'toggle').and.stub();
+    test('should call toggle', () => {
+      jest.spyOn(directive, 'toggle').mockImplementation();
 
       directive.onClick();
 
@@ -82,11 +81,11 @@ describe('DetailRowDirective', () => {
   });
 
   describe('toggle', () => {
-    it('should call clear if opened', () => {
+    test('should call clear if opened', () => {
       directive['opened'] = true;
 
-      spyOn(directive.vcRef, 'clear').and.stub();
-      spyOn(directive, 'render').and.stub();
+      jest.spyOn(directive.vcRef, 'clear').mockImplementation();
+      jest.spyOn(directive, 'render').mockImplementation();
 
       directive.toggle();
 
@@ -95,24 +94,23 @@ describe('DetailRowDirective', () => {
       expect(directive['opened']).toBeFalsy();
     });
 
-    it('should call render if not opened', () => {
+    test('should call render if not opened', () => {
       directive['opened'] = false;
 
-      spyOn(directive.vcRef, 'clear').and.stub();
-      spyOn(directive, 'render').and.stub();
+      jest.spyOn(directive.vcRef, 'clear').mockImplementation();
+      jest.spyOn(directive, 'render').mockImplementation();
 
       directive.toggle();
 
-      expect(directive.vcRef.clear).not.toHaveBeenCalled();
       expect(directive.render).toHaveBeenCalled();
       expect(directive['opened']).toBeFalsy();
     });
   });
 
   describe('render', () => {
-    it('should clear and createView', () => {
-      spyOn(directive.vcRef, 'clear').and.stub();
-      spyOn(directive.vcRef, 'createEmbeddedView').and.stub();
+    test('should clear and createView', () => {
+      jest.spyOn(directive.vcRef, 'clear').mockImplementation();
+      jest.spyOn(directive.vcRef, 'createEmbeddedView').mockImplementation();
 
       directive.template = {
         get elementRef(): ElementRef {

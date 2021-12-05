@@ -40,12 +40,12 @@ describe('WelcomeComponent', () => {
     component = fixture.debugElement.componentInstance;
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(WelcomeComponent).toBeTruthy();
   });
 
   describe('ngOnDestroy', () => {
-    it('should unsubscribe', (done) => {
+    test('should unsubscribe', (done) => {
       component['ngUnsubscribe$'].pipe(take(1)).subscribe(() => {
         done();
       });
@@ -55,8 +55,8 @@ describe('WelcomeComponent', () => {
   });
 
   describe('openGMap', () => {
-    it('should call dialog open', () => {
-      spyOn(component.dialog, 'open').and.stub();
+    test('should call dialog open', () => {
+      jest.spyOn(component.dialog, 'open').mockImplementation();
 
       component.openGMap();
 
@@ -65,8 +65,8 @@ describe('WelcomeComponent', () => {
   });
 
   describe('openMap', () => {
-    it('should call dialog open', () => {
-      spyOn(component.dialog, 'open').and.stub();
+    test('should call dialog open', () => {
+      jest.spyOn(component.dialog, 'open').mockImplementation()
 
       component.openMap();
 

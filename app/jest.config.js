@@ -32,10 +32,9 @@ module.exports = {
   coverageThreshold: {
     'global': {
       'branches': 78,
-      'functions': 72,
-      'lines': 92,
-      'statements': 90,
+      'functions': 67,
+      'lines': 91,
+      'statements': 89,
     },
-  },
-  testRunner: 'jest-jasmine2',
+  }
 };

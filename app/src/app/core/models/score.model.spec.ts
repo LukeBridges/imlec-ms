@@ -12,16 +12,16 @@ describe('ScoreModel', () => {
     loco: new LocoModel({runNo: 1, name: 'testName'}),
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(ScoreModel).toBeTruthy();
   });
 
   describe('constructor', () => {
-    it('should construct', () => {
+    test('should construct', () => {
       expect(new ScoreModel()).toBeTruthy();
     });
 
-    it('should accept config', () => {
+    test('should accept config', () => {
       expect(model.runNo).toEqual(1);
       expect(model.workDone).toEqual(150000);
       expect(model.runningTime).toEqual(30);
@@ -33,7 +33,7 @@ describe('ScoreModel', () => {
       expect(model.score).toEqual(0.9181);
     });
 
-    it('should accept config and set dnf', () => {
+    test('should accept config and set dnf', () => {
       const model = new ScoreModel({
         runNo: 1,
         workDone: 0,
@@ -45,43 +45,43 @@ describe('ScoreModel', () => {
   });
 
   describe('calculatedScore', () => {
-    it('should return score', () => {
+    test('should return score', () => {
       expect(model.calculatedScore).toEqual(0.9181050312155711);
     });
   });
 
   describe('calculatedScoreToDisplay', () => {
-    it('should return formatted score', () => {
+    test('should return formatted score', () => {
       expect(model.calculatedScoreToDisplay).toEqual(0.9181);
     });
   });
 
   describe('averageDbHorsepower', () => {
-    it('should return drawbar horsepower', () => {
+    test('should return drawbar horsepower', () => {
       expect(model.averageDbHorsepower).toEqual(0.15151515151515152);
     });
   });
 
   describe('averageDbHorsepowerToDisplay', () => {
-    it('should return formatted drawbar horsepower', () => {
+    test('should return formatted drawbar horsepower', () => {
       expect(model.averageDbHorsepowerToDisplay).toEqual(0.1515);
     });
   });
 
   describe('specificCoalConsumption', () => {
-    it('should return coal consumption', () => {
+    test('should return coal consumption', () => {
       expect(model.specificCoalConsumption).toEqual(19.8);
     });
   });
 
   describe('specificCoalConsumptionToDisplay', () => {
-    it('should return formatted coal consumption', () => {
+    test('should return formatted coal consumption', () => {
       expect(model.specificCoalConsumptionToDisplay).toEqual(19.8);
     });
   });
 
   describe('averageDrawBarPull', () => {
-    it('should return average drawbar pull', () => {
+    test('should return average drawbar pull', () => {
       expect(model.averageDrawBarPull).toEqual(7.5);
     });
   });
@@ -103,7 +103,7 @@ describe('ScoreModel', () => {
       });
     });
 
-    it('should return -1 if score a is dnf', () => {
+    test('should return -1 if score a is dnf', () => {
       scoreB = new ScoreModel({
         runNo: 1,
         workDone: 10000,
@@ -112,7 +112,7 @@ describe('ScoreModel', () => {
       expect(ScoreModel.scoreSort(scoreA, scoreB)).toEqual(1.0612);
     });
 
-    it('should return 0 if score b is dnf', () => {
+    test('should return 0 if score b is dnf', () => {
       scoreA = new ScoreModel({
         runNo: 1,
         workDone: 10000,
