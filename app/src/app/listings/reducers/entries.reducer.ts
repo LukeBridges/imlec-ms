@@ -8,7 +8,7 @@ export const initialState: State = [];
 
 const entriesReducer = createReducer(
   initialState,
-  on(EntriesActions.updateEntriesSuccess,
+  on(EntriesActions.updateEntries,
     (state, {payload}) => (payload)),
 );
 

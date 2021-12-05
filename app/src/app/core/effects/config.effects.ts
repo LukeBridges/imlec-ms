@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {map, mergeMap} from 'rxjs/operators';
+import {mergeMap} from 'rxjs/operators';
 import {ConfigService} from '../services/config.service';
 import * as ConfigActions from '../actions/config.actions';
 
@@ -8,15 +8,8 @@ import * as ConfigActions from '../actions/config.actions';
 export class ConfigEffects {
   getConfig$ = createEffect(() => this.actions$.pipe(
     ofType(ConfigActions.getConfig),
-    map(() => {
-      this.configService.fetchFromJson(ConfigActions.updateConfig());
-      return ConfigActions.getConfigSuccess();
-    }),
-  ));
-  updateConfig$ = createEffect(() => this.actions$.pipe(
-    ofType(ConfigActions.updateConfig),
-    mergeMap(() => this.configService.getConfig().pipe(
-      map(config => ConfigActions.updateConfigSuccess({payload: config})),
+    mergeMap(() => this.configService.fetchFromJson().then(
+      config => ConfigActions.updateConfig({payload: config}),
     )),
   ));
 

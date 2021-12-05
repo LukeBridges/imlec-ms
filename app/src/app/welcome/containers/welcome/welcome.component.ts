@@ -7,6 +7,8 @@ import {select, Store} from '@ngrx/store';
 import {selectConfig} from '../../../core/selectors/config.selector';
 import {State} from '../../../core/models/state.model';
 import {filter, takeUntil} from 'rxjs/operators';
+import {Content} from '../../../core/models/content.model';
+import {selectContent} from '../../../core/selectors/content.selector';
 
 @Component({
   selector: 'app-welcome',
@@ -18,16 +20,23 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   public config: Config;
   private config$: Observable<Config> = new Observable<Config>();
+  public content: Content;
+  private content$: Observable<Content> = new Observable<Content>();
   private ngUnsubscribe$: Subject<any> = new Subject<any>();
 
   constructor(private store: Store<State>, @Inject(MatDialog) public dialog: MatDialog) {
     this.config$ = this.store.pipe(select(selectConfig));
+    this.content$ = this.store.pipe(select(selectContent));
   }
 
   ngOnInit() {
     this.config$.pipe(takeUntil(this.ngUnsubscribe$), filter(config => !!config)).
       subscribe(config => {
         this.config = config;
+      });
+    this.content$.pipe(takeUntil(this.ngUnsubscribe$), filter(content => !!content)).
+      subscribe(content => {
+        this.content = content;
       });
   }
 

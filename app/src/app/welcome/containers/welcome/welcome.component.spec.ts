@@ -1,7 +1,5 @@
 import {WelcomeComponent} from './welcome.component';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ScoresService} from '../../../scoreboard/services/scores.service';
-import {ScoresServiceMock} from '../../../../test/mock/services/scores.service.mock';
 import {WINDOW_PROVIDERS} from '../../../core/services/window.service';
 import {ComponentsModule} from '../../../components/components.module';
 import {WelcomeRoutingModule} from '../../welcome-routing.module';
@@ -30,7 +28,6 @@ describe('WelcomeComponent', () => {
       WelcomeComponent,
     ],
     providers: [
-      {provide: ScoresService, useClass: ScoresServiceMock},
       WINDOW_PROVIDERS,
     ],
   });
@@ -66,7 +63,7 @@ describe('WelcomeComponent', () => {
 
   describe('openMap', () => {
     test('should call dialog open', () => {
-      jest.spyOn(component.dialog, 'open').mockImplementation()
+      jest.spyOn(component.dialog, 'open').mockImplementation();
 
       component.openMap();
 

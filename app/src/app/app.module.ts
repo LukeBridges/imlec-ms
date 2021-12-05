@@ -15,6 +15,7 @@ import {CustomRouterStateSerializer, metaReducers, reducers} from './core/reduce
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {WINDOW, WINDOW_PROVIDERS} from './core/services/window.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {WINDOW, WINDOW_PROVIDERS} from './core/services/window.service';
     environment.production ? [] : StoreDevtoolsModule.instrument(),
     StoreRouterConnectingModule.forRoot(
       {serializer: DefaultRouterStateSerializer, stateKey: 'router'}),
+    HttpClientModule,
   ],
   providers: [
     WINDOW_PROVIDERS,

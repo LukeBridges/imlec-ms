@@ -8,7 +8,7 @@ export const initialState: State = [];
 
 const scoreReducer = createReducer(
   initialState,
-  on(ScoreActions.updateScoresSuccess,
+  on(ScoreActions.updateScores,
     (state, {payload}) => (payload)),
 );
 

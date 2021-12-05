@@ -31,15 +31,5 @@ describe('ConfigService', () => {
         done();
       });
     });
-
-    test('should return observable of blank object', (done) => {
-      const expected = initialState;
-      service['list'] = null;
-
-      service.getConfig().pipe(take(1)).subscribe(value => {
-        expect(value).toEqual(expected);
-        done();
-      });
-    });
   });
 });

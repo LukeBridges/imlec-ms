@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  url: 'https://bridges82.uk/imlec',
+  url: 'http://localhost:4201',
 };

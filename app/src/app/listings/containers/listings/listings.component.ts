@@ -4,7 +4,7 @@ import {LocoModel} from '../../../core/models/loco.model';
 import {select, Store} from '@ngrx/store';
 import {selectEntries} from '../../selectors/entries.selector';
 import * as EntriesActions from '../../actions/entries.actions';
-import {filter, takeUntil} from 'rxjs/operators';
+import {delay, filter, take, takeUntil} from 'rxjs/operators';
 import {State} from '../../../core/models/state.model';
 import {Config} from '../../../core/models/config.model';
 import {selectConfig} from '../../../core/selectors/config.selector';
@@ -30,7 +30,7 @@ export class ListingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.entries$.pipe(takeUntil(this.ngUnsubscribe$)).
+    this.entries$.pipe(takeUntil(this.ngUnsubscribe$), take(5), delay(1000)).
       subscribe((entries: LocoModel[]) => {
         if (!entries || entries && entries.length < 1) {
           this.store.dispatch(EntriesActions.getEntries());

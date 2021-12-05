@@ -17,7 +17,7 @@ export const initialState: State = {
 
 const configReducer = createReducer(
   initialState,
-  on(ConfigActions.updateConfigSuccess,
+  on(ConfigActions.updateConfig,
     (state, {payload}) => (payload)),
 );
 

@@ -1,11 +1,11 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {throwError} from 'rxjs';
-import {Action, Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {catchError} from 'rxjs/operators';
 import {Inject, Injectable} from '@angular/core';
 import {State} from '../models/state.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class BaseFetchFromJsonService {
   protected url = null;
 
@@ -23,23 +23,20 @@ export class BaseFetchFromJsonService {
   }
 
   /* istanbul ignore next */
-  public fetchFromJson(action?: Action) {
-    this.http.get(this.url + '?' + Date.now().valueOf(), {
+  public async fetchFromJson() {
+    const file: any | [] = await this.http.get(this.url + '?' + Date.now().valueOf(), {
       responseType: 'json',
     }).pipe(
       catchError(BaseFetchFromJsonService.handleError), // then handle the error
-    ).subscribe((file: any[]) => {
-      if (file && file.length) {
-        let self = this;
-        this.list = [];
-        file.forEach(row => self.list.push(Object.values(row)));
-      } else {
-        this.list = file;
-      }
-      if (action) {
-        this.store.dispatch(action);
-      }
-    });
+    ).toPromise();
+    if (file && file.length) {
+      let self = this;
+      this.list = [];
+      file.forEach(row => self.list.push(Object.values(row)));
+    } else {
+      this.list = file;
+    }
+    return this.list;
   }
 
   /* istanbul ignore next */

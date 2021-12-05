@@ -2,17 +2,17 @@ import {Inject, Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {HttpClient} from '@angular/common/http';
-import {BaseFetchFromJsonService} from './base-fetch-from-json.service';
 import {environment} from '../../../environments/environment';
 import {State} from '../models/state.model';
-import {Config} from '../models/config.model';
-import {initialState} from '../reducers/config.reducer';
+import {Content} from '../models/content.model';
+import {initialState} from '../reducers/content.reducer';
+import {BaseFetchFromJsonService} from './base-fetch-from-json.service';
 
 @Injectable({providedIn: 'root'})
-export class ConfigService extends BaseFetchFromJsonService {
-  protected url = environment.url + '/api/config/';
+export class ContentService extends BaseFetchFromJsonService {
+  protected url = environment.url + '/api/content/';
 
-  protected list: Config = initialState;
+  protected list: Content = initialState;
 
   constructor(
     @Inject(HttpClient) http: HttpClient,
@@ -21,11 +21,11 @@ export class ConfigService extends BaseFetchFromJsonService {
     super(http, store);
   }
 
-  public get config(): Config {
+  public get content(): Content {
     return this.list;
   }
 
-  public getConfig(): Observable<Config> {
+  public getContent(): Observable<Content> {
     return of(this.list);
   }
 

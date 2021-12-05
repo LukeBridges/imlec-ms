@@ -2,6 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import * as RouterActions from '../../actions/router.actions';
 import * as ConfigActions from '../../actions/config.actions';
+import * as ContentActions from '../../actions/content.actions';
 import {State} from '../../models/state.model';
 import {Observable, Subject} from 'rxjs';
 import {Config} from '../../models/config.model';
@@ -32,6 +33,7 @@ export class MainComponent implements OnInit, OnDestroy {
       });
 
     this.store.dispatch(ConfigActions.getConfig());
+    this.store.dispatch(ContentActions.getContent());
     this.store.dispatch(RouterActions.Go({path: ['/welcome']}));
   }
 

@@ -36,7 +36,8 @@ export class EntriesServiceMock extends EntriesService {
     }),
   ];
 
-  public fetchFromJson() {
+  public async fetchFromJson() {
     super.list = <any[]>this.mockEntries;
+    return Promise.resolve();
   }
 }
