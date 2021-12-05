@@ -9,12 +9,12 @@ describe('ConfigService', () => {
     service = new ConfigService(null, null);
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(ConfigService).toBeTruthy();
   });
 
   describe('constructor', () => {
-    it('should return service instance and init list', () => {
+    test('should return service instance and init list', () => {
       const localService = new ConfigService(null, null);
 
       expect(localService['list']).toEqual(initialState);
@@ -22,7 +22,7 @@ describe('ConfigService', () => {
   });
 
   describe('getConfig', () => {
-    it('should return observable of config', (done) => {
+    test('should return observable of config', (done) => {
       const expected = initialState;
       service['list'] = expected;
 
@@ -32,7 +32,7 @@ describe('ConfigService', () => {
       });
     });
 
-    it('should return observable of blank object', (done) => {
+    test('should return observable of blank object', (done) => {
       const expected = initialState;
       service['list'] = null;
 

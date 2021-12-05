@@ -19,18 +19,18 @@ describe('window service', () => {
     browserRef = injector.inject(WindowService.BrowserWindowRef);
   });
 
-  it('should be created', () => {
+  test('should be created', () => {
     expect(browserRef).toBeTruthy();
     expect(windowRef).toBeTruthy();
   });
 
-  it('windowref nativewindow should not not implemented exception', () => {
+  test('windowref nativewindow should not not implemented exception', () => {
     expect(function() {
       return windowRef.nativeWindow;
     }).toThrowError('Not implemented.');
   });
 
-  it('window factory should return new object with non browser platform id',
+  test('window factory should return new object with non browser platform id',
     () => {
       const factoryReturn = WindowService.windowFactory(browserRef, {});
 

@@ -1,7 +1,7 @@
 import {AboutRoutingModule} from './about-routing.module';
 
 describe('AboutRoutingModule', () => {
-  it('should create', () => {
+  test('should create', () => {
     expect(AboutRoutingModule).toBeTruthy();
   });
 });

@@ -36,7 +36,7 @@ describe('ScoreComponent', () => {
   });
 
   describe('toggleToolbar', () => {
-    it('should invert showToolbar', () => {
+    test('should invert showToolbar', () => {
       component.showToolbar = true;
 
       component.toggleToolbar();
@@ -50,16 +50,16 @@ describe('ScoreComponent', () => {
   });
 
   describe('scroll', () => {
-    it('should call scrollTo from scrollTop', () => {
-      spyOn(component, 'scrollTo').and.stub();
+    test('should call scrollTo from scrollTop', () => {
+      jest.spyOn(component, 'scrollTo').mockImplementation();
 
       component.scrollTop();
 
       expect(component.scrollTo).toHaveBeenCalledWith(0, ScoreComponent.SCROLL_TIME);
     });
 
-    it('should call scrollTo from scrollBottom', () => {
-      spyOn(component, 'scrollTo').and.stub();
+    test('should call scrollTo from scrollBottom', () => {
+      jest.spyOn(component, 'scrollTo').mockImplementation();
 
       component.scrollBottom();
 
@@ -68,9 +68,9 @@ describe('ScoreComponent', () => {
   });
 
   describe('setScrolling', () => {
-    it('should subscribe to scrolling subjects', () => {
-      spyOn(component['scrollUpEvent'], 'pipe').and.callThrough();
-      spyOn(component['scrollDownEvent'], 'pipe').and.callThrough();
+    test('should subscribe to scrolling subjects', () => {
+      jest.spyOn(component['scrollUpEvent'], 'pipe');
+      jest.spyOn(component['scrollDownEvent'], 'pipe');
 
       component.setScrolling();
 

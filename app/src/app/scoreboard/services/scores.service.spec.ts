@@ -9,12 +9,12 @@ describe('ScoresService', () => {
     service = new ScoresService(null, null);
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(ScoresService).toBeTruthy();
   });
 
   describe('constructor', () => {
-    it('should return service instance and init list', () => {
+    test('should return service instance and init list', () => {
       const localService = new ScoresService(null, null);
 
       expect(localService['list']).toEqual(null);
@@ -22,7 +22,7 @@ describe('ScoresService', () => {
   });
 
   describe('getConfig', () => {
-    it('should return observable of config', (done) => {
+    test('should return observable of config', (done) => {
       const expected = initialState;
       service['list'] = expected;
 
@@ -32,7 +32,7 @@ describe('ScoresService', () => {
       });
     });
 
-    it('should return observable of blank object', (done) => {
+    test('should return observable of blank object', (done) => {
       const expected = initialState;
       service['list'] = null;
 

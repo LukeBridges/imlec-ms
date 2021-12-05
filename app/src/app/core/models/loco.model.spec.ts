@@ -1,11 +1,11 @@
 import {LocoModel} from './loco.model';
 
 describe('LocoModel', () => {
-  it('should create', () => {
+  test('should create', () => {
     expect(LocoModel).toBeTruthy();
   });
 
-  it('should construct a new LocoModel', () => {
+  test('should construct a new LocoModel', () => {
     expect(new LocoModel()).toBeTruthy();
     expect(new LocoModel({})).toBeTruthy();
     expect(new LocoModel({

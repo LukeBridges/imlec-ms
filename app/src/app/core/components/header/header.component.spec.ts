@@ -36,13 +36,13 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(HeaderComponent).toBeTruthy();
   });
 
   describe('onToggleSidenav', () => {
-    it('should emit sidenavToggle', () => {
-      spyOn(component.sidenavToggle, 'emit').and.stub();
+    test('should emit sidenavToggle', () => {
+      jest.spyOn(component.sidenavToggle, 'emit').mockImplementation();
 
       component.onToggleSidenav();
 
@@ -51,7 +51,7 @@ describe('HeaderComponent', () => {
   });
 
   describe('toggleToolbar', () => {
-    it('should toggle the value of showToolbar', () => {
+    test('should toggle the value of showToolbar', () => {
       component.showToolbar = true;
 
       component.toggleToolbar();
