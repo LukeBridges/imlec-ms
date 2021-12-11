@@ -37,6 +37,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.store.dispatch(RouterActions.Go({path: ['/welcome']}));
   }
 
+  /* istanbul ignore next*/
   ngOnDestroy() {
     this.ngUnsubscribe$.next(true);
     this.ngUnsubscribe$.complete();

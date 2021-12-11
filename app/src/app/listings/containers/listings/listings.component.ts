@@ -44,6 +44,7 @@ export class ListingsComponent implements OnInit, OnDestroy {
       });
   }
 
+  /* istanbul ignore next */
   ngOnDestroy(): void {
     this.ngUnsubscribe$.next(null);
     this.ngUnsubscribe$.complete();
