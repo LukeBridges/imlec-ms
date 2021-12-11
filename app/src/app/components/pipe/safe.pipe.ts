@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import {Inject, Injectable, Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 

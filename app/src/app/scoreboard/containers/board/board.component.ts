@@ -130,7 +130,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearInterval(this.scoreInterval);
     this.completeScores.complete();
-    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.next(null);
     this.ngUnsubscribe$.complete();
   }
 

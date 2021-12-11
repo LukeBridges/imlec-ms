@@ -74,7 +74,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.scrollUpEvent.complete();
     this.scrollDownEvent.complete();
-    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.next(null);
     this.ngUnsubscribe$.complete();
   }
 
