@@ -1,9 +1,9 @@
 import * as fromRouter from '@ngrx/router-store';
-import {RouterStateUrl} from '../reducers';
 import {ScoreModel} from './score.model';
 import {LocoModel} from './loco.model';
 import {Config} from './config.model';
 import {Content} from './content.model';
+import {RouterStateUrl} from './routerStateUrl.model';
 
 export interface State {
   router: fromRouter.RouterReducerState<RouterStateUrl>;

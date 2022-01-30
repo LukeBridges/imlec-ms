@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './core/containers/app/app.component';
@@ -11,11 +12,12 @@ import {
 } from '@ngrx/router-store';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
-import {CustomRouterStateSerializer, metaReducers, reducers} from './core/reducers';
+import {metaReducers, reducers} from './core/reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {WINDOW, WINDOW_PROVIDERS} from './core/services/window.service';
 import {HttpClientModule} from '@angular/common/http';
+import {CustomRouterStateSerializer} from './core/services/custom-serializer.service';
 
 @NgModule({
   declarations: [

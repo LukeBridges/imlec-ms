@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {LightboxComponent, LightBoxData} from './lightbox.component';
-import {SafePipe} from '../../../core/pipe/safe.pipe';
+import {SafePipe} from '../../pipe/safe.pipe';
 import {MatIconModule} from '@angular/material/icon';
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';

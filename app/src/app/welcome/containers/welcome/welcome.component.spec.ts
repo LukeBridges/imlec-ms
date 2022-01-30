@@ -41,6 +41,14 @@ describe('WelcomeComponent', () => {
     expect(WelcomeComponent).toBeTruthy();
   });
 
+  describe('ngOnInit', () => {
+    it('should sub to content and config', () => {
+
+
+      component.ngOnInit();
+    });
+  });
+
   describe('ngOnDestroy', () => {
     test('should unsubscribe', (done) => {
       component['ngUnsubscribe$'].pipe(take(1)).subscribe(() => {

@@ -4,7 +4,7 @@ import {SpinnerComponent} from './components/spinner/spinner.component';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AppRoutingModule} from '../core/app-routing.module';
-import {SafePipe} from '../core/pipe/safe.pipe';
+import {SafePipe} from './pipe/safe.pipe';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';

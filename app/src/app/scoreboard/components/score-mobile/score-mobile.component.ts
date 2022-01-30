@@ -10,7 +10,7 @@ import {
 import {ScoreComponent} from '../score/score.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {DOCUMENT} from '@angular/common';
-import {ScoreboardImportsModule} from '../../scoreboardImports.module';
+import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
 
 @Component({
   selector: 'app-score-mobile',
@@ -38,22 +38,27 @@ export class ScoreMobileComponent extends ScoreComponent
     'overallThermalEfficiency',
   ];
 
+  // istanbul ignore next
   constructor(
     @Inject(DOCUMENT) protected document: Document,
     @Inject(ChangeDetectorRef) public changeDetection: ChangeDetectorRef) {
     super(document, changeDetection);
   }
 
+  // istanbul ignore next
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 
+  // istanbul ignore next
   setScrolling() {
   }
 
+  // istanbul ignore next
   async scrollTop() {
   }
 
+  // istanbul ignore next
   async scrollBottom() {
   }
 }

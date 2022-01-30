@@ -14,7 +14,7 @@ import {ScoreModel} from '../../../core/models/score.model';
 import {Observable, Subject} from 'rxjs';
 import {debounceTime, delay, filter, takeUntil} from 'rxjs/operators';
 import {DOCUMENT} from '@angular/common';
-import {ScoreboardImportsModule} from '../../scoreboardImports.module';
+import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
 
 @Component({
   selector: 'app-score',
@@ -74,7 +74,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.scrollUpEvent.complete();
     this.scrollDownEvent.complete();
-    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.next(null);
     this.ngUnsubscribe$.complete();
   }
 
@@ -129,6 +129,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
     }, step);
   }
 
+  // istanbul ignore next
   setScrolling() {
     this.scrollDownEvent.pipe(
       takeUntil(this.ngUnsubscribe$),
