@@ -1,10 +1,12 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {ScoresService} from '../../services/scores.service';
 import {ScoresServiceMock} from '../../../../test/mock/services/scores.service.mock';
 import {ScoreComponent} from './score.component';
 import {WINDOW_PROVIDERS} from '../../../core/services/window.service';
 import {MatTableModule} from '@angular/material/table';
 import {DetailRowDirective} from '../../directives/detail-row.directive';
+import {of} from 'rxjs';
+import {ScoreModel} from '../../../core/models/score.model';
 
 describe('ScoreComponent', () => {
   let component: ScoreComponent;
@@ -33,6 +35,24 @@ describe('ScoreComponent', () => {
 
   test('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('ngOnInit', () => {
+    test('should subscribe to completeScores', fakeAsync(() => {
+      const newScores = [
+        new ScoreModel({runNo: 1})
+      ];
+      component.completeScores = of(newScores);
+      jest.spyOn(component.completeScores, 'subscribe');
+      component.scores = [];
+
+      component.ngOnInit();
+
+      tick(100);
+
+      expect(component.completeScores.subscribe).toHaveBeenCalled();
+      expect(component.scores).toEqual(newScores);
+    }));
   });
 
   describe('toggleToolbar', () => {

@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppModule} from '../../../app.module';
 import {CommonModule} from '@angular/common';
 import {AppRoutingModule} from '../../app-routing.module';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -16,6 +17,7 @@ describe('MainComponent', () => {
     ],
     declarations: [MainComponent],
     providers: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
   });
 
   beforeEach(() => {
