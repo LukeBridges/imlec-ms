@@ -7,7 +7,7 @@ import {BaseFetchFromJsonService} from '../../core/services/base-fetch-from-json
 import {environment} from '../../../environments/environment';
 import {State} from '../../core/models/state.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class EntriesService extends BaseFetchFromJsonService {
   protected url = environment.url + '/api/entries/';
 

@@ -6,7 +6,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {APP_BASE_HREF, CommonModule, PlatformLocation} from '@angular/common';
 import {
-  DefaultRouterStateSerializer,
+  FullRouterStateSerializer,
   RouterStateSerializer,
   StoreRouterConnectingModule,
 } from '@ngrx/router-store';
@@ -44,7 +44,7 @@ import {CustomRouterStateSerializer} from './core/services/custom-serializer.ser
     }),
     environment.production ? [] : StoreDevtoolsModule.instrument(),
     StoreRouterConnectingModule.forRoot(
-      {serializer: DefaultRouterStateSerializer, stateKey: 'router'}),
+      {serializer: FullRouterStateSerializer, stateKey: 'router'}),
     HttpClientModule,
   ],
   providers: [

@@ -8,7 +8,6 @@ import {EntryComponent} from './components/entry/entry.component';
 import {ComponentsModule} from '../components/components.module';
 import {StoreModule} from '@ngrx/store';
 import * as fromEntries from './reducers/entries.reducer';
-import {EntriesService} from './services/entries.service';
 import {EffectsModule} from '@ngrx/effects';
 import {EntriesEffects} from './effects/entries.effects';
 import {HttpClientModule} from '@angular/common/http';
@@ -23,9 +22,6 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     StoreModule.forFeature('entries', fromEntries.reducer),
     EffectsModule.forFeature([EntriesEffects]),
-  ],
-  providers: [
-    EntriesService,
   ],
 })
 export class ListingsModule {

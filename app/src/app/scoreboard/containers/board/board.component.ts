@@ -1,7 +1,5 @@
 import {
   Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
   HostListener,
   Inject,
   OnDestroy,
@@ -55,7 +53,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(Store) public store: Store<State>,
     @Inject(WINDOW) public window: Window,
-    @Inject(ComponentFactoryResolver) private cfr: ComponentFactoryResolver) {
+  ) {
     this.scores$ = this.store.pipe(select(selectScores));
     this.scores = [];
     this.rawScores = '';
@@ -112,19 +110,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   // istanbul ignore next
   async getScoreComponent(): Promise<ScoreComponent> {
-    let scoreFactory: ComponentFactory<ScoreComponent>;
+    let scoreCom: any;
     if (this.isMobile) {
       const {ScoreMobileComponent} = await import('../../components/score-mobile/score-mobile.component');
-      scoreFactory = this.cfr.resolveComponentFactory(
-        ScoreMobileComponent);
+      scoreCom = ScoreMobileComponent;
     } else {
       const {ScoreComponent} = await import('../../components/score/score.component');
-      scoreFactory = this.cfr.resolveComponentFactory(
-        ScoreComponent);
+      scoreCom = ScoreComponent;
     }
     this.scoreContainer.clear();
-    const {instance} = this.scoreContainer.createComponent<ScoreComponent>(scoreFactory);
-    return instance;
+    return this.scoreContainer.createComponent<ScoreComponent>(scoreCom).instance;
   }
 
   ngOnDestroy(): void {

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import * as fromRouter from '@ngrx/router-store';
 import {RouterStateUrl} from '../models/routerStateUrl.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CustomRouterStateSerializer
   implements fromRouter.RouterStateSerializer<RouterStateUrl> {
   /* istanbul ignore next */

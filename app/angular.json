@@ -102,5 +102,7 @@
       }
     }
   },
-  "defaultProject": "IMLEC"
+  "cli": {
+    "analytics": false
+  }
 }
