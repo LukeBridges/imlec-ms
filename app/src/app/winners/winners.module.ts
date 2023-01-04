@@ -4,6 +4,7 @@ import {WinnersRoutingModule} from './winners-routing.module';
 import {WinnersComponent} from './containers/winners/winners.component';
 import {CoreModule} from '../core/core.module';
 import {ComponentsModule} from '../components/components.module';
+import {ContentBoxComponent} from '../components/components/contentBox/contentBox.component';
 
 @NgModule({
   declarations: [WinnersComponent],
@@ -12,6 +13,7 @@ import {ComponentsModule} from '../components/components.module';
     WinnersRoutingModule,
     CoreModule,
     ComponentsModule,
+    ContentBoxComponent
   ],
 })
 export class WinnersModule {

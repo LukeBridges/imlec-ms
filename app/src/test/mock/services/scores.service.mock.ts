@@ -1,7 +1,7 @@
 import {ScoresService} from '../../../app/scoreboard/services/scores.service';
 import {Injectable} from '@angular/core';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ScoresServiceMock extends ScoresService {
 
   private mockScores = [

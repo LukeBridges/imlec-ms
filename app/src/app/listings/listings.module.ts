@@ -11,6 +11,7 @@ import * as fromEntries from './reducers/entries.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {EntriesEffects} from './effects/entries.effects';
 import {HttpClientModule} from '@angular/common/http';
+import {ContentBoxComponent} from '../components/components/contentBox/contentBox.component';
 
 @NgModule({
   declarations: [ListingsComponent, CountComponent, EntryComponent],
@@ -22,6 +23,7 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule,
     StoreModule.forFeature('entries', fromEntries.reducer),
     EffectsModule.forFeature([EntriesEffects]),
+    ContentBoxComponent
   ],
 })
 export class ListingsModule {

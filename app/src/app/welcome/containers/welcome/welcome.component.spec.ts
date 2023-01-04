@@ -9,30 +9,31 @@ import {CoreModule} from '../../../core/core.module';
 import {AppModule} from '../../../app.module';
 import {CommonModule} from '@angular/common';
 import {take} from 'rxjs/operators';
+import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
   let fixture: ComponentFixture<WelcomeComponent>;
 
-  setupTestBed({
-    imports: [
-      AppModule,
-      CommonModule,
-      CoreModule,
-      WelcomeRoutingModule,
-      MatButtonModule,
-      MatDialogModule,
-      ComponentsModule,
-    ],
-    declarations: [
-      WelcomeComponent,
-    ],
-    providers: [
-      WINDOW_PROVIDERS,
-    ],
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        AppModule,
+        CommonModule,
+        CoreModule,
+        WelcomeRoutingModule,
+        MatButtonModule,
+        MatDialogModule,
+        ComponentsModule,
+        ContentBoxComponent,
+      ],
+      declarations: [
+        WelcomeComponent,
+      ],
+      providers: [
+        WINDOW_PROVIDERS,
+      ],
+    });
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.debugElement.componentInstance;
   });
@@ -43,7 +44,6 @@ describe('WelcomeComponent', () => {
 
   describe('ngOnInit', () => {
     it('should sub to content and config', () => {
-
 
       component.ngOnInit();
     });

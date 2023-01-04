@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {EntriesService} from '../../../app/listings/services/entries.service';
 import {LocoModel} from '../../../app/core/models/loco.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class EntriesServiceMock extends EntriesService {
 
   private mockEntries = [

@@ -10,7 +10,7 @@ describe('LightboxComponent', () => {
   let fixture: ComponentFixture<LightboxComponent>;
   let lightBoxData: LightBoxData = {title: 'Test Lightbox'};
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [
       MatIconModule,
       MatDialogModule,

@@ -33,7 +33,7 @@ import {CustomRouterStateSerializer} from './core/services/custom-serializer.ser
         loadChildren: () => import('./core/core.module').then(
           m => m.CoreModule),
       },
-    ], {relativeLinkResolution: 'legacy'}),
+    ], {}),
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, {
       metaReducers,

@@ -8,7 +8,8 @@ describe('WelcomeComponent', () => {
   let fixture: ComponentFixture<HotelsComponent>;
 
   setupTestBed({
-    declarations: [HotelsComponent, ContentBoxComponent],
+    imports: [ContentBoxComponent],
+    declarations: [HotelsComponent],
   });
 
   beforeEach(() => {
