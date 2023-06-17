@@ -7,7 +7,8 @@ describe('WelcomeComponent', () => {
   let fixture: ComponentFixture<WinnersComponent>;
 
   setupTestBed({
-    declarations: [WinnersComponent, ContentBoxComponent],
+    imports: [ContentBoxComponent],
+    declarations: [WinnersComponent],
   });
 
   beforeEach(() => {

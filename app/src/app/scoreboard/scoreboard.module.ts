@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BoardComponent} from './containers/board/board.component';
 import {CommonModule} from '@angular/common';
-import {ScoresService} from './services/scores.service';
 import {RouterModule} from '@angular/router';
 import {EffectsModule} from '@ngrx/effects';
 import {ScoresEffects} from './effects/scores.effects';
@@ -26,9 +25,6 @@ import {ListingsModule} from '../listings/listings.module';
     CoreModule,
     ComponentsModule,
     ListingsModule,
-  ],
-  providers: [
-    ScoresService,
   ],
   exports: [
     RouterModule,

@@ -5,11 +5,10 @@ describe('ContentBoxComponent', () => {
   let component: ContentBoxComponent;
   let fixture: ComponentFixture<ContentBoxComponent>;
 
-  setupTestBed({
-    declarations: [ContentBoxComponent],
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ContentBoxComponent],
+    });
     fixture = TestBed.createComponent(ContentBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

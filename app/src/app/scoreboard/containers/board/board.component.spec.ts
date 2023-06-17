@@ -10,7 +10,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
 import {BoardComponent} from './board.component';
 import * as fromScores from '../../reducers/scores.reducer';
 import * as ScoresActions from '../../actions/scores.actions';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ScoreModel} from '../../../core/models/score.model';
 import {Observable} from 'rxjs';
 import {CommonModule} from '@angular/common';
@@ -35,31 +35,29 @@ describe('BoardComponent', () => {
   let fixture: ComponentFixture<BoardComponent>;
   let store: Store<State>;
 
-  setupTestBed({
-    imports: [
-      AppModule,
-      CommonModule,
-      CoreModule,
-      ScoreboardRoutingModule,
-      StoreModule.forFeature('scores', fromScores.reducer),
-      StoreModule.forFeature('entries', fromEntries.reducer),
-      EffectsModule.forFeature([ScoresEffects, EntriesEffects]),
-      HttpClientModule,
-      MatTableModule,
-      MatExpansionModule,
-    ],
-    declarations: [
-      BoardComponent,
-    ],
-    providers: [
-      WINDOW_PROVIDERS,
-      {provide: ScoresService, useClass: ScoresServiceMock},
-      {provide: EntriesService, useClass: EntriesServiceMock},
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        AppModule,
+        CommonModule,
+        CoreModule,
+        ScoreboardRoutingModule,
+        StoreModule.forFeature('scores', fromScores.reducer),
+        StoreModule.forFeature('entries', fromEntries.reducer),
+        EffectsModule.forFeature([ScoresEffects, EntriesEffects]),
+        HttpClientTestingModule,
+        MatTableModule,
+        MatExpansionModule,
+      ],
+      declarations: [
+        BoardComponent,
+      ],
+      providers: [
+        WINDOW_PROVIDERS,
+        {provide: ScoresService, useClass: ScoresServiceMock},
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    });
     store = TestBed.inject(Store);
     fixture = TestBed.createComponent(BoardComponent);
     component = fixture.debugElement.componentInstance;

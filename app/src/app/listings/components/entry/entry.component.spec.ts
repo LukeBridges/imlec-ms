@@ -1,7 +1,7 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {EntryComponent} from './entry.component';
 import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 import {LocoModel} from '../../../core/models/loco.model';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 describe('ListingsComponent', () => {
   let component: EntryComponent;
@@ -10,7 +10,8 @@ describe('ListingsComponent', () => {
   let entries: LocoModel[] = [];
 
   setupTestBed({
-    declarations: [EntryComponent, ContentBoxComponent],
+    imports: [ContentBoxComponent],
+    declarations: [EntryComponent],
   });
 
   beforeEach(() => {

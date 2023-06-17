@@ -4,6 +4,7 @@ import {HotelsRoutingModule} from './hotels-routing.module';
 import {HotelsComponent} from './containers/hotels/hotels.component';
 import {CoreModule} from '../core/core.module';
 import {ComponentsModule} from '../components/components.module';
+import {ContentBoxComponent} from '../components/components/contentBox/contentBox.component';
 
 @NgModule({
   declarations: [HotelsComponent],
@@ -12,6 +13,7 @@ import {ComponentsModule} from '../components/components.module';
     HotelsRoutingModule,
     CoreModule,
     ComponentsModule,
+    ContentBoxComponent
   ],
 })
 export class HotelsModule {

@@ -1,16 +1,13 @@
 import 'jest-preset-angular/setup-jest';
 import {TestBed, TestModuleMetadata, waitForAsync} from '@angular/core/testing';
 
-global['__webpack_public_path__'] = '';
+// @ts-ignore
+global.__webpack_public_path__ = '';
 
-const resetTestingModule = TestBed.resetTestingModule;
-const preventAngularFromResetting = () => TestBed.resetTestingModule = () => TestBed;
-
-global['setupTestBed'] = (
+// @ts-ignore
+global.setupTestBed = (
   moduleDef: TestModuleMetadata, override = null, overrideWith = null) => {
-  beforeAll(waitForAsync(async () => {
-    resetTestingModule();
-    preventAngularFromResetting();
+  beforeEach(waitForAsync(async () => {
     if (override) {
       TestBed.configureTestingModule(moduleDef).
         overrideModule(override, overrideWith);
@@ -19,6 +16,4 @@ global['setupTestBed'] = (
     }
     await TestBed.compileComponents();
   }));
-
-  afterAll(() => resetTestingModule());
 };

@@ -16,13 +16,13 @@ describe('ListingsComponent', () => {
     imports: [
       RouterTestingModule,
       StoreModule.forRoot({scores: fromEntries.reducer}),
+      ContentBoxComponent,
     ],
     declarations: [
       ListingsComponent,
       EntryComponent,
       CountComponent,
       SpinnerComponent,
-      ContentBoxComponent,
     ],
   });
 

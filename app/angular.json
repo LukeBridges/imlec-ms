@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "baseHref": "/imlec/",
+            "baseHref": "/",
             "outputPath": "../dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -102,5 +102,7 @@
       }
     }
   },
-  "defaultProject": "IMLEC"
+  "cli": {
+    "analytics": false
+  }
 }

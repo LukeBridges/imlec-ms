@@ -1,5 +1,5 @@
 (function() {
-  var iversion = '0.33a',
+  const iversion = '0.34a',
       iname = 'lbjs',
       window = this,
       _cache = {
@@ -16,7 +16,7 @@
       };
 
   window.Grab = function(selector, scope = document, copyTo) {
-    var ret = [],
+    let ret = [],
         nospace = selector.indexOf(' ') < 0,
         nocss = selector.indexOf('[') < 0;
     if (nocss && nospace && scope.getElementById && (selector[0] === '#')) {
@@ -41,7 +41,7 @@
   };
 
   window.l = window.lbjs = function(selector, scope) {
-    var obj = new LObject();
+    let obj = new LObject();
     if (selector) {
       if (typeof selector === 'string') {
         window.Grab(selector, scope, obj);
@@ -77,14 +77,14 @@
       return this;
     },
     add: function(toAdd) {
-      var toAdd2 = lbjs(toAdd), i, len, startlen = this.length;
+      let toAdd2 = lbjs(toAdd), i, len, startlen = this.length;
       for (i = 0, len = toAdd2.length; i < len; i += 1) {
         this[startlen + i] = toAdd2[i];
       }
       return this;
     },
     addClass: function(toAdd) {
-      var i, len;
+      let i, len;
       toAdd = encodeURI(toAdd);
       if (toAdd) {
         for (i = 0, len = this.length; i < len; i += 1) {
@@ -106,7 +106,8 @@
     },
     append: function(toAppend) {
       if (toAppend) {
-        var type = typeof toAppend, i, len;
+        const type = typeof toAppend;
+        let i, len;
         if (type === 'string') {
           for (i = 0, len = this.length; i < len; i += 1) {
             if (this[i].insertAdjacentHTML) {
@@ -137,7 +138,8 @@
     },
     appendBuild: function(toAppend) {
       if (toAppend) {
-        var type = typeof toAppend, i, len;
+        const type = typeof toAppend;
+        let i, len;
         if (type === 'string') {
           for (i = 0, len = this.length; i < len; i += 1) {
             this.appendCache += toAppend;
@@ -151,7 +153,7 @@
       return this;
     },
     appendAdd: function() {
-      var i, len;
+      let i, len;
       for (i = 0, len = this.length; i < len; i += 1) {
         this[i].insertAdjacentHTML('beforeend', this.appendCache);
       }
@@ -162,13 +164,13 @@
       return pos ? new LObject([this[pos]]) : this;
     },
     attr: function(attrIn, val) {
-      var i, len;
+      let i, len;
       for (i = 0, len = this.length; i < len; i += 1) {
         if (val) {
           this[i].setAttribute(attrIn, val);
         } else {
           if (typeof attrIn == 'object') {
-            for (var key in attrIn) {
+            for (let key in attrIn) {
               if (typeof attrIn[key] !== 'function') {
                 this[i].setAttribute(key, attrIn[key]);
               }
@@ -181,7 +183,7 @@
       return this;
     },
     click: function(func) {
-      var i, len;
+      let i, len;
       if (func) {
         for (i = 0, len = this.length; i < len; i += 1) {
           if (this[i].onclick) {
@@ -196,7 +198,7 @@
     data: function(keyIn, val) {
       if (typeof keyIn == 'string') {
         if (val) {
-          var i, len;
+          let i, len;
           for (i = 0, len = this.length; i < len; i += 1) {
             this[i].setAttribute('data-' + keyIn, val);
           }
@@ -207,7 +209,7 @@
       return this;
     },
     event: function(eventIn, func) {
-      var i, len;
+      let i, len;
       if (eventIn && func) {
         for (i = 0, len = this.length; i < len; i += 1) {
           if (this[i].attachEvent) {
@@ -220,7 +222,9 @@
       return this;
     },
     find: function(subselector) {
-      var i, j, ret = [], topush;
+      let i, j;
+      const ret = [];
+      let topush;
       if (subselector) {
         for (i = 0; i < this.length; i += 1) {
           topush = window.Grab(subselector, this[i], false);
@@ -234,7 +238,8 @@
     },
     filter: function(filter) {
       if (filter && (_cache.tags[filter])) {
-        var ret = [], first = this[0], i, len;
+        const ret = [], first = this[0];
+        let i, len;
         for (i = 0, len = first.children.length; i < len; i += 1) {
           if (first.children[i].tagName.toLowerCase() ===
               filter.toLowerCase()) {
@@ -252,12 +257,12 @@
       return pos ? this[pos] : this;
     },
     getAll: function() {
-      var ret = [];
+      const ret = [];
       lbjs.array.copy(ret, this);
       return ret;
     },
     height: function(newHeight) {
-      var i, len;
+      let i, len;
       if (newHeight) {
         if ((typeof newHeight === 'string') && newHeight.indexOf('px') > -1) {
           for (i = 0, len = this.length; i < len; i += 1) {
@@ -273,7 +278,7 @@
       return this[0].style.height;
     },
     hide: function() {
-      var i, len;
+      let i, len;
       for (i = 0, len = this.length; i < len; i += 1) {
         if (this[i].style.visibility) {
           this[i].style.visibility = 'hidden';
@@ -284,7 +289,7 @@
       return this;
     },
     hover: function(hoverFunc, outFunc) {
-      var i, len;
+      let i, len;
       for (i = 0, len = this.length; i < len; i += 1) {
         if (typeof hoverFunc === 'function') {
           if (this[i].onmouseover) {
@@ -308,7 +313,7 @@
         if (typeof newHtml === 'string') {
           this[0].innerHTML = newHtml;
         } else {
-          var temp = _cache.docCreateEl.call(doc, 'div');
+          const temp = _cache.docCreateEl.call(doc, 'div');
           temp.appendChild(newHtml);
           this[0].innerHTML = temp.innerHTML;
         }
@@ -321,7 +326,7 @@
       return new LObject([this[this.length - 1]]);
     },
     loop: function(todo) {
-      var i, len;
+      let i, len;
       if (typeof todo === 'function') {
         for (i = 0, len = this.length; i < len; i += 1) {
           todo(i, new LObject([this[i]]));
@@ -334,7 +339,8 @@
     },
     prepend: function(toPrepend) {
       if (toPrepend) {
-        var type = typeof toPrepend, i, len;
+        const type = typeof toPrepend;
+        let i, len;
         if (type === 'string') {
           for (i = 0, len = this.length; i < len; i += 1) {
             if (this[i].insertAdjacentHTML) {
@@ -362,7 +368,8 @@
     },
     prependBuild: function(toPrepend) {
       if (toPrepend) {
-        var type = typeof toPrepend, i, len;
+        const type = typeof toPrepend;
+        let i, len;
         if (type === 'string') {
           for (i = 0, len = this.length; i < len; i += 1) {
             this[i].prependCache += toPrepend;
@@ -376,7 +383,7 @@
       return this;
     },
     prependAdd: function() {
-      var i, len;
+      let i, len;
       for (i = 0, len = this.length; i < len; i += 1) {
         this[i].insertAdjacentHTML('afterbegin', this.prependCache);
       }
@@ -384,7 +391,7 @@
       return this;
     },
     ready: function(func) {
-      var oldonload = window.onload;
+      const oldonload = window.onload;
       if (typeof window.onload !== 'function') {
         window.onload = func;
       } else {
@@ -398,7 +405,7 @@
       return this;
     },
     removeClass: function(toDel) {
-      var i, len, classes;
+      let i, len, classes;
       if (toDel) {
         for (i = 0, len = this.length; i < len; i += 1) {
           classes = this[i].getAttribute('class');
@@ -415,7 +422,7 @@
       return this;
     },
     show: function() {
-      var i, len;
+      let i, len;
       for (i = 0, len = this.length; i < len; i += 1) {
         if (this[i].style.visibility) {
           this[i].style.visibility = 'display';
@@ -440,7 +447,7 @@
       return this;
     },
     toggle: function() {
-      var i, len;
+      let i, len;
       for (i = 0, len = this.length; i < len; i += 1) {
         if (this[i].style.display === 'none' || this[i].style.display === '') {
           this[i].style.display = 'block';
@@ -451,7 +458,7 @@
       return this;
     },
     val: function(newVal) {
-      var i, len;
+      let i, len;
       if (newVal) {
         if (typeof newVal === 'string') {
           for (i = 0, len = this.length; i < len; i += 1) {
@@ -471,7 +478,7 @@
       return this[0].value;
     },
     width: function(newWidth) {
-      var i, len;
+      let i, len;
       if (newWidth) {
         if ((typeof newWidth === 'string') && newWidth.indexOf('px') > -1) {
           for (i = 0, len = this.length; i < len; i += 1) {
@@ -504,7 +511,8 @@
 
   lbjs.array = {
     inArray: function(arrayIn, check) {
-      var len = arrayIn.length, i;
+      const len = arrayIn.length;
+      let i;
       for (i = 0; i < len; i += 1) {
         if (arrayIn[i] === check) {
           return i;
@@ -526,7 +534,7 @@
       if (inArray.constructor === Array) {
         _cache.aPush.apply(outArray, inArray);
       } else {
-        var len, i = 0;
+        let len, i = 0;
         outArray.length = inArray.length;
         for (len = inArray.length; i < len; i += 1) {
           outArray[i] = inArray[i];
@@ -564,7 +572,7 @@
 
   lbjs.ext = {
     include: function(name, ver, get) {
-      var plugin = window.lbjs[name.split('.')[1]],
+      const plugin = window.lbjs[name.split('.')[1]],
           vercheck = function() {
             plugin.pversion = plugin.pversion || 0;
             if (plugin.pversion < ver) {
@@ -583,7 +591,7 @@
               if (plugin.main) {
                 plugin.main();
               }
-              var state = scr.readyState;
+              const state = scr.readyState;
               if (!vercheck.done &&
                   (!state || (state === 'loaded' || state === 'complete'))) {
                 vercheck.done = true;
@@ -616,13 +624,13 @@
       return false;
     },
     includeList: function(deps, get) {
-      var i, len;
+      let i, len;
       for (i = 0, len = deps.length; i < len; i += 1) {
         lbjs.ext.include(deps[i][0], deps[i][1], get);
       }
     },
     extend: function(newFunctions) {
-      var propt;
+      let propt;
       for (propt in newFunctions) {
         if (newFunctions.hasOwnProperty(propt)) {
           LObject.prototype[propt] = newFunctions[propt];

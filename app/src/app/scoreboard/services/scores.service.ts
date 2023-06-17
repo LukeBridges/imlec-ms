@@ -7,7 +7,7 @@ import {environment} from '../../../environments/environment';
 import {State} from '../../core/models/state.model';
 import {ScoreModel} from '../../core/models/score.model';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ScoresService extends BaseFetchFromJsonService {
   protected url = environment.url + '/api/scores/';
 
