@@ -1,10 +1,11 @@
 module.exports = {
   preset: 'jest-preset-angular',
-  moduleFileExtensions: ['ts', 'html', 'js', 'json', 'mjs'],
+  globalSetup: 'jest-preset-angular/global-setup',
+  moduleFileExtensions: ['ts', 'js', 'json', 'mjs'],
   resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   transform: {
-    '^.+\\.(ts|js|mjs|html|svg)$': 'jest-preset-angular',
+    '^.+\\.(ts|js|mjs|svg)$': 'jest-preset-angular',
   },
   setupFilesAfterEnv: [
     '<rootDir>/jestPolyfills/setupJest.ts',

@@ -10,18 +10,19 @@
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
+    "target": "es2022",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2022",
       "dom"
     ],
     "allowJs": true,
     "esModuleInterop": true,
     "types": [
-      "node"
+      "node",
+      "jest"
     ]
   },
   "angularCompilerOptions": {
