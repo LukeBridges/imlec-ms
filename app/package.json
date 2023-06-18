@@ -6,8 +6,8 @@
     "serve": "ng serve",
     "serve:prod": "ng serve --aot --configuration=production",
     "serve:php": "cd .. && php -S localhost:4201",
-    "build": "ng build && cp ../dist/index.html ../index.html",
-    "build:prod": "ng build --aot --configuration=production && cp ../dist/index.html ../index.html",
+    "build": "ng build",
+    "build:prod": "ng build --aot --configuration=production",
     "build:prod-stats": "npm run build:prod && source-map-explorer ./../*.js --html ./../stats.html",
     "watch": "ng build --watch",
     "test": "jest"
