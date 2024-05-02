@@ -42,7 +42,7 @@ import {CustomRouterStateSerializer} from './core/services/custom-serializer.ser
         strictActionImmutability: true,
       },
     }),
-    environment.production ? [] : StoreDevtoolsModule.instrument(),
+    environment.production ? [] : StoreDevtoolsModule.instrument({connectInZone: true}),
     StoreRouterConnectingModule.forRoot(
       {serializer: FullRouterStateSerializer, stateKey: 'router'}),
     HttpClientModule,

@@ -73,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "IMLEC:build"
+            "buildTarget": "IMLEC:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "IMLEC:build:production"
+              "buildTarget": "IMLEC:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "IMLEC:build"
+            "buildTarget": "IMLEC:build"
           }
         },
         "e2e": {

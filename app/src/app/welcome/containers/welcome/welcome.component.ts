@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {LightboxComponent} from '../../../components/components/lightbox/lightbox.component';
 import {Observable, Subject} from 'rxjs';
 import {Config} from '../../../core/models/config.model';
