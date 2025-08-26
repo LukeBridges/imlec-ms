@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {LightboxComponent} from '../../../components/components/lightbox/lightbox.component';
 import {Observable, Subject} from 'rxjs';
 import {Config} from '../../../core/models/config.model';
@@ -11,10 +11,11 @@ import {Content} from '../../../core/models/content.model';
 import {selectContent} from '../../../core/selectors/content.selector';
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom,
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.scss'],
+    encapsulation: ViewEncapsulation.ShadowDom,
+    standalone: false
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
 

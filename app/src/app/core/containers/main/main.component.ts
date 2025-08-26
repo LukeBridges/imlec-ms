@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, DOCUMENT} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import * as RouterActions from '../../actions/router.actions';
 import * as ConfigActions from '../../actions/config.actions';
@@ -8,12 +8,13 @@ import {Observable, Subject} from 'rxjs';
 import {Config} from '../../models/config.model';
 import {selectConfig} from '../../selectors/config.selector';
 import {filter, takeUntil} from 'rxjs/operators';
-import {DOCUMENT} from '@angular/common';
+
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    standalone: false
 })
 export class MainComponent implements OnInit, OnDestroy {
 

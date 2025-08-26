@@ -10,9 +10,10 @@ import {Config} from '../../../core/models/config.model';
 import {selectConfig} from '../../../core/selectors/config.selector';
 
 @Component({
-  selector: 'app-listings',
-  templateUrl: './listings.component.html',
-  styleUrls: ['./listings.component.css'],
+    selector: 'app-listings',
+    templateUrl: './listings.component.html',
+    styleUrls: ['./listings.component.css'],
+    standalone: false
 })
 export class ListingsComponent implements OnInit, OnDestroy {
 

@@ -9,17 +9,19 @@ import {
   OnInit,
   ViewChild,
   ViewEncapsulation,
+  DOCUMENT
 } from '@angular/core';
 import {ScoreModel} from '../../../core/models/score.model';
 import {Observable, Subject} from 'rxjs';
 import {debounceTime, delay, filter, takeUntil} from 'rxjs/operators';
-import {DOCUMENT} from '@angular/common';
+
 import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
 
 @Component({
-  selector: 'app-score',
-  templateUrl: './score.component.html',
-  encapsulation: ViewEncapsulation.Emulated,
+    selector: 'app-score',
+    templateUrl: './score.component.html',
+    encapsulation: ViewEncapsulation.Emulated,
+    standalone: false
 })
 export class ScoreComponent implements OnInit, OnDestroy {
   @ViewChild('tableTop') tableTop: ElementRef;

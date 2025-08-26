@@ -22,10 +22,11 @@ import {WINDOW} from '../../../core/services/window.service';
 import {ScoreComponent} from '../../components/score/score.component';
 
 @Component({
-  selector: 'app-imlec-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-imlec-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class BoardComponent implements OnInit, OnDestroy {
   public scores$: Observable<ScoreModel[]>;

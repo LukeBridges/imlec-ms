@@ -5,31 +5,25 @@ import {RouterModule} from '@angular/router';
 import {EffectsModule} from '@ngrx/effects';
 import {ScoresEffects} from './effects/scores.effects';
 import {StoreModule} from '@ngrx/store';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import * as fromScores from './reducers/scores.reducer';
 import {CoreModule} from '../core/core.module';
 import {ScoreboardRoutingModule} from './scoreboard-routing.module';
 import {ComponentsModule} from '../components/components.module';
 import {ListingsModule} from '../listings/listings.module';
 
-@NgModule({
-  declarations: [
-    BoardComponent,
-  ],
-  imports: [
-    CommonModule,
-    ScoreboardRoutingModule,
-    StoreModule.forFeature('scores', fromScores.reducer),
-    EffectsModule.forFeature([ScoresEffects]),
-    HttpClientModule,
-    CoreModule,
-    ComponentsModule,
-    ListingsModule,
-  ],
-  exports: [
-    RouterModule,
-  ],
-})
+@NgModule({ declarations: [
+        BoardComponent,
+    ],
+    exports: [
+        RouterModule,
+    ], imports: [CommonModule,
+        ScoreboardRoutingModule,
+        StoreModule.forFeature('scores', fromScores.reducer),
+        EffectsModule.forFeature([ScoresEffects]),
+        CoreModule,
+        ComponentsModule,
+        ListingsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ScoreboardModule {
 
 }

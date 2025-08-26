@@ -1,4 +1,4 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {throwError} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {catchError} from 'rxjs/operators';

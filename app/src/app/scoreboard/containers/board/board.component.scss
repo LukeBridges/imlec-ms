@@ -6,7 +6,7 @@
 app-score, app-score-mobile {
   margin: 0 auto;
 
-  .mat-cell.mat-column-place {
+  .mat-mdc-cell.mat-column-place {
     background-color: black;
     color: white;
   }
@@ -19,7 +19,7 @@ app-score, app-score-mobile {
 app-score {
   width: 100%;
 
-  .mat-table {
+  .mat-mdc-table {
     width: 100%;
   }
 
@@ -76,7 +76,7 @@ app-score {
     min-width: 125px;
   }
 
-  .mat-cell {
+  .mat-mdc-cell {
     font-size: 16px;
   }
 }
@@ -116,7 +116,7 @@ app-score-mobile {
     width: 25px;
   }
 
-  .mat-cell:first-of-type, .mat-header-cell:first-of-type {
+  .mat-mdc-cell:first-of-type, .mat-mdc-header-cell:first-of-type {
     padding-left: 7px;
   }
 }

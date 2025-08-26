@@ -4,8 +4,8 @@ import {WelcomeRoutingModule} from './welcome-routing.module';
 import {WelcomeComponent} from './containers/welcome/welcome.component';
 import {CoreModule} from '../core/core.module';
 import {ComponentsModule} from '../components/components.module';
-import {MatLegacyButtonModule as MatButtonModule} from '@angular/material/legacy-button';
-import {MatLegacyDialogModule as MatDialogModule} from '@angular/material/legacy-dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 import {ContentBoxComponent} from '../components/components/contentBox/contentBox.component';
 
 @NgModule({
