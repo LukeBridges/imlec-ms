@@ -2,9 +2,10 @@ import {Component, EventEmitter, HostListener, Input, Output} from '@angular/cor
 import {Config} from '../../models/config.model';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent {
 

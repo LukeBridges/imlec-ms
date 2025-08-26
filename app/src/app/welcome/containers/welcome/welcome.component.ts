@@ -11,10 +11,11 @@ import {Content} from '../../../core/models/content.model';
 import {selectContent} from '../../../core/selectors/content.selector';
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom,
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.scss'],
+    encapsulation: ViewEncapsulation.ShadowDom,
+    standalone: false
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
 

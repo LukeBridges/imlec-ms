@@ -8,9 +8,10 @@ export interface LightBoxData {
 }
 
 @Component({
-  selector: 'app-lightbox',
-  templateUrl: './lightbox.component.html',
-  styleUrls: ['./lightbox.component.scss'],
+    selector: 'app-lightbox',
+    templateUrl: './lightbox.component.html',
+    styleUrls: ['./lightbox.component.scss'],
+    standalone: false
 })
 export class LightboxComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: LightBoxData) {

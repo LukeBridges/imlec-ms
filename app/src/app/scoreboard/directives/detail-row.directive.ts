@@ -8,7 +8,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[detailRow]',
+    selector: '[detailRow]',
+    standalone: false
 })
 export class DetailRowDirective {
   private row: any;

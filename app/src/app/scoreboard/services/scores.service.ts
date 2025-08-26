@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {BaseFetchFromJsonService} from '../../core/services/base-fetch-from-json.service';
 import {environment} from '../../../environments/environment';
 import {State} from '../../core/models/state.model';

@@ -3,9 +3,10 @@ import {LocoModel} from '../../../core/models/loco.model';
 import {environment} from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-entry',
-  templateUrl: './entry.component.html',
-  styleUrls: ['./entry.component.scss'],
+    selector: 'app-entry',
+    templateUrl: './entry.component.html',
+    styleUrls: ['./entry.component.scss'],
+    standalone: false
 })
 export class EntryComponent implements OnChanges {
 

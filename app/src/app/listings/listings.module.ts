@@ -10,21 +10,15 @@ import {StoreModule} from '@ngrx/store';
 import * as fromEntries from './reducers/entries.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {EntriesEffects} from './effects/entries.effects';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {ContentBoxComponent} from '../components/components/contentBox/contentBox.component';
 
-@NgModule({
-  declarations: [ListingsComponent, CountComponent, EntryComponent],
-  imports: [
-    CommonModule,
-    ListingsRoutingModule,
-    CoreModule,
-    ComponentsModule,
-    HttpClientModule,
-    StoreModule.forFeature('entries', fromEntries.reducer),
-    EffectsModule.forFeature([EntriesEffects]),
-    ContentBoxComponent
-  ],
-})
+@NgModule({ declarations: [ListingsComponent, CountComponent, EntryComponent], imports: [CommonModule,
+        ListingsRoutingModule,
+        CoreModule,
+        ComponentsModule,
+        StoreModule.forFeature('entries', fromEntries.reducer),
+        EffectsModule.forFeature([EntriesEffects]),
+        ContentBoxComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ListingsModule {
 }
