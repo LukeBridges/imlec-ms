@@ -1,11 +1,11 @@
 import {Inject, Injectable} from '@angular/core';
 import {LocoModel} from '../../core/models/loco.model';
-import {Observable, of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import {BaseFetchFromJsonService} from '../../core/services/base-fetch-from-json.service';
 import {environment} from '../../../environments/environment';
 import {State} from '../../core/models/state.model';
+import {ContextService} from "../../core/services/context.service";
 
 @Injectable({providedIn: 'root'})
 export class EntriesService extends BaseFetchFromJsonService {
@@ -14,13 +14,15 @@ export class EntriesService extends BaseFetchFromJsonService {
   constructor(
     @Inject(HttpClient) http: HttpClient,
     @Inject(Store) store: Store<State>,
+    @Inject(ContextService) context: ContextService
   ) {
     super(http, store);
+    this.url += context.hash;
   }
 
-  public getEntries(): Observable<LocoModel[]> {
+  public getEntries(): LocoModel[] {
     if (!this.list) {
-      return of([]);
+      return [];
     }
 
     const entriesList = [];
@@ -43,6 +45,6 @@ export class EntriesService extends BaseFetchFromJsonService {
       entriesList.push(score);
     });
 
-    return of(entriesList);
+    return entriesList;
   }
 }

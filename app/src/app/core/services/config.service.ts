@@ -5,8 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import {BaseFetchFromJsonService} from './base-fetch-from-json.service';
 import {environment} from '../../../environments/environment';
 import {State} from '../models/state.model';
-import {Config} from '../models/config.model';
 import {initialState} from '../reducers/config.reducer';
+import {Config} from "../../../../../common/models/config.model";
+import {ContextService} from "./context.service";
 
 @Injectable({providedIn: 'root'})
 export class ConfigService extends BaseFetchFromJsonService {
@@ -17,8 +18,10 @@ export class ConfigService extends BaseFetchFromJsonService {
   constructor(
     @Inject(HttpClient) http: HttpClient,
     @Inject(Store) store: Store<State>,
+    @Inject(ContextService) context: ContextService
   ) {
     super(http, store);
+    this.url += context.hash;
   }
 
   public get config(): Config {

@@ -3,28 +3,36 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
-  <a (click)="onSidenavClose()" *ngIf="config?.features?.scoreboard" mat-list-item routerLink="/scores"
-     skipLocationChange>
-    <mat-icon>assignment_ind</mat-icon>
-    <span class="nav-caption">Scoreboard</span>
-  </a>
-  <a (click)="onSidenavClose()" *ngIf="config?.features?.listings" mat-list-item routerLink="/listings"
-     skipLocationChange>
-    <mat-icon>account_balance</mat-icon>
-    <span class="nav-caption">Entries</span>
-  </a>
-  <a (click)="onSidenavClose()" *ngIf="config?.features?.rules" mat-list-item routerLink="/rules" skipLocationChange>
-    <mat-icon>list</mat-icon>
-    <span class="nav-caption">Competition Rules</span>
-  </a>
+  @if(config?.features?.scoreboard){
+    <a (click)="onSidenavClose()" mat-list-item routerLink="/scores"
+       skipLocationChange>
+      <mat-icon>assignment_ind</mat-icon>
+      <span class="nav-caption">Scoreboard</span>
+    </a>
+  }
+  @if(config?.features?.listings){
+    <a (click)="onSidenavClose()" mat-list-item routerLink="/listings"
+       skipLocationChange>
+      <mat-icon>account_balance</mat-icon>
+      <span class="nav-caption">Entries</span>
+    </a>
+  }
+  @if(config?.features?.rules){
+    <a (click)="onSidenavClose()" mat-list-item routerLink="/rules" skipLocationChange>
+      <mat-icon>list</mat-icon>
+      <span class="nav-caption">Competition Rules</span>
+    </a>
+  }
   <!--suppress HtmlUnknownTarget, HtmlUnknownTarget -->
-  <a *ngIf="config?.features?.applicationForm" href="/imlec/assets/IMLEC 2020 Fillable Application form.pdf"
-     mat-list-item
-     (click)="onSidenavClose()"
-     target="_blank">
-    <mat-icon>list</mat-icon>
-    <span class="nav-caption">Application Form</span>
-  </a>
+  @if(config?.features?.applicationForm){
+    <a href="/assets/IMLEC 2020 Fillable Application form.pdf"
+       mat-list-item
+       (click)="onSidenavClose()"
+       target="_blank">
+      <mat-icon>list</mat-icon>
+      <span class="nav-caption">Application Form</span>
+    </a>
+  }
   <a mat-list-item routerLink="/hotels" (click)="onSidenavClose()" skipLocationChange>
     <mat-icon>hotel</mat-icon>
     <span class="nav-caption">Accommodation</span>

@@ -1,7 +1,6 @@
 import {WelcomeComponent} from './welcome.component';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {WINDOW_PROVIDERS} from '../../../core/services/window.service';
-import {ComponentsModule} from '../../../components/components.module';
 import {WelcomeRoutingModule} from '../../welcome-routing.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -24,7 +23,6 @@ describe('WelcomeComponent', () => {
         WelcomeRoutingModule,
         MatButtonModule,
         MatDialogModule,
-        ComponentsModule,
         ContentBoxComponent,
       ],
       declarations: [

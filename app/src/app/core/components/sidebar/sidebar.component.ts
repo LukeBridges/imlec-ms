@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Config} from '../../models/config.model';
+import {Config} from "../../../../../../common/models/config.model";
 
 @Component({
     selector: 'app-sidebar',

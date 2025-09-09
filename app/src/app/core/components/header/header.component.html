@@ -1,19 +1,28 @@
-<mat-toolbar color="primary" *ngIf="showToolbar">
-  <div fxHide.gt-xs>
-    <button mat-icon-button (click)="onToggleSidenav()" aria-label="Menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
-  <div>
-    <a routerLink="/welcome" skipLocationChange>IMLEC 2021</a>
-  </div>
-  <div *ngIf="config?.features?.scoreboard" class="desktop">
-    <a routerLink="/scores" skipLocationChange>Live Scoreboard</a>
-  </div>
-  <div *ngIf="config?.features?.listings" class="desktop">
-    <a routerLink="/listings" skipLocationChange>Entries</a>
-  </div>
-  <div *ngIf="config?.features?.rules" class="desktop">
-    <a routerLink="/rules" skipLocationChange>Competition Rules</a>
-  </div>
-</mat-toolbar>
+@if(showToolbar){
+  <mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()" aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div>
+      <a routerLink="/welcome" skipLocationChange>IMLEC 2021</a>
+    </div>
+    @if(config?.features?.scoreboard){
+      <div class="desktop">
+        <a routerLink="/scores" skipLocationChange>Live Scoreboard</a>
+      </div>
+    }
+    @if(config?.features?.listings){
+      <div class="desktop">
+        <a routerLink="/listings" skipLocationChange>Entries</a>
+      </div>
+    }
+    @if(config?.features?.rules){
+      <div class="desktop">
+        <a routerLink="/rules" skipLocationChange>Competition Rules</a>
+      </div>
+    }
+  </mat-toolbar>
+
+}

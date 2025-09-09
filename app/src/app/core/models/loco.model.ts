@@ -15,15 +15,15 @@ export class LocoModel {
   constructor(config?: any) {
     // noinspection DuplicatedCode
     if (config) {
-      this.runNo = config && config.runNo;
-      this.name = config && config.name;
-      this.model = config && config.model;
-      this.builder = config && config.builder;
-      this.gauge = config && config.gauge;
-      this.arrangement = config && config.arrangement;
-      this.driver = config && config.driver;
-      this.img = config && config.img;
-      this.time = config && config.time;
+      this.runNo = config && config.runNo || 99;
+      this.name = config && config.name || "";
+      this.model = config && config.model || "";
+      this.builder = config && config.builder || "";
+      this.gauge = config && config.gauge || "";
+      this.arrangement = config && config.arrangement || "";
+      this.driver = config && config.driver || {name: ""};
+      this.img = config && config.img || "";
+      this.time = config && config.time || "";
     }
   }
 }

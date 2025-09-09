@@ -1,0 +1,14 @@
+{
+  "primaryColour": "#3f51b5",
+  "features": {
+    "applicationForm": true,
+    "scoreboard": true,
+    "listings": true,
+    "fullListings": true,
+    "rules": true
+  },
+  "data": {
+    "entries": "../data/Entries.xlsx",
+    "scores": "../data/Calculations.xlsx"
+  }
+}

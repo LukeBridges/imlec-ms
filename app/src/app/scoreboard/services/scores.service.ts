@@ -6,6 +6,7 @@ import {BaseFetchFromJsonService} from '../../core/services/base-fetch-from-json
 import {environment} from '../../../environments/environment';
 import {State} from '../../core/models/state.model';
 import {ScoreModel} from '../../core/models/score.model';
+import {ContextService} from "../../core/services/context.service";
 
 @Injectable({providedIn: 'root'})
 export class ScoresService extends BaseFetchFromJsonService {
@@ -16,13 +17,15 @@ export class ScoresService extends BaseFetchFromJsonService {
   constructor(
     @Inject(HttpClient) http: HttpClient,
     @Inject(Store) store: Store<State>,
+    @Inject(ContextService) context: ContextService
   ) {
     super(http, store);
+    this.url += context.hash;
   }
 
-  public getScores(): Observable<ScoreModel[]> {
+  public getScores(): ScoreModel[] {
     if (!this.list) {
-      return of([]);
+      return [];
     }
 
     const scoresList = [];
@@ -41,6 +44,6 @@ export class ScoresService extends BaseFetchFromJsonService {
 
     scoresList.sort(ScoreModel.scoreSort);
 
-    return of(scoresList);
+    return scoresList;
   }
 }

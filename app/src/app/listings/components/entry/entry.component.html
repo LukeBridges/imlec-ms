@@ -3,13 +3,16 @@
   <div class="entries">
     <app-contentbox class="entry" *ngFor="let entry of fridayEntries">
       <div>
-        <span class="runNo">{{entry.runNo}}.</span>&nbsp;<span class="driver">{{entry.driver.name}}</span>&nbsp;<span
-        class="time">{{parseTime(entry.time)}}</span><br/>
-        <span>{{entry.driver.club}}</span><br/>
-        <span>{{entry.gauge}}" {{entry.model}}</span><br/>
+        <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span
+        class="driver">{{ entry.driver.name }}</span>&nbsp;<span
+        class="time">{{ parseTime(entry.time) }}</span><br/>
+        <span>{{ entry.driver.club }}</span><br/>
+        <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
       </div>
-      <img *ngIf="entry.img !== null" class="entryPhoto" alt="Photo of {{entry.model}}"
-           src="{{url}}/assets/photos/{{entry.img}}">
+      @if (entry.img !== null) {
+        <img class="entryPhoto" alt="Photo of {{entry.model}}"
+             src="{{url}}/assets/photos/{{entry.img}}">
+      }
     </app-contentbox>
   </div>
 </div>
@@ -18,13 +21,16 @@
   <div class="entries">
     <app-contentbox class="entry" *ngFor="let entry of saturdayEntries">
       <div>
-        <span class="runNo">{{entry.runNo}}.</span>&nbsp;<span class="driver">{{entry.driver.name}}</span>&nbsp;<span
-        class="time">{{parseTime(entry.time)}}</span><br/>
-        <span>{{entry.driver.club}}</span><br/>
-        <span>{{entry.gauge}}" {{entry.model}}</span><br/>
+        <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span
+        class="driver">{{ entry.driver.name }}</span>&nbsp;<span
+        class="time">{{ parseTime(entry.time) }}</span><br/>
+        <span>{{ entry.driver.club }}</span><br/>
+        <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
       </div>
-      <img *ngIf="entry.img !== null" class="entryPhoto" alt="Photo of {{entry.model}}"
-           src="{{url}}/assets/photos/{{entry.img}}">
+      @if (entry.img !== null) {
+        <img class="entryPhoto" alt="Photo of {{entry.model}}"
+             src="{{url}}/assets/photos/{{entry.img}}">
+      }
     </app-contentbox>
   </div>
 </div>
@@ -33,27 +39,34 @@
   <div class="entries">
     <app-contentbox class="entry" *ngFor="let entry of sundayEntries">
       <div>
-        <span class="runNo">{{entry.runNo}}.</span>&nbsp;<span class="driver">{{entry.driver.name}}</span>&nbsp;<span
-        class="time">{{parseTime(entry.time)}}</span><br/>
-        <span>{{entry.driver.club}}</span><br/>
-        <span>{{entry.gauge}}" {{entry.model}}</span><br/>
+        <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span
+        class="driver">{{ entry.driver.name }}</span>&nbsp;<span
+        class="time">{{ parseTime(entry.time) }}</span><br/>
+        <span>{{ entry.driver.club }}</span><br/>
+        <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
       </div>
-      <img *ngIf="entry.img !== null" class="entryPhoto" alt="Photo of {{entry.model}}"
-           src="{{url}}/assets/photos/{{entry.img}}">
+      @if (entry.img !== null) {
+        <img class="entryPhoto" alt="Photo of {{entry.model}}"
+             src="{{url}}/assets/photos/{{entry.img}}">
+      }
     </app-contentbox>
   </div>
 </div>
-<div class="day" *ngIf="hasReserves">
-  <h1>Reserves</h1>
-  <div class="entries">
-    <app-contentbox class="entry" *ngFor="let entry of reserveEntries">
-      <div>
-        <span class="runNo">{{entry.runNo}}.</span>&nbsp;<span class="driver">{{entry.driver.name}}</span><br/>
-        <span>{{entry.driver.club}}</span><br/>
-        <span>{{entry.gauge}}" {{entry.model}}</span><br/>
-      </div>
-      <img *ngIf="entry.img !== null" class="entryPhoto" alt="Photo of {{entry.model}}"
-           src="{{url}}/assets/photos/{{entry.img}}">
-    </app-contentbox>
+@if (hasReserves) {
+  <div class="day">
+    <h1>Reserves</h1>
+    <div class="entries">
+      <app-contentbox class="entry" *ngFor="let entry of reserveEntries">
+        <div>
+          <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span class="driver">{{ entry.driver.name }}</span><br/>
+          <span>{{ entry.driver.club }}</span><br/>
+          <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
+        </div>
+        @if (entry.img !== null) {
+          <img class="entryPhoto" alt="Photo of {{entry.model}}"
+               src="{{url}}/assets/photos/{{entry.img}}">
+        }
+      </app-contentbox>
+    </div>
   </div>
-</div>
+}

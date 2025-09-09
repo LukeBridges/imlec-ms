@@ -7,6 +7,7 @@ import {State} from '../models/state.model';
 import {Content} from '../models/content.model';
 import {initialState} from '../reducers/content.reducer';
 import {BaseFetchFromJsonService} from './base-fetch-from-json.service';
+import {ContextService} from "./context.service";
 
 @Injectable({providedIn: 'root'})
 export class ContentService extends BaseFetchFromJsonService {
@@ -17,8 +18,10 @@ export class ContentService extends BaseFetchFromJsonService {
   constructor(
     @Inject(HttpClient) http: HttpClient,
     @Inject(Store) store: Store<State>,
+    @Inject(ContextService) context: ContextService
   ) {
     super(http, store);
+    this.url += context.hash;
   }
 
   public get content(): Content {

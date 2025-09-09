@@ -49,6 +49,6 @@ export class BaseFetchFromJsonService {
         `body was: ${error.error}`);
     }
 
-    return throwError('Something bad happened; please try again later.');
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }
