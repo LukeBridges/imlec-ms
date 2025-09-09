@@ -1,4 +1,6 @@
 <app-spinner [show]="!hasScores"></app-spinner>
-<div id="score-container" *ngIf="hasScores">
-  <ng-container #scoreContainer class="{{isMobile ? 'mobile' : 'desktop'}}"></ng-container>
-</div>
+@if(hasScores){
+  <div id="score-container">
+    <ng-container #scoreContainer class="{{isMobile ? 'mobile' : 'desktop'}}"></ng-container>
+  </div>
+}

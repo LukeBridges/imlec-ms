@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {CoreModule} from '../core/core.module';
 import {ListingsRoutingModule} from './listings-routing.module';
 import {ListingsComponent} from './containers/listings/listings.component';
@@ -20,7 +19,6 @@ import {SpinnerComponent} from "../components/components/spinner/spinner.compone
     EntryComponent
   ],
   imports: [
-    CommonModule,
     ListingsRoutingModule,
     CoreModule,
     StoreModule.forFeature('entries', fromEntries.reducer),

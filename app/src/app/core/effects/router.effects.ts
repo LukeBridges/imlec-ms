@@ -1,21 +1,16 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Router} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {DOCUMENT} from '@angular/common';
 import {exhaustMap, mergeMap} from 'rxjs/operators';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import {Go} from '../actions/router.actions';
-import {State} from '../models/state.model';
 
 @Injectable()
 export class RouterEffects {
 
   constructor(
     private actions$: Actions,
-    private router: Router,
-    private store: Store<State>,
-    @Inject(DOCUMENT) private document: any) {
+    private router: Router) {
   }
 
   go$ = createEffect(() => {

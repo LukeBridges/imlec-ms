@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BoardComponent} from './containers/board/board.component';
-import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {EffectsModule} from '@ngrx/effects';
 import {ScoresEffects} from './effects/scores.effects';
@@ -20,7 +19,6 @@ import {SpinnerComponent} from "../components/components/spinner/spinner.compone
     RouterModule,
   ],
   imports: [
-    CommonModule,
     ScoreboardRoutingModule,
     StoreModule.forFeature('scores', fromScores.reducer),
     EffectsModule.forFeature([ScoresEffects]),
