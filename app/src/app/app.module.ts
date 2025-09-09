@@ -10,46 +10,51 @@ import {
   RouterStateSerializer,
   StoreRouterConnectingModule,
 } from '@ngrx/router-store';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {metaReducers, reducers} from './core/reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {WINDOW, WINDOW_PROVIDERS} from './core/services/window.service';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {CustomRouterStateSerializer} from './core/services/custom-serializer.service';
 
-@NgModule({ declarations: [
-        AppComponent,
-    ],
-    bootstrap: [AppComponent], imports: [CommonModule,
-        BrowserModule,
-        BrowserAnimationsModule.withConfig({ disableAnimations: !environment.production }),
-        RouterModule.forRoot([
-            {
-                path: '',
-                loadChildren: () => import('./core/core.module').then(m => m.CoreModule),
-            },
-        ], {}),
-        EffectsModule.forRoot([]),
-        StoreModule.forRoot(reducers, {
-            metaReducers,
-            runtimeChecks: {
-                strictStateImmutability: true,
-                strictActionImmutability: true,
-            },
-        }),
-        environment.production ? [] : StoreDevtoolsModule.instrument({ connectInZone: true }),
-        StoreRouterConnectingModule.forRoot({ serializer: FullRouterStateSerializer, stateKey: 'router' })], providers: [
-        WINDOW_PROVIDERS,
-        {
-            provide: APP_BASE_HREF,
-            useFactory: getBaseHref,
-            deps: [PlatformLocation, WINDOW],
-        },
-        { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
-        provideHttpClient(withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  bootstrap: [
+    AppComponent
+  ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    BrowserModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        loadChildren: () => import('./core/core.module').then(m => m.CoreModule),
+      },
+    ], {}),
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      },
+    }),
+    environment.production ? [] : StoreDevtoolsModule.instrument({connectInZone: true}),
+    StoreRouterConnectingModule.forRoot({serializer: FullRouterStateSerializer, stateKey: 'router'})], providers: [
+    WINDOW_PROVIDERS,
+    {
+      provide: APP_BASE_HREF,
+      useFactory: getBaseHref,
+      deps: [PlatformLocation, WINDOW],
+    },
+    {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
+    provideHttpClient(withInterceptorsFromDi()),
+  ]
+})
 export class AppModule {
   constructor() {
   }

@@ -1,6 +1,6 @@
 import * as ConfigActions from '../actions/config.actions';
 import {Action, createReducer, on} from '@ngrx/store';
-import {Config} from '../models/config.model';
+import {Config} from "../../../../../common/models/config.model";
 
 export type State = Config;
 
@@ -12,6 +12,10 @@ export const initialState: State = {
     listings: false,
     fullListings: false,
     rules: false,
+  },
+  data: {
+      entries: "",
+      scores: ""
   },
 };
 

@@ -9,7 +9,7 @@ export class ScoresEffects {
   getScores$ = createEffect(() => this.actions$.pipe(
     ofType(ScoresActions.getScores),
     mergeMap(() => this.scoresService.fetchFromJson().then(
-      scores => ScoresActions.updateScores({payload: scores}),
+      scores => ScoresActions.updateScores({payload: this.scoresService.getScores()}),
     )),
   ));
 

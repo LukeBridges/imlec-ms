@@ -6,8 +6,8 @@ import {selectEntries} from '../../selectors/entries.selector';
 import * as EntriesActions from '../../actions/entries.actions';
 import {delay, filter, take, takeUntil} from 'rxjs/operators';
 import {State} from '../../../core/models/state.model';
-import {Config} from '../../../core/models/config.model';
 import {selectConfig} from '../../../core/selectors/config.selector';
+import {Config} from "../../../../../../common/models/config.model";
 
 @Component({
     selector: 'app-listings',

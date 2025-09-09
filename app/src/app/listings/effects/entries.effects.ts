@@ -9,7 +9,7 @@ export class EntriesEffects {
   getEntries$ = createEffect(() => this.actions$.pipe(
     ofType(EntriesActions.getEntries),
     mergeMap(() => this.entriesService.fetchFromJson().then(
-      entries => EntriesActions.updateEntries({payload: entries}),
+      entries => EntriesActions.updateEntries({payload: this.entriesService.getEntries()}),
     )),
   ));
 

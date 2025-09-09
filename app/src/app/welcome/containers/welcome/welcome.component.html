@@ -1,45 +1,55 @@
 <!--suppress ALL -->
 <a href="http://www.maidstonemes.co.uk" target="_blank" rel="noreferrer">
-  <img class="logo" src="/imlec/assets/mmeslogo.jpg" alt="MMES Logo"/>
+  <img class="logo" src="/assets/mmeslogo.jpg" alt="MMES Logo"/>
 </a>
 <div class="content">
-  <div *ngIf="content" [innerHTML]="content.welcome.body"></div>
+  @if(content){
+    <div [innerHTML]="content.welcome.body"></div>
+  }
   <p>
     More information on the club may be found at
     <a href="http://www.maidstonemes.co.uk" target="_blank" rel="noreferrer">www.maidstonemes.co.uk</a>
   </p>
-  <p *ngIf="!config?.features?.applicationForm">
-    <b>Entries are now closed. The entries and running list can be found
-      <a routerLink="/listings" skipLocationChange>Here</a>
-    </b>
-  </p>
-  <p *ngIf="config?.features?.applicationForm">
-    Send completed application forms to Tom Parham at <a
-    href="mailto:tom_parham@hotmail.co.uk">tom_parham&#64;hotmail.co.uk</a>
-  </p>
+  @if(!config?.features?.applicationForm){
+    <p>
+      <b>Entries are now closed. The entries and running list can be found
+        <a routerLink="/listings" skipLocationChange>Here</a>
+      </b>
+    </p>
+  }
+  @if(config?.features?.applicationForm) {
+    <p>
+      Send completed application forms to Tom Parham at <a
+      href="mailto:tom_parham@hotmail.co.uk">tom_parham&#64;hotmail.co.uk</a>
+    </p>
+  }
 </div>
 <div class="center">
-  <app-contentbox *ngIf="config?.features?.applicationForm && !config?.features?.scoreboard" class="links">
-    <a href="/imlec/assets/IMLEC 2020 Fillable Application form.pdf" mat-button target="_blank">
-      <img src="/imlec/assets/download.png" alt="Download" height="150" width="150"/><br/>
-      <span>Entry Application Form</span>
-    </a>
-  </app-contentbox>
-  <app-contentbox *ngIf="!config?.features?.applicationForm && config?.features?.scoreboard" class="links">
-    <a routerLink="/scores" mat-button skipLocationChange>
-      <img src="/imlec/assets/percent.svg" alt="Score" height="150" width="150"/><br/>
-      <span>Live! Scoreboard</span>
-    </a>
-  </app-contentbox>
+  @if(config?.features?.applicationForm && !config?.features?.scoreboard){
+    <app-contentbox class="links">
+      <a href="/assets/IMLEC 2020 Fillable Application form.pdf" mat-button target="_blank">
+        <img src="/assets/download.png" alt="Download" height="150" width="150"/><br/>
+        <span>Entry Application Form</span>
+      </a>
+    </app-contentbox>
+  }
+  @if(!config?.features?.applicationForm && config?.features?.scoreboard){
+    <app-contentbox class="links">
+      <a routerLink="/scores" mat-button skipLocationChange>
+        <img src="/assets/percent.svg" alt="Score" height="150" width="150"/><br/>
+        <span>Live! Scoreboard</span>
+      </a>
+    </app-contentbox>
+  }
   <app-contentbox class="links">
     <a href="javascript:void(0);" mat-button (click)="openGMap()" skipLocationChange>
-      <img src="/imlec/assets/map.png" alt="Map" height="150" width="150"/><br/>
+      <img src="/assets/map.png" alt="Map" height="150" width="150"/><br/>
       <span>MMES and Track Location</span>
     </a>
   </app-contentbox>
   <app-contentbox class="links">
     <a id="mapLink" href="javascript:void(0);" mat-button (click)="openMap()" skipLocationChange>
-      <img src="/imlec/assets/track.svg" alt="Track Map" height="150" width="150"/><br/>
+      <img src="/assets/track.svg" alt="Track Map" height="150" width="150"/><br/>
       <span>Track Map and Gradients</span>
     </a>
   </app-contentbox>

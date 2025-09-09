@@ -2,13 +2,13 @@ import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/
 import {MatDialog} from '@angular/material/dialog';
 import {LightboxComponent} from '../../../components/components/lightbox/lightbox.component';
 import {Observable, Subject} from 'rxjs';
-import {Config} from '../../../core/models/config.model';
 import {select, Store} from '@ngrx/store';
 import {selectConfig} from '../../../core/selectors/config.selector';
 import {State} from '../../../core/models/state.model';
 import {filter, takeUntil} from 'rxjs/operators';
 import {Content} from '../../../core/models/content.model';
 import {selectContent} from '../../../core/selectors/content.selector';
+import {Config} from "../../../../../../common/models/config.model";
 
 @Component({
     selector: 'app-welcome',

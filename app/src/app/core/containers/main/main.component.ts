@@ -5,9 +5,9 @@ import * as ConfigActions from '../../actions/config.actions';
 import * as ContentActions from '../../actions/content.actions';
 import {State} from '../../models/state.model';
 import {Observable, Subject} from 'rxjs';
-import {Config} from '../../models/config.model';
 import {selectConfig} from '../../selectors/config.selector';
 import {filter, takeUntil} from 'rxjs/operators';
+import {Config} from "../../../../../../common/models/config.model";
 
 
 @Component({

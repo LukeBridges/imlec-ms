@@ -23,7 +23,6 @@ const COMPONENTS = [
 @NgModule({
   declarations: COMPONENTS,
   imports: [
-    CommonModule,
     AppRoutingModule,
     MatListModule,
     MatToolbarModule,
