@@ -13,3 +13,5 @@
 /*.map
 /app/.angular/
 /dist/
+/api/node_modules/
+/api/dist/
