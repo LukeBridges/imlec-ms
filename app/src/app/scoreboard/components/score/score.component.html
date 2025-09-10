@@ -73,57 +73,60 @@
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-  <ng-container *ngIf="desktop">
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </ng-container>
-
-  <ng-container *ngIf="!desktop">
-    <mat-row *matRowDef="let row; columns: displayedColumns;"
-             matRipple
-             class="element-row"
-             [detailRow]="row"
-             [detailRowTpl]="tpl">
-    </mat-row>
-    <ng-template #tpl let-element>
-      <table class="detail-row">
-        <tr>
-          <td>Club</td>
-          <td>{{score(element).loco?.driver?.club}}</td>
-        </tr>
-        <tr>
-          <td>Load</td>
-          <td>{{score(element).load}}</td>
-        </tr>
-        <tr>
-          <td>Running time</td>
-          <td>{{score(element).runningTime}}</td>
-        </tr>
-        <tr>
-          <td>Distance travelled</td>
-          <td>{{score(element).distanceTravelled}}</td>
-        </tr>
-        <tr>
-          <td>Work done</td>
-          <td>{{score(element).workDone}}</td>
-        </tr>
-        <tr>
-          <td>Average db hp</td>
-          <td>{{score(element).averageDbHorsepowerToDisplay}}</td>
-        </tr>
-        <tr>
-          <td>Coal used</td>
-          <td>{{score(element).coalUsed}}</td>
-        </tr>
-        <tr>
-          <td>Specific consumption</td>
-          <td>{{score(element).specificCoalConsumptionToDisplay}}</td>
-        </tr>
-        <tr>
-          <td>Average Drawbar Pull</td>
-          <td>{{score(element).averageDrawBarPull}}</td>
-        </tr>
-      </table>
-    </ng-template>
-  </ng-container>
+  @if(desktop){
+    <ng-container>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </ng-container>
+  }
+  @if(!desktop){
+    <ng-container>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"
+               matRipple
+               class="element-row"
+               [detailRow]="row"
+               [detailRowTpl]="tpl">
+      </mat-row>
+      <ng-template #tpl let-element>
+        <table class="detail-row">
+          <tr>
+            <td>Club</td>
+            <td>{{score(element).loco?.driver?.club}}</td>
+          </tr>
+          <tr>
+            <td>Load</td>
+            <td>{{score(element).load}}</td>
+          </tr>
+          <tr>
+            <td>Running time</td>
+            <td>{{score(element).runningTime}}</td>
+          </tr>
+          <tr>
+            <td>Distance travelled</td>
+            <td>{{score(element).distanceTravelled}}</td>
+          </tr>
+          <tr>
+            <td>Work done</td>
+            <td>{{score(element).workDone}}</td>
+          </tr>
+          <tr>
+            <td>Average db hp</td>
+            <td>{{score(element).averageDbHorsepowerToDisplay}}</td>
+          </tr>
+          <tr>
+            <td>Coal used</td>
+            <td>{{score(element).coalUsed}}</td>
+          </tr>
+          <tr>
+            <td>Specific consumption</td>
+            <td>{{score(element).specificCoalConsumptionToDisplay}}</td>
+          </tr>
+          <tr>
+            <td>Average Drawbar Pull</td>
+            <td>{{score(element).averageDrawBarPull}}</td>
+          </tr>
+        </table>
+      </ng-template>
+    </ng-container>
+  }
 </mat-table>
 <span #tableEnd class="scrollpoint">&nbsp;</span>

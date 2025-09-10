@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './core/containers/app/app.component';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
-import {APP_BASE_HREF, CommonModule, PlatformLocation} from '@angular/common';
+import {APP_BASE_HREF, PlatformLocation} from '@angular/common';
 import {
   FullRouterStateSerializer,
   RouterStateSerializer,
@@ -26,7 +26,6 @@ import {CustomRouterStateSerializer} from './core/services/custom-serializer.ser
     AppComponent
   ],
   imports: [
-    CommonModule,
     BrowserModule,
     BrowserModule,
     RouterModule.forRoot([

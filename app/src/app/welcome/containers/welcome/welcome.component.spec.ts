@@ -6,7 +6,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CoreModule} from '../../../core/core.module';
 import {AppModule} from '../../../app.module';
-import {CommonModule} from '@angular/common';
 import {take} from 'rxjs/operators';
 import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 
@@ -18,7 +17,6 @@ describe('WelcomeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         AppModule,
-        CommonModule,
         CoreModule,
         WelcomeRoutingModule,
         MatButtonModule,

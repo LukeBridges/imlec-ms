@@ -13,7 +13,6 @@ import * as ScoresActions from '../../actions/scores.actions';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ScoreModel} from '../../../core/models/score.model';
 import {Observable} from 'rxjs';
-import {CommonModule} from '@angular/common';
 import {ScoreboardRoutingModule} from '../../scoreboard-routing.module';
 import {EffectsModule} from '@ngrx/effects';
 import {ScoresEffects} from '../../effects/scores.effects';
@@ -26,8 +25,6 @@ import {State} from '../../../core/models/state.model';
 import {WINDOW_PROVIDERS} from '../../../core/services/window.service';
 import {ScoresService} from '../../services/scores.service';
 import {ScoresServiceMock} from '../../../../test/mock/services/scores.service.mock';
-import {EntriesService} from '../../../listings/services/entries.service';
-import {EntriesServiceMock} from '../../../../test/mock/services/entries.service.mock';
 import {AppModule} from '../../../app.module';
 
 describe('BoardComponent', () => {
@@ -39,7 +36,6 @@ describe('BoardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         AppModule,
-        CommonModule,
         CoreModule,
         ScoreboardRoutingModule,
         StoreModule.forFeature('scores', fromScores.reducer),

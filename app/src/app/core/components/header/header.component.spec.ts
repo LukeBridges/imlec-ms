@@ -1,6 +1,5 @@
 import {HeaderComponent} from './header.component';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CommonModule} from '@angular/common';
 import {AppRoutingModule} from '../../app-routing.module';
 import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -18,7 +17,6 @@ describe('HeaderComponent', () => {
   setupTestBed({
     imports: [
       AppModule,
-      CommonModule,
       AppRoutingModule,
       MatListModule,
       MatToolbarModule,
