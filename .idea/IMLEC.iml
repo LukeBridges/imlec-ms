@@ -28,5 +28,6 @@
     <orderEntry type="library" name="@types/jest" level="application" />
     <orderEntry type="library" name="vue" level="application" />
     <orderEntry type="library" name="vue" level="application" />
+    <orderEntry type="library" name="vue" level="application" />
   </component>
 </module>
