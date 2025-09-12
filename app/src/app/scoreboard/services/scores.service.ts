@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {BaseFetchFromJsonService} from '../../core/services/base-fetch-from-json.service';
 import {environment} from '../../../environments/environment';
 import {State} from '../../core/models/state.model';
@@ -29,7 +29,7 @@ export class ScoresService extends BaseFetchFromJsonService {
 
     const scoresList = [];
 
-    this.list.forEach((row: ScoreModel, index: number) => {
+    this.list.forEach((row: ScoreModel) => {
       const score = new ScoreModel({
         runNo: row[0],
         workDone: row[3],

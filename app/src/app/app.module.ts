@@ -27,7 +27,6 @@ import {CustomRouterStateSerializer} from './core/services/custom-serializer.ser
   ],
   imports: [
     BrowserModule,
-    BrowserModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -59,6 +58,7 @@ export class AppModule {
   }
 }
 
-export function getBaseHref(platformLocation: PlatformLocation, window: Window): string {
-  return '/' + window.location.pathname.split('/')[1];
+export function getBaseHref(window: Window): string {
+  const path = window.location?.pathname || '';
+  return '/' + path.split('/')[1];
 }

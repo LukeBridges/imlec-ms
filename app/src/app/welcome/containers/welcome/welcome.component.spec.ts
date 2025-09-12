@@ -46,18 +46,18 @@ describe('WelcomeComponent', () => {
   });
 
   describe('ngOnDestroy', () => {
-    test('should unsubscribe', (done) => {
+    test('should unsubscribe', () => new Promise(done => {
       component['ngUnsubscribe$'].pipe(take(1)).subscribe(() => {
         done();
       });
 
       component.ngOnDestroy();
-    });
+    }));
   });
 
   describe('openGMap', () => {
     test('should call dialog open', () => {
-      jest.spyOn(component.dialog, 'open').mockImplementation();
+      vitest.spyOn(component.dialog, 'open').mockImplementation();
 
       component.openGMap();
 
@@ -67,7 +67,7 @@ describe('WelcomeComponent', () => {
 
   describe('openMap', () => {
     test('should call dialog open', () => {
-      jest.spyOn(component.dialog, 'open').mockImplementation();
+      vitest.spyOn(component.dialog, 'open').mockImplementation();
 
       component.openMap();
 

@@ -15,8 +15,9 @@ describe('LightboxComponent', () => {
       MatIconModule,
       MatDialogModule,
       MatButtonModule,
+      LightboxComponent,
+      SafePipe
     ],
-    declarations: [LightboxComponent, SafePipe],
     providers: [{provide: MAT_DIALOG_DATA, useValue: lightBoxData}],
   });
 

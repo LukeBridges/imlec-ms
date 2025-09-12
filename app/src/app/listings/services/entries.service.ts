@@ -27,7 +27,7 @@ export class EntriesService extends BaseFetchFromJsonService {
 
     const entriesList = [];
 
-    this.list.forEach((row: LocoModel, index: number) => {
+    this.list.forEach((row: LocoModel) => {
       const score = new LocoModel({
         runNo: row[0],
         name: row[2],

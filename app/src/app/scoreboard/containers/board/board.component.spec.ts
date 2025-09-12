@@ -66,7 +66,7 @@ describe('BoardComponent', () => {
 
   describe('ngOnInit', () => {
     test('should dispatch update scores', fakeAsync(() => {
-      jest.spyOn(component.store, 'dispatch').mockImplementation();
+      vitest.spyOn(component.store, 'dispatch').mockImplementation();
 
       component.ngOnInit();
 

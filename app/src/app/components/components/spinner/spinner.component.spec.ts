@@ -5,8 +5,8 @@ describe('SpinnerComponent', () => {
   let component: SpinnerComponent;
   let fixture: ComponentFixture<SpinnerComponent>;
 
-  setupTestBed({
-    declarations: [SpinnerComponent],
+  TestBed.configureTestingModule({
+    imports: [SpinnerComponent],
   });
 
   beforeEach(() => {

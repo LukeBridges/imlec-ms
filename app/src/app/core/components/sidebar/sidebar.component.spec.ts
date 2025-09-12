@@ -15,7 +15,7 @@ describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [
       AppModule,
       AppRoutingModule,

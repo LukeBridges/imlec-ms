@@ -9,7 +9,7 @@ describe('ListingsComponent', () => {
 
   let entries: LocoModel[] = [];
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [ContentBoxComponent],
     declarations: [EntryComponent],
   });

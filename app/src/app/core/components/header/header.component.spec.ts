@@ -14,21 +14,20 @@ describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
-  setupTestBed({
-    imports: [
-      AppModule,
-      AppRoutingModule,
-      MatListModule,
-      MatToolbarModule,
-      MatSidenavModule,
-      MatIconModule,
-      MatButtonModule,
-    ],
-    declarations: [HeaderComponent, MainComponent, SidebarComponent],
-    providers: [],
-  });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        AppModule,
+        AppRoutingModule,
+        MatListModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatButtonModule,
+      ],
+      declarations: [HeaderComponent, MainComponent, SidebarComponent],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -40,7 +39,7 @@ describe('HeaderComponent', () => {
 
   describe('onToggleSidenav', () => {
     test('should emit sidenavToggle', () => {
-      jest.spyOn(component.sidenavToggle, 'emit').mockImplementation();
+      vi.spyOn(component.sidenavToggle, 'emit').mockImplementation();
 
       component.onToggleSidenav();
 

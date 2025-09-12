@@ -7,11 +7,12 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "node",
-      "jest"
+      "vitest/globals"
     ]
   },
   "files": [
-    "./src/polyfills.ts"
+    "./src/polyfills.ts",
+    "./setupVitest.ts"
   ],
   "include": [
     "src/**/*.spec.ts",

@@ -22,8 +22,7 @@
     "allowJs": true,
     "esModuleInterop": true,
     "types": [
-      "node",
-      "jest"
+      "node"
     ]
   },
   "angularCompilerOptions": {
