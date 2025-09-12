@@ -10,7 +10,7 @@ describe('ScoreMobileComponent', () => {
   let component: ScoreMobileComponent;
   let fixture: ComponentFixture<ScoreMobileComponent>;
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [
       MatTableModule,
     ],

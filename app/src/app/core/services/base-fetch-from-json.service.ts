@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {throwError} from 'rxjs';
+import {lastValueFrom, throwError} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {catchError} from 'rxjs/operators';
 import {Inject, Injectable} from '@angular/core';
@@ -24,11 +24,11 @@ export class BaseFetchFromJsonService {
 
   /* istanbul ignore next */
   public async fetchFromJson() {
-    const file: any | [] = await this.http.get(this.url + '?' + Date.now().valueOf(), {
+    const file: any | [] = await lastValueFrom(this.http.get(this.url + '?' + Date.now().valueOf(), {
       responseType: 'json',
     }).pipe(
       catchError(BaseFetchFromJsonService.handleError), // then handle the error
-    ).toPromise();
+    ));
     if (file && file.length) {
       let self = this;
       this.list = [];

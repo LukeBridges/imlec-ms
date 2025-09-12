@@ -7,7 +7,7 @@ describe('WelcomeComponent', () => {
   let component: HotelsComponent;
   let fixture: ComponentFixture<HotelsComponent>;
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [ContentBoxComponent],
     declarations: [HotelsComponent],
   });

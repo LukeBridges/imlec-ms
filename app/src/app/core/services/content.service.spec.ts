@@ -2,12 +2,32 @@ import {ContentService} from './Content.service';
 import {take} from 'rxjs/operators';
 import {initialState} from '../reducers/Content.reducer';
 import {BlankContentItem} from '../models/content.model';
+import {TestBed} from "@angular/core/testing";
+import {ContextService} from "./context.service";
+import {ContextServiceMock} from "../../../test/mock/services/context.service.mock";
+import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClientTesting} from "@angular/common/http/testing";
+import {StoreModule} from "@ngrx/store";
+import * as fromEntries from "../../listings/reducers/entries.reducer";
+import {WINDOW_PROVIDERS} from "./window.service";
 
 describe('ContentService', () => {
   let service: ContentService;
 
-  beforeEach(() => {
-    service = new ContentService(null, null);
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({scores: fromEntries.reducer}),
+      ],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        {provide: ContextService, useClass: ContextServiceMock},
+        WINDOW_PROVIDERS
+      ]
+    }).compileComponents();
+
+    service = TestBed.inject(ContentService);
   });
 
   test('should create', () => {
@@ -16,14 +36,14 @@ describe('ContentService', () => {
 
   describe('constructor', () => {
     test('should return service instance and init list', () => {
-      const localService = new ContentService(null, null);
+      const localService = TestBed.inject(ContentService);
 
       expect(localService['list']).toEqual(initialState);
     });
   });
 
   describe('getContent', () => {
-    test('should return observable of Content', (done) => {
+    test('should return observable of Content', () => new Promise(done => {
       const expected = initialState;
       service['list'] = expected;
 
@@ -31,9 +51,9 @@ describe('ContentService', () => {
         expect(value).toEqual(expected);
         done();
       });
-    });
+    }));
 
-    test('should return observable of default object', (done) => {
+    test('should return observable of default object', () => new Promise(done => {
       const expected = initialState;
       service['list'] = {welcome: BlankContentItem};
 
@@ -41,6 +61,6 @@ describe('ContentService', () => {
         expect(value).toEqual(expected);
         done();
       });
-    });
+    }));
   });
 });

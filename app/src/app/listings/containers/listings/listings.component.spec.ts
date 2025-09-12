@@ -12,17 +12,17 @@ describe('ListingsComponent', () => {
   let component: ListingsComponent;
   let fixture: ComponentFixture<ListingsComponent>;
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [
       RouterTestingModule,
       StoreModule.forRoot({scores: fromEntries.reducer}),
       ContentBoxComponent,
+      SpinnerComponent,
     ],
     declarations: [
       ListingsComponent,
       EntryComponent,
       CountComponent,
-      SpinnerComponent,
     ],
   });
 

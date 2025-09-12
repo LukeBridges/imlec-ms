@@ -1,11 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
 import {WINDOW} from "./window.service";
 
 @Injectable({providedIn: 'root'})
 export class ContextService {
-  protected url = environment.url + '/api/content/';
-
   protected context: {
     hash: string
   };

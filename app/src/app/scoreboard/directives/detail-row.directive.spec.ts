@@ -72,7 +72,7 @@ describe('DetailRowDirective', () => {
 
   describe('onClick', () => {
     test('should call toggle', () => {
-      jest.spyOn(directive, 'toggle').mockImplementation();
+      vitest.spyOn(directive, 'toggle').mockImplementation();
 
       directive.onClick();
 
@@ -84,8 +84,8 @@ describe('DetailRowDirective', () => {
     test('should call clear if opened', () => {
       directive['opened'] = true;
 
-      jest.spyOn(directive.vcRef, 'clear').mockImplementation();
-      jest.spyOn(directive, 'render').mockImplementation();
+      vitest.spyOn(directive.vcRef, 'clear').mockImplementation();
+      vitest.spyOn(directive, 'render').mockImplementation();
 
       directive.toggle();
 
@@ -97,8 +97,8 @@ describe('DetailRowDirective', () => {
     test('should call render if not opened', () => {
       directive['opened'] = false;
 
-      jest.spyOn(directive.vcRef, 'clear').mockImplementation();
-      jest.spyOn(directive, 'render').mockImplementation();
+      vitest.spyOn(directive.vcRef, 'clear').mockImplementation();
+      vitest.spyOn(directive, 'render').mockImplementation();
 
       directive.toggle();
 
@@ -109,8 +109,8 @@ describe('DetailRowDirective', () => {
 
   describe('render', () => {
     test('should clear and createView', () => {
-      jest.spyOn(directive.vcRef, 'clear').mockImplementation();
-      jest.spyOn(directive.vcRef, 'createEmbeddedView').mockImplementation();
+      vitest.spyOn(directive.vcRef, 'clear').mockImplementation();
+      vitest.spyOn(directive.vcRef, 'createEmbeddedView').mockImplementation();
 
       directive.template = {
         get elementRef(): ElementRef {

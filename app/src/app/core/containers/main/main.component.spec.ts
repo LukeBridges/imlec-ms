@@ -8,17 +8,16 @@ describe('MainComponent', () => {
   let component: MainComponent;
   let fixture: ComponentFixture<MainComponent>;
 
-  setupTestBed({
-    imports: [
-      AppModule,
-      AppRoutingModule,
-    ],
-    declarations: [MainComponent],
-    providers: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-  });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        AppModule,
+        AppRoutingModule,
+      ],
+      declarations: [MainComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -30,7 +29,7 @@ describe('MainComponent', () => {
 
   describe('ngOnInit', () => {
     test('should subscribe and dispatch events', () => {
-      jest.spyOn(component['config$'], 'pipe');
+      vitest.spyOn(component['config$'], 'pipe');
 
       component.ngOnInit();
 

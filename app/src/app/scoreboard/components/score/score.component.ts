@@ -104,6 +104,8 @@ export class ScoreComponent implements OnInit, OnDestroy {
   // istanbul ignore next
   scrollTo(to: number, duration: number) {
     let element = this.document.querySelector('.mat-drawer-content');
+    if(!element) return;
+
     let top = element.scrollTop;
 
     if (element.scrollTop === 0) {

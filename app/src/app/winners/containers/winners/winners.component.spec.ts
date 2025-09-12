@@ -6,7 +6,7 @@ describe('WelcomeComponent', () => {
   let component: WinnersComponent;
   let fixture: ComponentFixture<WinnersComponent>;
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [ContentBoxComponent],
     declarations: [WinnersComponent],
   });

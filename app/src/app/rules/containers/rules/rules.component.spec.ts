@@ -7,7 +7,7 @@ describe('WelcomeComponent', () => {
   let component: RulesComponent;
   let fixture: ComponentFixture<RulesComponent>;
 
-  setupTestBed({
+  TestBed.configureTestingModule({
     imports: [ContentBoxComponent],
     declarations: [RulesComponent],
   });

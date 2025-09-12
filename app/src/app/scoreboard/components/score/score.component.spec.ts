@@ -7,26 +7,33 @@ import {MatTableModule} from '@angular/material/table';
 import {DetailRowDirective} from '../../directives/detail-row.directive';
 import {of} from 'rxjs';
 import {ScoreModel} from '../../../core/models/score.model';
+import {ContextService} from "../../../core/services/context.service";
+import {ContextServiceMock} from "../../../../test/mock/services/context.service.mock";
+import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClientTesting} from "@angular/common/http/testing";
 
 describe('ScoreComponent', () => {
   let component: ScoreComponent;
   let fixture: ComponentFixture<ScoreComponent>;
 
-  setupTestBed({
-    imports: [
-      MatTableModule,
-    ],
-    declarations: [
-      ScoreComponent,
-      DetailRowDirective,
-    ],
-    providers: [
-      {provide: ScoresService, useClass: ScoresServiceMock},
-      WINDOW_PROVIDERS,
-    ],
-  });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        MatTableModule,
+      ],
+      declarations: [
+        ScoreComponent,
+        DetailRowDirective,
+      ],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        {provide: ScoresService, useClass: ScoresServiceMock},
+        {provide: ContextService, useClass: ContextServiceMock},
+        WINDOW_PROVIDERS,
+      ],
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ScoreComponent);
     component = fixture.debugElement.componentInstance;
     component.tableTop = {nativeElement: {offsetTop: 0}};
@@ -43,7 +50,7 @@ describe('ScoreComponent', () => {
         new ScoreModel({runNo: 1})
       ];
       component.completeScores = of(newScores);
-      jest.spyOn(component.completeScores, 'subscribe');
+      vi.spyOn(component.completeScores, 'subscribe');
       component.scores = [];
 
       component.ngOnInit();
@@ -71,7 +78,7 @@ describe('ScoreComponent', () => {
 
   describe('scroll', () => {
     test('should call scrollTo from scrollTop', () => {
-      jest.spyOn(component, 'scrollTo').mockImplementation();
+      vi.spyOn(component, 'scrollTo').mockImplementation();
 
       component.scrollTop();
 
@@ -79,7 +86,7 @@ describe('ScoreComponent', () => {
     });
 
     test('should call scrollTo from scrollBottom', () => {
-      jest.spyOn(component, 'scrollTo').mockImplementation();
+      vi.spyOn(component, 'scrollTo').mockImplementation();
 
       component.scrollBottom();
 
@@ -89,8 +96,8 @@ describe('ScoreComponent', () => {
 
   describe('setScrolling', () => {
     test('should subscribe to scrolling subjects', () => {
-      jest.spyOn(component['scrollUpEvent'], 'pipe');
-      jest.spyOn(component['scrollDownEvent'], 'pipe');
+      vi.spyOn(component['scrollUpEvent'], 'pipe');
+      vi.spyOn(component['scrollDownEvent'], 'pipe');
 
       component.setScrolling();
 
