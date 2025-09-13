@@ -8,7 +8,7 @@
     "rules": true
   },
   "data": {
-    "entries": "../data/Entries.xlsx",
-    "scores": "../data/Calculations.xlsx"
+    "entries": "Entries.xlsx",
+    "scores": "Calculations.xlsx"
   }
 }
