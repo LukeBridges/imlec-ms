@@ -11,6 +11,11 @@ const getConfig = async (hash: string, subPath = '') => {
     return await import('../config' + subPath + '/' + hash + '.json');
 };
 
+app.use((req, res, next) => {
+    console.log(req.method + ' ' + req.url);
+    next();
+});
+
 app.use(cors());
 app.use(compression());
 app.use(express.static('public'));
@@ -23,7 +28,6 @@ app.get('/api/config{/:hash}', async (req: Request, res: Response) => {
     const hash = req.params.hash;
     let config: Config | null = null;
     if (hash) {
-        console.log('GET /api/config for', hash);
         try {
             config = await getConfig(hash);
         } catch (e) {
@@ -44,7 +48,6 @@ app.get('/api/content{/:hash}', async (req: Request, res: Response) => {
     const hash = req.params.hash;
     let config = null;
     if (hash) {
-        console.log('GET /api/config/content for', hash);
         try {
             config = await getConfig(hash, '/content');
         } catch (e) {
@@ -65,7 +68,6 @@ app.get('/api/entries{/:hash}', async (req: Request, res: Response) => {
     const hash = req.params.hash;
     let config = null;
     if (hash) {
-        console.log('GET /api/entries for', hash);
         try {
             config = await getConfig(hash);
         } catch (e) {
@@ -79,7 +81,7 @@ app.get('/api/entries{/:hash}', async (req: Request, res: Response) => {
         return;
     }
 
-    let file = await readXlsxFile(config.data.entries);
+    let file = await readXlsxFile('../data/' + hash + '/' + config.data.entries);
     file = file.slice(1);
     res.send(file);
 });
@@ -88,7 +90,6 @@ app.get('/api/scores{/:hash}', async (req: Request, res: Response) => {
     const hash = req.params.hash;
     let config = null;
     if (hash) {
-        console.log('GET /api/scores for', hash);
         try {
             config = await getConfig(hash);
         } catch (e) {
@@ -102,7 +103,7 @@ app.get('/api/scores{/:hash}', async (req: Request, res: Response) => {
         return;
     }
 
-    let file = await readXlsxFile(config.data.scores);
+    let file = await readXlsxFile('../data/' + hash + '/' + config.data.scores);
     file = file.slice(1);
     res.send(file);
 });
