@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
     selector: 'app-spinner',
     templateUrl: './spinner.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent {

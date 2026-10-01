@@ -1,27 +1,25 @@
-# IMLEC
+# IMLEC app
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
+Angular 22 single-page app using NgRx for state and Angular Material for UI. Tests run with Vitest. See the root `README.md` for the overall project and the API.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Start the API first (`npm run serve:api`, port 4201), then run `npm run serve` and open http://localhost:4200/. The app reloads when source files change. The dev API URL is set in `src/environments/environment.ts`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- `npm run build` for a development build.
+- `npm run build:prod` for a production build. Output goes to `dist/` at the repository root.
+- `npm run build:prod-stats` builds for production and writes a bundle size report with `source-map-explorer`.
 
-## Running unit tests
+## Unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` (`vitest --run`). Specs are `src/**/*.spec.ts` and run in jsdom. Run `npm run test:coverage` for a v8 coverage report. Thresholds are 100% for statements, branches, functions and lines, both globally and per file. `main.ts`, `polyfills.ts`, environments and `src/test` mocks are excluded.
 
-## Running end-to-end tests
+```bash
+npx vitest --run src/app/core/models/score.model.spec.ts
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Code scaffolding
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `npx ng generate component component-name`. The same command also generates directive, pipe, service, guard, interface and enum.

@@ -6,7 +6,8 @@ import {
   OnDestroy,
   OnInit,
   ViewEncapsulation,
-  DOCUMENT
+  DOCUMENT,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {ScoreComponent} from '../score/score.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -24,6 +25,7 @@ import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
             transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
         ]),
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ScoreMobileComponent extends ScoreComponent

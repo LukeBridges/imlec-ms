@@ -8,7 +8,7 @@ import {StoreModule} from '@ngrx/store';
 import * as fromEntries from './reducers/entries.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {EntriesEffects} from './effects/entries.effects';
-import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
 import {ContentBoxComponent} from '../components/components/contentBox/contentBox.component';
 import {SpinnerComponent} from "../components/components/spinner/spinner.component";
 
@@ -27,7 +27,7 @@ import {SpinnerComponent} from "../components/components/spinner/spinner.compone
     SpinnerComponent
   ],
   providers: [
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withXhr(), withInterceptorsFromDi())
   ]
 })
 export class ListingsModule {

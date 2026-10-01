@@ -121,4 +121,20 @@ describe('ScoreModel', () => {
       expect(ScoreModel.scoreSort(scoreA, scoreB)).toEqual(-0.0612);
     });
   });
+
+  describe('display values without data', () => {
+    const empty = new ScoreModel({runNo: 1});
+
+    test('should return null score', () => {
+      expect(empty.calculatedScoreToDisplay).toBeNull();
+    });
+
+    test('should return null horsepower', () => {
+      expect(empty.averageDbHorsepowerToDisplay).toBeNull();
+    });
+
+    test('should return null coal consumption', () => {
+      expect(empty.specificCoalConsumptionToDisplay).toBeNull();
+    });
+  });
 });

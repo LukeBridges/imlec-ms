@@ -25,9 +25,10 @@ export class EntriesService extends BaseFetchFromJsonService {
       return [];
     }
 
-    const entriesList = [];
+    // @ts-ignore
+    const entriesList: LocoModel[] = [];
 
-    this.list.forEach((row: LocoModel) => {
+    this.list.forEach((row: any) => {
       const score = new LocoModel({
         runNo: row[0],
         name: row[2],

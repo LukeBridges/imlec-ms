@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {LightboxComponent} from '../../../components/components/lightbox/lightbox.component';
 import {Observable, Subject} from 'rxjs';
@@ -15,12 +15,15 @@ import {Config} from "../../../../../../common/models/config.model";
     templateUrl: './welcome.component.html',
     styleUrls: ['./welcome.component.scss'],
     encapsulation: ViewEncapsulation.ShadowDom,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
 
+  // @ts-ignore
   public config: Config;
   private config$: Observable<Config> = new Observable<Config>();
+  // @ts-ignore
   public content: Content;
   private content$: Observable<Content> = new Observable<Content>();
   private ngUnsubscribe$: Subject<any> = new Subject<any>();

@@ -9,7 +9,8 @@ import {
   OnInit,
   ViewChild,
   ViewEncapsulation,
-  DOCUMENT
+  DOCUMENT,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {ScoreModel} from '../../../core/models/score.model';
 import {Observable, Subject} from 'rxjs';
@@ -21,10 +22,13 @@ import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
     selector: 'app-score',
     templateUrl: './score.component.html',
     encapsulation: ViewEncapsulation.Emulated,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ScoreComponent implements OnInit, OnDestroy {
+  // @ts-ignore
   @ViewChild('tableTop') tableTop: ElementRef;
+  // @ts-ignore
   @ViewChild('tableEnd') tableEnd: ElementRef;
   private static TOP_WAIT = 30 * 1000;
   private static BOTTOM_WAIT = 20 * 1000;
@@ -38,7 +42,9 @@ export class ScoreComponent implements OnInit, OnDestroy {
   private scrollUpEvent: Subject<boolean> = new Subject<boolean>();
   private scrollingStarted = false;
 
+  // @ts-ignore
   public scores: ScoreModel[];
+  // @ts-ignore
   public completeScores: Observable<ScoreModel[]>;
 
   displayedColumns: string[] = [
@@ -115,6 +121,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
         this.document.querySelector('.mat-drawer-content');
     }
 
+    // @ts-ignore
     return this.scrollToX(element, top, to, 0, 1 / duration, 20);
   };
 
