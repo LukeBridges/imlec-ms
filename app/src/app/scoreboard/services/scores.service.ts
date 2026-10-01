@@ -11,7 +11,8 @@ import {ContextService} from "../../core/services/context.service";
 export class ScoresService extends BaseFetchFromJsonService {
   protected url = environment.url + '/api/scores/';
 
-  protected list: ScoreModel[] = null;
+  // @ts-ignore
+  protected list: any[];
 
   constructor(
     @Inject(HttpClient) http: HttpClient,
@@ -27,9 +28,9 @@ export class ScoresService extends BaseFetchFromJsonService {
       return [];
     }
 
-    const scoresList = [];
+    const scoresList: ScoreModel[] = [];
 
-    this.list.forEach((row: ScoreModel) => {
+    this.list.forEach((row) => {
       const score = new ScoreModel({
         runNo: row[0],
         workDone: row[3],

@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {LocoModel} from '../../../core/models/loco.model';
 import {select, Store} from '@ngrx/store';
@@ -13,13 +13,16 @@ import {Config} from "../../../../../../common/models/config.model";
     selector: 'app-listings',
     templateUrl: './listings.component.html',
     styleUrls: ['./listings.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ListingsComponent implements OnInit, OnDestroy {
 
   public entries$: Observable<LocoModel[]>;
+  // @ts-ignore
   public entries: LocoModel[];
 
+  // @ts-ignore
   public config: Config;
   private config$: Observable<Config> = new Observable<Config>();
 

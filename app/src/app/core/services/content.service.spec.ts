@@ -1,6 +1,6 @@
-import {ContentService} from './Content.service';
+import {ContentService} from './content.service';
 import {take} from 'rxjs/operators';
-import {initialState} from '../reducers/Content.reducer';
+import {initialState} from '../reducers/content.reducer';
 import {BlankContentItem} from '../models/content.model';
 import {TestBed} from "@angular/core/testing";
 import {ContextService} from "./context.service";
@@ -62,5 +62,11 @@ describe('ContentService', () => {
         done();
       });
     }));
+  });
+
+  describe('content', () => {
+    test('should return current content', () => {
+      expect(service.content).toEqual(initialState);
+    });
   });
 });

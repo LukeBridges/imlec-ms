@@ -37,7 +37,7 @@ describe('ScoresService', () => {
     test('should return service instance and init list', () => {
       const localService = TestBed.inject(ScoresService);
 
-      expect(localService['list']).toEqual(null);
+      expect(localService['list']).toEqual([]);
     });
   });
 

@@ -58,4 +58,24 @@ describe('EntriesService', () => {
       expect(scores).toEqual(expected);
     });
   });
+
+  describe('getEntries with rows', () => {
+    test('should map rows to loco models', () => {
+      service['list'] = [
+        [1, 'Builder', 'Driver', 'Club', 'Model', '0-4-0', '5', 'img.jpg', '900'],
+      ];
+
+      const entries = service.getEntries();
+
+      expect(entries.length).toEqual(1);
+      expect(entries[0].runNo).toEqual(1);
+      expect(entries[0].builder).toEqual('Builder');
+      expect(entries[0].driver).toEqual({name: 'Driver', club: 'Club'});
+      expect(entries[0].model).toEqual('Model');
+      expect(entries[0].arrangement).toEqual('0-4-0');
+      expect(entries[0].gauge).toEqual('5');
+      expect(entries[0].img).toEqual('img.jpg');
+      expect(entries[0].time).toEqual('900');
+    });
+  });
 });

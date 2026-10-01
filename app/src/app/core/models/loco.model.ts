@@ -1,15 +1,16 @@
 export class LocoModel {
-  runNo: number;
-  name: string;
+  runNo: number = -1;
+  name: string = '';
   model?: string;
   builder?: string;
   gauge?: string;
   arrangement?: string;
+  // @ts-ignore
   driver: {
     name: string;
     club?: string;
   };
-  img: string;
+  img: string = '';
   time?: string;
 
   constructor(config?: any) {

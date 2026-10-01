@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit, DOCUMENT} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, DOCUMENT, ChangeDetectionStrategy} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import * as RouterActions from '../../actions/router.actions';
 import * as ConfigActions from '../../actions/config.actions';
@@ -14,10 +14,12 @@ import {Config} from "../../../../../../common/models/config.model";
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class MainComponent implements OnInit, OnDestroy {
 
+  // @ts-ignore
   public config: Config;
   private config$: Observable<Config> = new Observable<Config>();
   private ngUnsubscribe$: Subject<any> = new Subject<any>();

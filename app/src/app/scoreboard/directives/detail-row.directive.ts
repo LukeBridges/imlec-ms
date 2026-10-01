@@ -13,7 +13,9 @@ import {
 })
 export class DetailRowDirective {
   private row: any;
+  // @ts-ignore
   private tRef: TemplateRef<any>;
+  // @ts-ignore
   private opened: boolean;
 
   @HostBinding('class.expanded')

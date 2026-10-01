@@ -1,16 +1,18 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {Config} from "../../../../../../common/models/config.model";
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class HeaderComponent {
 
   @Output() public sidenavToggle = new EventEmitter();
 
+  // @ts-ignore
   @Input() config: Config;
 
   showToolbar = true;

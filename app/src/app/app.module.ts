@@ -15,7 +15,7 @@ import {metaReducers, reducers} from './core/reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {WINDOW, WINDOW_PROVIDERS} from './core/services/window.service';
-import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
 import {CustomRouterStateSerializer} from './core/services/custom-serializer.service';
 
 @NgModule({
@@ -50,7 +50,7 @@ import {CustomRouterStateSerializer} from './core/services/custom-serializer.ser
       deps: [PlatformLocation, WINDOW],
     },
     {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ]
 })
 export class AppModule {

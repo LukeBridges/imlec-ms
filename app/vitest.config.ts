@@ -11,6 +11,16 @@ export default defineConfig(({ mode }) => ({
     environment: 'jsdom',
     include: ['src/**/*.spec.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     reporters: ['default'],
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.ts'],
+      exclude: ['src/**/*.spec.ts', 'src/test/**', 'src/main.ts', 'src/polyfills.ts', 'src/environments/**'],
+      reporter: ['text', 'html'],
+      thresholds: {
+        100: true,
+        perFile: true,
+      },
+    },
   },
   define: {
     'import.meta.vitest': mode !== 'production',

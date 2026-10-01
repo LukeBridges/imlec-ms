@@ -15,21 +15,20 @@ describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
 
-  TestBed.configureTestingModule({
-    imports: [
-      AppModule,
-      AppRoutingModule,
-      MatListModule,
-      MatToolbarModule,
-      MatSidenavModule,
-      MatIconModule,
-      MatButtonModule,
-    ],
-    declarations: [SidebarComponent, MainComponent, HeaderComponent],
-    providers: [],
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        AppModule,
+        AppRoutingModule,
+        MatListModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatButtonModule,
+      ],
+      declarations: [SidebarComponent, MainComponent, HeaderComponent],
+      providers: [],
+    });
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
     component.config = {...initialState};
@@ -38,5 +37,14 @@ describe('SidebarComponent', () => {
 
   test('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  test('should emit sidenavClose', () => {
+    const spy = vitest.fn();
+    component.sidenavClose.subscribe(spy);
+
+    component.onSidenavClose();
+
+    expect(spy).toHaveBeenCalled();
   });
 });
