@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 import {EffectsModule} from '@ngrx/effects';
 import {ScoresEffects} from './effects/scores.effects';
 import {StoreModule} from '@ngrx/store';
-import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
 import * as fromScores from './reducers/scores.reducer';
 import {CoreModule} from '../core/core.module';
 import {ScoreboardRoutingModule} from './scoreboard-routing.module';
@@ -27,7 +27,7 @@ import {SpinnerComponent} from "../components/components/spinner/spinner.compone
     SpinnerComponent
   ],
   providers: [
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withXhr(), withInterceptorsFromDi())
   ]
 })
 export class ScoreboardModule {

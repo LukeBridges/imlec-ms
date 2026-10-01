@@ -5,7 +5,7 @@ import {Config} from "../../../../../common/models/config.model";
 export type State = Config;
 
 export const initialState: State = {
-  primaryColour: null,
+  primaryColour: '',
   features: {
     applicationForm: false,
     scoreboard: false,

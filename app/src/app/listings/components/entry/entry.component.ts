@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, ChangeDetectionStrategy} from '@angular/core';
 import {LocoModel} from '../../../core/models/loco.model';
 import {environment} from '../../../../environments/environment';
 
@@ -6,15 +6,21 @@ import {environment} from '../../../../environments/environment';
     selector: 'app-entry',
     templateUrl: './entry.component.html',
     styleUrls: ['./entry.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EntryComponent implements OnChanges {
 
+  // @ts-ignore
   @Input() entries: LocoModel[];
 
+  // @ts-ignore
   public fridayEntries: LocoModel[];
+  // @ts-ignore
   public saturdayEntries: LocoModel[];
+  // @ts-ignore
   public sundayEntries: LocoModel[];
+  // @ts-ignore
   public reserveEntries: LocoModel[];
 
   constructor() {
@@ -27,7 +33,7 @@ export class EntryComponent implements OnChanges {
     this.reserveEntries = this.entries.slice(27);
   }
 
-  parseTime(time): string {
+  parseTime(time: string): string {
     let timeStr = time + '';
     if (timeStr.length < 4) {
       timeStr = '0' + time;

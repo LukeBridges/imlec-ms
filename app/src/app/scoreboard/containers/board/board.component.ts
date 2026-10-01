@@ -7,6 +7,7 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {ScoreModel} from '../../../core/models/score.model';
 import {Observable, Subject} from 'rxjs';
@@ -26,6 +27,7 @@ import {ScoreComponent} from '../../components/score/score.component';
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class BoardComponent implements OnInit, OnDestroy {
@@ -36,19 +38,23 @@ export class BoardComponent implements OnInit, OnDestroy {
   public entries: LocoModel[];
   private completeScores: Subject<ScoreModel[]> = new Subject<ScoreModel[]>();
 
+  // @ts-ignore
   public innerWidth: number;
 
   protected ngUnsubscribe$: Subject<any> = new Subject<any>();
 
   public static SCORE_REFRESH = 30 * 1000;
 
+  // @ts-ignore
   private scoreInterval: number;
 
   public isMobile = false;
 
+  // @ts-ignore
   private scoreInstance: ScoreComponent;
 
   @ViewChild('scoreContainer', {read: ViewContainerRef})
+    // @ts-ignore
   scoreContainer: ViewContainerRef;
 
   constructor(
@@ -131,7 +137,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   // istanbul ignore next
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize() {
     this.innerWidth = this.window.innerWidth;
 
@@ -141,6 +147,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   get hasScores(): boolean {
-    return this.scores && this.scores.length && this.scores.length > 0;
+    return !!(this.scores && this.scores.length && this.scores.length > 0);
   }
 }

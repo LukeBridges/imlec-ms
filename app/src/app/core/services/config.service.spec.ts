@@ -52,4 +52,10 @@ describe('ConfigService', () => {
       });
     }));
   });
+
+  describe('config', () => {
+    test('should return current config', () => {
+      expect(service.config).toEqual(initialState);
+    });
+  });
 });

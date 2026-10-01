@@ -1,13 +1,13 @@
 import {LocoModel} from './loco.model';
 
 export class ScoreModel {
-  runNo: number;
+  runNo: number = -1;
 
-  workDone: number;
-  runningTime: number;
-  coalUsed: number;
-  distanceTravelled: number;
-  load: number;
+  workDone: number = -1;
+  runningTime: number = -1;
+  coalUsed: number = -1;
+  distanceTravelled: number = -1;
+  load: number = -1;
   dnf = false;
 
   loco?: LocoModel;
@@ -40,7 +40,7 @@ export class ScoreModel {
     return (this.workDone * 100) / (this.coalUsed * this.COAL_USED_MAGIC);
   }
 
-  get calculatedScoreToDisplay(): number {
+  get calculatedScoreToDisplay(): number|null {
     const score = this.calculatedScore;
     return isNaN(score) ? null : Math.round(score * 10000) / 10000;
   }
@@ -49,7 +49,7 @@ export class ScoreModel {
     return this.workDone / (this.runningTime * 33000);
   }
 
-  get averageDbHorsepowerToDisplay(): number {
+  get averageDbHorsepowerToDisplay(): number|null {
     const hp = this.averageDbHorsepower;
     return isNaN(hp) ? null : Math.round(hp * 10000) / 10000;
   }
@@ -62,7 +62,7 @@ export class ScoreModel {
     return this.coalConsumptionRate / this.averageDbHorsepower;
   }
 
-  get specificCoalConsumptionToDisplay(): number {
+  get specificCoalConsumptionToDisplay(): number|null {
     const consumption = this.specificCoalConsumption;
     return isNaN(consumption) ? null : Math.round(consumption * 100) / 100;
   }

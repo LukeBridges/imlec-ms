@@ -7,7 +7,7 @@ import {State} from '../models/state.model';
 
 @Injectable({providedIn: 'root'})
 export class BaseFetchFromJsonService {
-  protected url = null;
+  protected url: string = '';
 
   protected list: any;
 
@@ -32,7 +32,7 @@ export class BaseFetchFromJsonService {
     if (file && file.length) {
       let self = this;
       this.list = [];
-      file.forEach(row => self.list.push(Object.values(row)));
+      file.forEach((row: any) => self.list.push(Object.values(row)));
     } else {
       this.list = file;
     }
