@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMLEC File Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>IMLEC File Manager</h1>
+    <div id="session" hidden>
+        <span id="who"></span>
+        <button id="logout" type="button">Log out</button>
+    </div>
+</header>
+
+<div id="msg" role="status" hidden></div>
+
+<form id="login" hidden>
+    <label>User <input name="username" autocomplete="username" required></label>
+    <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+    <button type="submit">Log in</button>
+</form>
+
+<main id="manager" hidden>
+    <nav id="crumbs" aria-label="Path"></nav>
+
+    <div class="toolbar">
+        <input id="search" type="search" placeholder="Search names in this folder tree">
+        <button id="do-search" type="button">Search</button>
+        <span class="write">
+            <button id="new-folder" type="button">New folder</button>
+            <button id="new-file" type="button">New file</button>
+        </span>
+    </div>
+
+    <div id="drop-area" class="write">
+        Drag files here or
+        <label class="link">choose files <input type="file" id="file-input" multiple hidden></label>
+    </div>
+
+    <div class="toolbar write" id="bulk">
+        <button data-bulk="delete" type="button">Delete selected</button>
+        <button data-bulk="copy" type="button">Copy to…</button>
+        <button data-bulk="move" type="button">Move to…</button>
+        <button data-bulk="zip" type="button">Zip selected</button>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="select-all" aria-label="Select all"></th>
+            <th>Name</th><th>Size</th><th>Modified</th><th>Perms</th><th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+    </table>
+
+    <section id="viewer" hidden>
+        <h2 id="viewer-title"></h2>
+        <div id="viewer-body"></div>
+        <textarea id="editor" rows="20" hidden></textarea>
+        <div class="toolbar">
+            <button id="save" type="button" hidden>Save</button>
+            <button id="close-viewer" type="button">Close</button>
+        </div>
+    </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
