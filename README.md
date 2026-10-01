@@ -12,7 +12,7 @@ Multi-event website for IMLEC: event information, entry listings and a live scor
 | `config/<hash>.json` | Per-event feature flags, primary colour and spreadsheet file names |
 | `config/content/<hash>.json` | Per-event page content |
 | `data/<hash>/` | Per-event Excel files (entries and scores). Not committed |
-| `backend/upload/` | PHP file manager for uploading spreadsheets. Needs an untracked `backend/auth_users.php` |
+| `api/backend/`, `api/src/files/` | File manager (UI at `/backend/`, JSON at `/files/api`) for uploading spreadsheets. Needs an untracked `api/auth_users.json` (see `api/auth_users.example.json`). Replaces PHP `backend/upload/` (see `api/PARITY.md`) |
 
 ## Getting started
 

@@ -15,3 +15,9 @@
 /dist/
 /api/node_modules/
 /api/dist/
+/api/auth_users.json
+/api/coverage/
+/api/e2e/.run/
+/api/test-results/
+/api/playwright-report/
+/api/.vitest/

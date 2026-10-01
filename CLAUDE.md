@@ -10,7 +10,7 @@ Multi-tenant event site (IMLEC). Four parts:
 - `api/` — Express 5 + TypeScript API (own `package.json`). Serves JSON config/content and parses Excel data.
 - `common/models/` — TS types shared by `app` and `api` (e.g. `Config`). Imported by relative path (`../../../../../common/models/...`).
 - `config/`, `data/` — per-event files keyed by a **hash** (e.g. `mmes`). `config/<hash>.json` = feature flags, colour, data filenames. `config/content/<hash>.json` = page content. `data/<hash>/*.xlsx` = entries and scores spreadsheets (`data/` is gitignored).
-- `backend/upload/` — PHP file manager for uploading spreadsheets (needs untracked `backend/auth_users.php`).
+- `api/src/` — Express app (`createApp` in `app.ts`, `routes/hash.ts` for config/content/entries/scores, `routes/files.ts` + `files/ops.ts` + `auth/auth.ts` for the file manager at `/files/api`, UI in `api/backend/`). Needs untracked `api/auth_users.json`. Tests: `cd api && npm test` (vitest + supertest, `npm run test:coverage` enforces 100% per file) and `npm run test:e2e` (Playwright, needs `npx playwright install chromium`). `backend/upload/` is the legacy PHP file manager being replaced (IMLEC-60, see `api/PARITY.md`).
 
 ## Commands
 

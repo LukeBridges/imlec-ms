@@ -9,5 +9,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["api.ts","src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules","src/**/*.spec.ts","src/**/testUtil.ts"]
 }
