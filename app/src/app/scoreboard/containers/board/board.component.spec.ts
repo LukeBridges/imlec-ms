@@ -1,10 +1,4 @@
-import {
-  ComponentFixture,
-  discardPeriodicTasks,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {Store, StoreModule} from '@ngrx/store';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
 import {BoardComponent} from './board.component';
@@ -67,23 +61,25 @@ describe('BoardComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    test('should dispatch update scores', fakeAsync(() => {
+    test('should dispatch update scores', () => {
+      vitest.useFakeTimers();
       vitest.spyOn(component.store, 'dispatch').mockImplementation();
 
       component.ngOnInit();
 
-      tick(BoardComponent.SCORE_REFRESH * 1.5);
+      vitest.advanceTimersByTime(BoardComponent.SCORE_REFRESH * 1.5);
 
       expect(component.store.dispatch).
         toHaveBeenCalledWith(ScoresActions.getScores());
       expect(component.store.dispatch).toHaveBeenCalledTimes(2);
 
-      discardPeriodicTasks();
-    }));
+      clearInterval((component as any).scoreInterval);
+      vitest.useRealTimers();
+    });
   });
 
   describe('hasScores', () => {
-    test('should return true then scores loaded', fakeAsync(() => {
+    test('should return true then scores loaded', () => {
       component.scores$ = new Observable<ScoreModel[]>(sub => {
         sub.next(null);
         sub.next([
@@ -95,22 +91,20 @@ describe('BoardComponent', () => {
 
       component.ngOnInit();
 
-      tick(100);
-
       expect(component.hasScores).toBeTruthy();
 
-      discardPeriodicTasks();
-    }));
+      clearInterval((component as any).scoreInterval);
+    });
 
-    test('should return false when no scores', fakeAsync(() => {
+    test('should return false when no scores', () => {
       component.scores$ = new Observable<ScoreModel[]>();
 
       component.ngOnInit();
 
       expect(component.hasScores).toBeFalsy();
 
-      discardPeriodicTasks();
-    }));
+      clearInterval((component as any).scoreInterval);
+    });
 
     test('should return false even if empty scores list', () => {
       component.scores$ = new Observable<ScoreModel[]>(sub => {

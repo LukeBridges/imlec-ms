@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
 import {Store, StoreModule} from '@ngrx/store';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -40,39 +40,45 @@ describe('ListingsComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    test('should dispatch getEntries when entries empty', fakeAsync(() => {
+    test('should dispatch getEntries when entries empty', () => {
+      vitest.useFakeTimers();
       const store = TestBed.inject(Store);
       vitest.spyOn(store, 'dispatch').mockImplementation(() => undefined);
       component.entries$ = of([]);
 
       component.ngOnInit();
-      tick(1000);
+      vitest.advanceTimersByTime(1000);
 
       expect(store.dispatch).toHaveBeenCalledWith(EntriesActions.getEntries());
       expect(component.hasEntries).toBe(false);
-    }));
+      vitest.useRealTimers();
+    });
 
-    test('should dispatch getEntries when entries missing', fakeAsync(() => {
+    test('should dispatch getEntries when entries missing', () => {
+      vitest.useFakeTimers();
       const store = TestBed.inject(Store);
       vitest.spyOn(store, 'dispatch').mockImplementation(() => undefined);
       component.entries$ = of(null as any);
 
       component.ngOnInit();
-      tick(1000);
+      vitest.advanceTimersByTime(1000);
 
       expect(store.dispatch).toHaveBeenCalledWith(EntriesActions.getEntries());
-    }));
+      vitest.useRealTimers();
+    });
 
-    test('should store entries when present', fakeAsync(() => {
+    test('should store entries when present', () => {
+      vitest.useFakeTimers();
       const entries = [new LocoModel({runNo: 1})];
       component.entries$ = of(entries);
 
       component.ngOnInit();
-      tick(1000);
+      vitest.advanceTimersByTime(1000);
 
       expect(component.entries).toEqual(entries);
       expect(component.hasEntries).toBe(true);
-    }));
+      vitest.useRealTimers();
+    });
 
     test('should store config', () => {
       const config = {...initialState};

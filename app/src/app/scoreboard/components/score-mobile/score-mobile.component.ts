@@ -10,7 +10,6 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import {ScoreComponent} from '../score/score.component';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
 
@@ -18,13 +17,6 @@ import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
     selector: 'app-score-mobile',
     templateUrl: '../score/score.component.html',
     encapsulation: ViewEncapsulation.Emulated,
-    animations: [
-        trigger('detailExpand', [
-            state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
-            state('*', style({ height: '*', visibility: 'visible' })),
-            transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ]),
-    ],
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
