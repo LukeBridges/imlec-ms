@@ -71,7 +71,7 @@ describe('edge cases', () => {
     it('search without q lists everything', async () => {
         const {agent} = await login();
         const res = await agent.get(API + '/search?path=ev/sub');
-        expect(res.body.results).toEqual(['ev/sub/inner.txt']);
+        expect(res.body.results).toEqual([{path: 'ev/sub/inner.txt', type: 'file'}]);
     });
 
     it('sorts several folders naturally', async () => {

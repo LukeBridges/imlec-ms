@@ -84,6 +84,16 @@ test.describe('browsing', () => {
         await page.locator('#do-search').click();
         await expect(page.locator('#rows td.name a')).toHaveText(['ev/sub/inner.txt']);
     });
+
+    test('search result folder navigates in instead of erroring', async ({page}) => {
+        await enterEv(page);
+        await page.locator('#search').fill('SUB');
+        await page.locator('#do-search').click();
+        await expect(page.locator('#rows td.name a')).toHaveText(['[ ] ev/sub']);
+        await page.locator('#rows td.name a', {hasText: 'ev/sub'}).click();
+        await expect(page.locator('#rows td.name a')).toHaveText(['inner.txt']);
+        await expect(msg(page)).toBeHidden();
+    });
 });
 
 test.describe('upload', () => {

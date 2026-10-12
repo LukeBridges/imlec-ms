@@ -86,17 +86,23 @@ export const listDir = (root: string, rel: unknown): Listing => {
     return {path: here, parent: here === '' ? null : path.posix.dirname(here) === '.' ? '' : path.posix.dirname(here), entries: [...dirs, ...files]};
 };
 
+export interface SearchHit {
+    path: string;
+    type: 'dir' | 'file';
+}
+
 /** Recursive search below rel; skips dotfiles like the PHP scan(). Matches name substring, case insensitive. */
-export const search = (root: string, rel: unknown, q: unknown): string[] => {
+export const search = (root: string, rel: unknown, q: unknown): SearchHit[] => {
     const needle = String(q ?? '').toLowerCase();
-    const out: string[] = [];
+    const out: SearchHit[] = [];
     const walk = (abs: string) => {
         for (const name of fs.readdirSync(abs)) {
             if (name.startsWith('.')) continue;
             const full = path.join(abs, name);
             const l = fs.lstatSync(full);
-            if (name.toLowerCase().includes(needle)) out.push(relOf(root, full));
-            if (l.isDirectory()) walk(full);
+            const isDir = l.isDirectory();
+            if (name.toLowerCase().includes(needle)) out.push({path: relOf(root, full), type: isDir ? 'dir' : 'file'});
+            if (isDir) walk(full);
         }
     };
     walk(dirAt(root, rel));
