@@ -262,7 +262,7 @@
         }));
         $('do-search').addEventListener('click', guard(async () => {
             const r = await call('/search?path=' + encodeURIComponent(state.path) + '&q=' + encodeURIComponent($('search').value));
-            const entries = r.results.map((p) => ({name: p, path: p, type: 'file', size: 0}));
+            const entries = r.results.map((h) => ({name: h.path, path: h.path, type: h.type, size: 0}));
             renderRows(entries, true);
         }));
         document.querySelectorAll('[data-bulk]').forEach((b) => b.addEventListener('click', guard(() => bulk(b.dataset.bulk))));

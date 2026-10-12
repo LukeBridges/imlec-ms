@@ -194,10 +194,11 @@ describe('list / search', () => {
     it('searches recursively skipping dotfiles', async () => {
         const {agent} = await login();
         const res = await agent.get(API + '/search?q=INNER');
-        expect(res.body.results).toEqual(['ev/sub/inner.txt']);
+        expect(res.body.results).toEqual([{path: 'ev/sub/inner.txt', type: 'file'}]);
         const all = await agent.get(API + '/search?path=ev&q=');
-        expect(all.body.results).not.toContain('ev/.hidden');
-        expect(all.body.results).toContain('ev/b2.txt');
+        expect(all.body.results).not.toContainEqual(expect.objectContaining({path: 'ev/.hidden'}));
+        expect(all.body.results).toContainEqual({path: 'ev/b2.txt', type: 'file'});
+        expect(all.body.results).toContainEqual({path: 'ev/sub', type: 'dir'});
     });
 });
 
