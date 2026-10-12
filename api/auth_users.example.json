@@ -1,0 +1,7 @@
+{
+  "users": {
+    "admin": "<md5 hex of password>",
+    "user": "<md5 hex of password>"
+  },
+  "readonly": ["user"]
+}
