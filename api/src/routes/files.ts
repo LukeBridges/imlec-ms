@@ -37,7 +37,7 @@ export const filesRouter = (opts: AppOptions): Router => {
         res.download(file, path.basename(file));
     }));
 
-    const INLINE = new Set(['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp', 'ico', 'wav', 'mp3', 'ogg', 'webm', 'mp4']);
+    const INLINE = new Set(['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp', 'ico', 'svg', 'wav', 'mp3', 'ogg', 'webm', 'mp4']);
     router.get('/raw', requireAuth, handle((req, res) => {
         const file = ops.downloadPath(root, q(req, 'path'));
         if (!INLINE.has(path.extname(file).slice(1).toLowerCase())) {
