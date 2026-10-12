@@ -21,6 +21,9 @@
 /api/test-results/
 /api/playwright-report/
 /api/.vitest/
+/app/e2e/.run/
+/app/test-results/
+/app/playwright-report/
 /predict/node_modules/
 /predict/cache/
 /predict/*.sqlite

@@ -245,6 +245,13 @@ describe('view / download / raw', () => {
         expect((await agent.get(API + '/raw?path=ev/b2.txt')).status).toBe(415);
     });
 
+    it('raw serves svg, matching view type image', async () => {
+        fs.writeFileSync(data('ev', 'icon.svg'), '<svg></svg>');
+        const {agent} = await login();
+        expect((await agent.get(API + '/view?path=ev/icon.svg')).body.type).toBe('image');
+        expect((await agent.get(API + '/raw?path=ev/icon.svg')).status).toBe(200);
+    });
+
     it('missing file or folder 404', async () => {
         const {agent} = await login();
         expect((await agent.get(API + '/view?path=ev/none.txt')).status).toBe(404);

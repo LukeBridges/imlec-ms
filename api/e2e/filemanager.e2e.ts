@@ -60,6 +60,13 @@ test.describe('browsing', () => {
         await expect(row(page, 'notes.txt').locator('td').nth(2)).toHaveText('11 B');
     });
 
+    test('sorts files naturally, not lexically', async ({page}) => {
+        fs.writeFileSync(data('ev', 'f2.txt'), '');
+        fs.writeFileSync(data('ev', 'f10.txt'), '');
+        await enterEv(page);
+        expect(await names(page)).toEqual(['[ ] sub', 'Entries.xlsx', 'f2.txt', 'f10.txt', 'notes.txt', 'pack.zip', 'photo.png', 'Scores.xlsx']);
+    });
+
     test('breadcrumbs navigate up and down', async ({page}) => {
         await enterEv(page);
         await openFolder(page, 'sub');
@@ -94,6 +101,22 @@ test.describe('browsing', () => {
         await expect(page.locator('#rows td.name a')).toHaveText(['inner.txt']);
         await expect(msg(page)).toBeHidden();
     });
+
+    test('search with no matches shows an empty list, not an error', async ({page}) => {
+        await enterEv(page);
+        await page.locator('#search').fill('nonexistent-needle');
+        await page.locator('#do-search').click();
+        await expect(page.locator('#rows tr')).toHaveCount(0);
+        await expect(msg(page)).toBeHidden();
+    });
+
+    test('search with an empty query lists everything below the current folder', async ({page}) => {
+        await enterEv(page);
+        await page.locator('#do-search').click();
+        const found = await names(page);
+        expect(found).toContain('ev/notes.txt');
+        expect(found).toContain('ev/sub/inner.txt');
+    });
 });
 
 test.describe('upload', () => {
@@ -117,6 +140,21 @@ test.describe('upload', () => {
         });
         await expect(msg(page)).toHaveText('Uploaded 2 file(s)');
         expect(fs.readFileSync(data('ev', 'd2.txt'), 'utf8')).toBe('two');
+    });
+
+    test('drag enter highlights the drop area, drag leave clears it', async ({page}) => {
+        await enterEv(page);
+        const drop = page.locator('#drop-area');
+        await page.evaluate(() => {
+            const area = document.getElementById('drop-area')!;
+            area.dispatchEvent(new DragEvent('dragenter', {dataTransfer: new DataTransfer(), bubbles: true, cancelable: true}));
+        });
+        await expect(drop).toHaveClass(/over/);
+        await page.evaluate(() => {
+            const area = document.getElementById('drop-area')!;
+            area.dispatchEvent(new DragEvent('dragleave', {dataTransfer: new DataTransfer(), bubbles: true, cancelable: true}));
+        });
+        await expect(drop).not.toHaveClass(/over/);
     });
 
     test('upload overwrites same name', async ({page}) => {
@@ -171,6 +209,13 @@ test.describe('create, rename, delete', () => {
         await expect(msg(page)).toBeHidden();
     });
 
+    test('new folder with an existing name shows an error', async ({page}) => {
+        await enterEv(page);
+        answerNextDialog(page, 'sub');
+        await page.getByRole('button', {name: 'New folder'}).click();
+        await expect(msg(page)).toHaveText('Already exists');
+    });
+
     test('rename moves the file, refuses to overwrite', async ({page}) => {
         await enterEv(page);
         answerNextDialog(page, 'renamed.txt');
@@ -180,6 +225,14 @@ test.describe('create, rename, delete', () => {
         answerNextDialog(page, 'photo.png');
         await row(page, 'renamed.txt').getByRole('button', {name: 'Rename'}).click();
         await expect(msg(page)).toHaveText('File or folder with this path already exists');
+    });
+
+    test('renaming to the same name is a no-op', async ({page}) => {
+        await enterEv(page);
+        answerNextDialog(page, 'notes.txt');
+        await row(page, 'notes.txt').getByRole('button', {name: 'Rename'}).click();
+        await expect(msg(page)).toBeHidden();
+        expect(fs.existsSync(data('ev', 'notes.txt'))).toBe(true);
     });
 
     test('delete asks to confirm', async ({page}) => {
@@ -211,6 +264,23 @@ test.describe('bulk actions', () => {
         await enterEv(page);
         await page.getByRole('button', {name: 'Delete selected'}).click();
         await expect(msg(page)).toHaveText('Nothing selected');
+    });
+
+    for (const label of ['Copy to…', 'Move to…', 'Zip selected']) {
+        test(label + ' with nothing selected shows an error', async ({page}) => {
+            await enterEv(page);
+            await page.getByRole('button', {name: label}).click();
+            await expect(msg(page)).toHaveText('Nothing selected');
+        });
+    }
+
+    test('cancelling the copy prompt leaves files in place', async ({page}) => {
+        await enterEv(page);
+        await pick(page, 'notes.txt');
+        page.once('dialog', d => d.dismiss());
+        await page.getByRole('button', {name: 'Copy to…'}).click();
+        expect(fs.existsSync(data('ev', 'sub', 'notes.txt'))).toBe(false);
+        await expect(msg(page)).toBeHidden();
     });
 
     test('delete selected', async ({page}) => {
@@ -303,6 +373,15 @@ test.describe('view, edit, download', () => {
         await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.naturalWidth)).toBe(1);
     });
 
+    test('view svg renders an img that loads, not a 415', async ({page}) => {
+        fs.writeFileSync(data('ev', 'icon.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"></svg>');
+        await enterEv(page);
+        await row(page, 'icon.svg').getByRole('button', {name: 'View'}).click();
+        const img = page.locator('#viewer-body img');
+        await expect(img).toBeVisible();
+        await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.naturalWidth)).toBe(2);
+    });
+
     test('view zip lists its entries', async ({page}) => {
         await enterEv(page);
         await row(page, 'pack.zip').getByRole('button', {name: 'View'}).click();
@@ -323,6 +402,13 @@ test.describe('view, edit, download', () => {
         fs.writeFileSync(data('ev', 'blob.bin'), Buffer.from([0, 1, 2, 3]));
         await enterEv(page);
         await row(page, 'blob.bin').getByRole('button', {name: 'View'}).click();
+        await expect(page.locator('#viewer-body')).toContainText('Binary file');
+    });
+
+    test('oversized text file is treated as binary even without null bytes', async ({page}) => {
+        fs.writeFileSync(data('ev', 'big.txt'), 'a'.repeat(6 * 1024 * 1024));
+        await enterEv(page);
+        await row(page, 'big.txt').getByRole('button', {name: 'View'}).click();
         await expect(page.locator('#viewer-body')).toContainText('Binary file');
     });
 
@@ -405,13 +491,29 @@ test.describe('read only user', () => {
         await enterEv(page, 'viewer', 'look');
         await expect(page.locator('#who')).toHaveText('viewer (read only)');
         await expect(page.getByRole('button', {name: 'New folder'})).toBeHidden();
+        await expect(page.getByRole('button', {name: 'New file'})).toBeHidden();
         await expect(page.getByRole('button', {name: 'Delete selected'})).toBeHidden();
+        await expect(page.getByRole('button', {name: 'Copy to…'})).toBeHidden();
+        await expect(page.getByRole('button', {name: 'Move to…'})).toBeHidden();
+        await expect(page.getByRole('button', {name: 'Zip selected'})).toBeHidden();
         await expect(page.locator('#drop-area')).toBeHidden();
         await expect(row(page, 'notes.txt').getByRole('button', {name: 'Delete'})).toBeHidden();
         await expect(row(page, 'notes.txt').getByRole('button', {name: 'Edit'})).toBeHidden();
+        await expect(row(page, 'notes.txt').getByRole('button', {name: 'Rename'})).toBeHidden();
+        await expect(row(page, 'notes.txt').getByRole('button', {name: 'Backup'})).toBeHidden();
+        await expect(row(page, 'pack.zip').getByRole('button', {name: 'Unzip here'})).toBeHidden();
         await expect(row(page, 'notes.txt').getByRole('button', {name: 'View'})).toBeVisible();
+        await expect(row(page, 'notes.txt').getByRole('button', {name: 'Download'})).toBeVisible();
         await row(page, 'notes.txt').getByRole('button', {name: 'View'}).click();
         await expect(page.locator('#viewer-body pre')).toHaveText('hello notes');
+    });
+
+    test('read only status survives a reload', async ({page}) => {
+        await enterEv(page, 'viewer', 'look');
+        await page.reload();
+        await expect(page.locator('#manager')).toBeVisible();
+        await expect(page.locator('#who')).toHaveText('viewer (read only)');
+        await expect(page.getByRole('button', {name: 'New folder'})).toBeHidden();
     });
 
     test('server refuses writes even if the UI is bypassed', async ({page}) => {
