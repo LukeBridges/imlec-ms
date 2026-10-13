@@ -10,7 +10,7 @@
           <span>{{ entry.driver.club }}</span><br/>
           <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
         </div>
-        @if (entry.img !== null) {
+        @if (entry.img) {
           <img class="entryPhoto" alt="Photo of {{entry.model}}"
                src="{{url}}/assets/photos/{{entry.img}}">
         }
@@ -30,7 +30,7 @@
           <span>{{ entry.driver.club }}</span><br/>
           <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
         </div>
-        @if (entry.img !== null) {
+        @if (entry.img) {
           <img class="entryPhoto" alt="Photo of {{entry.model}}"
                src="{{url}}/assets/photos/{{entry.img}}">
         }
@@ -50,7 +50,7 @@
           <span>{{ entry.driver.club }}</span><br/>
           <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
         </div>
-        @if (entry.img !== null) {
+        @if (entry.img) {
           <img class="entryPhoto" alt="Photo of {{entry.model}}"
                src="{{url}}/assets/photos/{{entry.img}}">
         }
@@ -69,7 +69,7 @@
             <span>{{ entry.driver.club }}</span><br/>
             <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
           </div>
-          @if (entry.img !== null) {
+          @if (entry.img) {
             <img class="entryPhoto" alt="Photo of {{entry.model}}"
                  src="{{url}}/assets/photos/{{entry.img}}">
           }

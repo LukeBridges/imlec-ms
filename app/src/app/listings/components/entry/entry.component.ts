@@ -34,6 +34,9 @@ export class EntryComponent implements OnChanges {
   }
 
   parseTime(time: string): string {
+    if (!time) {
+      return '';
+    }
     let timeStr = time + '';
     if (timeStr.length < 4) {
       timeStr = '0' + time;

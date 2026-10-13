@@ -113,8 +113,8 @@ test.describe('browsing', () => {
     test('search with an empty query lists everything below the current folder', async ({page}) => {
         await enterEv(page);
         await page.locator('#do-search').click();
+        await expect(page.locator('#rows td.name a', {hasText: 'ev/notes.txt'})).toHaveCount(1);
         const found = await names(page);
-        expect(found).toContain('ev/notes.txt');
         expect(found).toContain('ev/sub/inner.txt');
     });
 });
