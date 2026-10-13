@@ -23,6 +23,7 @@ export const makeFixture = (overrides: Partial<AppOptions> = {}): Fixture => {
     fs.writeFileSync(path.join(repoRoot, 'config', 'nodata.json'), JSON.stringify({hash: 'nodata'}));
     const opts: AppOptions = {
         repoRoot, apiDir, dataRoot,
+        appDistDir: path.join(repoRoot, 'dist', 'browser'),
         authUsersFile: path.join(repoRoot, 'auth_users.json'),
         sessionSecret: 'test-secret',
         loginDelayMs: 0,
