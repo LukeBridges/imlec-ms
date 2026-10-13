@@ -3,21 +3,21 @@
   <img class="logo" src="/assets/mmeslogo.jpg" alt="MMES Logo"/>
 </a>
 <div class="content">
-  @if(content){
-    <div [innerHTML]="content.welcome.body"></div>
+  @if(content()){
+    <div [innerHTML]="content()?.welcome?.body"></div>
   }
   <p>
     More information on the club may be found at
     <a href="http://www.maidstonemes.co.uk" target="_blank" rel="noreferrer">www.maidstonemes.co.uk</a>
   </p>
-  @if(!config?.features?.applicationForm){
+  @if(!config()?.features?.applicationForm){
     <p>
       <b>Entries are now closed. The entries and running list can be found
         <a routerLink="/listings" skipLocationChange>Here</a>
       </b>
     </p>
   }
-  @if(config?.features?.applicationForm) {
+  @if(config()?.features?.applicationForm) {
     <p>
       Send completed application forms to Tom Parham at <a
       href="mailto:tom_parham@hotmail.co.uk">tom_parham&#64;hotmail.co.uk</a>
@@ -25,7 +25,7 @@
   }
 </div>
 <div class="center">
-  @if(config?.features?.applicationForm && !config?.features?.scoreboard){
+  @if(config()?.features?.applicationForm && !config()?.features?.scoreboard){
     <app-contentbox class="links">
       <a href="/assets/IMLEC 2020 Fillable Application form.pdf" mat-button target="_blank">
         <img src="/assets/download.png" alt="Download" height="150" width="150"/><br/>
@@ -33,7 +33,7 @@
       </a>
     </app-contentbox>
   }
-  @if(!config?.features?.applicationForm && config?.features?.scoreboard){
+  @if(!config()?.features?.applicationForm && config()?.features?.scoreboard){
     <app-contentbox class="links">
       <a routerLink="/scores" mat-button skipLocationChange>
         <img src="/assets/percent.svg" alt="Score" height="150" width="150"/><br/>

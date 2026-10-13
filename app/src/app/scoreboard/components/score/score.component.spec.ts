@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ScoresService} from '../../services/scores.service';
 import {ScoresServiceMock} from '../../../../test/mock/services/scores.service.mock';
 import {ScoreComponent} from './score.component';
@@ -45,7 +45,7 @@ describe('ScoreComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    test('should subscribe to completeScores', fakeAsync(() => {
+    test('should subscribe to completeScores', () => {
       const newScores = [
         new ScoreModel({runNo: 1})
       ];
@@ -55,11 +55,9 @@ describe('ScoreComponent', () => {
 
       component.ngOnInit();
 
-      tick(100);
-
       expect(component.completeScores.subscribe).toHaveBeenCalled();
       expect(component.scores).toEqual(newScores);
-    }));
+    });
   });
 
   describe('toggleToolbar', () => {

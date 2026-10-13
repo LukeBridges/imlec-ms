@@ -1,13 +1,11 @@
-import {Component, Inject, OnDestroy, OnInit, DOCUMENT, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy, effect} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {select, Store} from '@ngrx/store';
 import * as RouterActions from '../../actions/router.actions';
 import * as ConfigActions from '../../actions/config.actions';
 import * as ContentActions from '../../actions/content.actions';
 import {State} from '../../models/state.model';
-import {Observable, Subject} from 'rxjs';
 import {selectConfig} from '../../selectors/config.selector';
-import {filter, takeUntil} from 'rxjs/operators';
-import {Config} from "../../../../../../common/models/config.model";
 
 
 @Component({
@@ -17,34 +15,25 @@ import {Config} from "../../../../../../common/models/config.model";
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit {
 
-  // @ts-ignore
-  public config: Config;
-  private config$: Observable<Config> = new Observable<Config>();
-  private ngUnsubscribe$: Subject<any> = new Subject<any>();
+  public config = toSignal(this.store.pipe(select(selectConfig)));
 
   constructor(
     @Inject(Store) private store: Store<State>,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this.config$ = this.store.pipe(select(selectConfig));
+    effect(() => {
+      const primaryColour = this.config()?.primaryColour;
+      if (primaryColour) {
+        this.document.documentElement.style.setProperty('--primary-colour', primaryColour);
+      }
+    });
   }
 
   ngOnInit() {
-    this.config$.pipe(takeUntil(this.ngUnsubscribe$), filter(config => !!config)).subscribe(config => {
-      this.config = config;
-      this.document.documentElement.style.setProperty('--primary-colour', config?.primaryColour);
-    });
-
     this.store.dispatch(ConfigActions.getConfig());
     this.store.dispatch(ContentActions.getContent());
     this.store.dispatch(RouterActions.Go({path: ['/welcome']}));
-  }
-
-  /* istanbul ignore next*/
-  ngOnDestroy() {
-    this.ngUnsubscribe$.next(true);
-    this.ngUnsubscribe$.complete();
   }
 }

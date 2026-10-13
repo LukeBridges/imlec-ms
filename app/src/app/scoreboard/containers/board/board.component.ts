@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   HostListener,
   Inject,
@@ -60,6 +61,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(Store) public store: Store<State>,
     @Inject(WINDOW) public window: Window,
+    private cdr: ChangeDetectorRef,
   ) {
     this.scores$ = this.store.pipe(select(selectScores));
     this.scores = [];
@@ -81,6 +83,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.entries = entries;
         this.store.dispatch(ScoresActions.getScores());
       }
+      this.cdr.markForCheck();
     });
     this.scores$.pipe(
       filter(scores => !!(scores && scores.length)),
@@ -96,6 +99,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         }));
       });
       this.ngOnChanges();
+      this.cdr.markForCheck();
     });
     this.scoreInterval = this.window.setInterval(() => {
       this.store.dispatch(ScoresActions.getScores());
@@ -144,6 +148,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (this.isMobile != this.innerWidth <= 600) {
       this.ngOnChanges().then();
     }
+    this.cdr.markForCheck();
   }
 
   get hasScores(): boolean {

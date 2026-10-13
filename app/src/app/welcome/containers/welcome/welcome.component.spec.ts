@@ -6,7 +6,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CoreModule} from '../../../core/core.module';
 import {AppModule} from '../../../app.module';
-import {take} from 'rxjs/operators';
 import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 
 describe('WelcomeComponent', () => {
@@ -38,21 +37,11 @@ describe('WelcomeComponent', () => {
     expect(WelcomeComponent).toBeTruthy();
   });
 
-  describe('ngOnInit', () => {
-    it('should sub to content and config', () => {
-
-      component.ngOnInit();
+  describe('config and content signals', () => {
+    it('are exposed as signals', () => {
+      expect(typeof component.config).toBe('function');
+      expect(typeof component.content).toBe('function');
     });
-  });
-
-  describe('ngOnDestroy', () => {
-    test('should unsubscribe', () => new Promise(done => {
-      component['ngUnsubscribe$'].pipe(take(1)).subscribe(() => {
-        done();
-      });
-
-      component.ngOnDestroy();
-    }));
   });
 
   describe('openGMap', () => {
