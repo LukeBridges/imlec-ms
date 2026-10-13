@@ -1,6 +1,7 @@
 #score-container {
   display: block;
   margin-top: 5px !important;
+  overflow-x: auto;
 }
 
 app-score, app-score-mobile {
@@ -23,9 +24,13 @@ app-score {
     width: 100%;
   }
 
+  .mat-mdc-cell:first-of-type, .mat-mdc-header-cell:first-of-type {
+    padding-left: 7px;
+  }
+
   .mat-column-place {
     flex: unset;
-    width: 22px;
+    width: 30px;
     padding: 0 7px 0 7px;
     margin-right: 7px;
     border-right: 1px solid #efefef;
@@ -48,12 +53,16 @@ app-score {
     margin-left: 5px;
   }
 
-  .mat-column-driversName, .mat-column-load {
+  .mat-column-driversName {
     margin-left: 30px;
   }
 
-  .mat-column-gauge, .mat-column-load {
+  .mat-column-gauge {
     max-width: 50px;
+  }
+
+  .mat-column-load {
+    max-width: 70px;
   }
 
   .mat-column-runningTime {
@@ -99,21 +108,30 @@ app-score {
 }
 
 app-score-mobile {
+  .mat-mdc-row, .mat-mdc-header-row {
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .mat-mdc-cell, .mat-mdc-header-cell {
+    flex-shrink: 0;
+  }
+
   .mat-column-place {
     flex: unset;
-    width: 10px;
+    width: 26px;
     padding: 0 7px 0 7px;
     margin-right: 7px;
   }
 
   .mat-column-coalUsed {
     flex: unset;
-    width: 40px;
+    width: 55px;
   }
 
   .mat-column-overallThermalEfficiency {
     flex: unset;
-    width: 25px;
+    width: 48px;
   }
 
   .mat-mdc-cell:first-of-type, .mat-mdc-header-cell:first-of-type {
