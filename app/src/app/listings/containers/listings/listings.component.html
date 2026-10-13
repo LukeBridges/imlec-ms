@@ -1,11 +1,11 @@
 <app-spinner [show]="!hasEntries"></app-spinner>
 @if (hasEntries) {
   <div class="entry-list">
-    @if(config?.features?.fullListings) {
-      <app-entry [entries]="entries"></app-entry>
+    @if(config()?.features?.fullListings) {
+      <app-entry [entries]="entries() ?? []"></app-entry>
     }
-    @if(!config?.features?.fullListings){
-      <app-count [count]="entries.length"></app-count>
+    @if(!config()?.features?.fullListings){
+      <app-count [count]="entries()?.length ?? 0"></app-count>
     }
   </div>
 }

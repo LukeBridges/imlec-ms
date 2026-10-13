@@ -7,6 +7,8 @@ import {EntryComponent} from '../../components/entry/entry.component';
 import {CountComponent} from '../../components/count/count.component';
 import * as EntriesActions from '../../actions/entries.actions';
 import * as fromEntries from '../../reducers/entries.reducer';
+import * as fromConfig from '../../../core/reducers/config.reducer';
+import * as ConfigActions from '../../../core/actions/config.actions';
 import {LocoModel} from '../../../core/models/loco.model';
 import {initialState} from '../../../core/reducers/config.reducer';
 import {SpinnerComponent} from '../../../components/components/spinner/spinner.component';
@@ -15,12 +17,13 @@ import {ContentBoxComponent} from '../../../components/components/contentBox/con
 describe('ListingsComponent', () => {
   let component: ListingsComponent;
   let fixture: ComponentFixture<ListingsComponent>;
+  let store: Store;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        StoreModule.forRoot({scores: fromEntries.reducer}),
+        StoreModule.forRoot({entries: fromEntries.reducer, config: fromConfig.reducer}),
         ContentBoxComponent,
         SpinnerComponent,
       ],
@@ -32,6 +35,7 @@ describe('ListingsComponent', () => {
     });
     fixture = TestBed.createComponent(ListingsComponent);
     component = fixture.componentInstance;
+    store = TestBed.inject(Store);
     fixture.detectChanges();
   });
 
@@ -39,26 +43,46 @@ describe('ListingsComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('entries signal', () => {
+    test('reflects entries dispatched to the store', () => {
+      const entries = [new LocoModel({runNo: 1})];
+      store.dispatch(EntriesActions.updateEntries({payload: entries}));
+
+      expect(component.entries()).toEqual(entries);
+      expect(component.hasEntries).toBe(true);
+    });
+
+    test('is empty when no entries have been dispatched', () => {
+      expect(component.hasEntries).toBe(false);
+    });
+  });
+
+  describe('config signal', () => {
+    test('reflects config dispatched to the store', () => {
+      const config = {...initialState};
+      store.dispatch(ConfigActions.updateConfig({payload: config}));
+
+      expect(component.config()).toEqual(config);
+    });
+  });
+
   describe('ngOnInit', () => {
     test('should dispatch getEntries when entries empty', () => {
       vitest.useFakeTimers();
-      const store = TestBed.inject(Store);
       vitest.spyOn(store, 'dispatch').mockImplementation(() => undefined);
-      component.entries$ = of([]);
+      (component as any).entries$ = of([]);
 
       component.ngOnInit();
       vitest.advanceTimersByTime(1000);
 
       expect(store.dispatch).toHaveBeenCalledWith(EntriesActions.getEntries());
-      expect(component.hasEntries).toBe(false);
       vitest.useRealTimers();
     });
 
     test('should dispatch getEntries when entries missing', () => {
       vitest.useFakeTimers();
-      const store = TestBed.inject(Store);
       vitest.spyOn(store, 'dispatch').mockImplementation(() => undefined);
-      component.entries$ = of(null as any);
+      (component as any).entries$ = of(null as any);
 
       component.ngOnInit();
       vitest.advanceTimersByTime(1000);
@@ -67,35 +91,16 @@ describe('ListingsComponent', () => {
       vitest.useRealTimers();
     });
 
-    test('should store entries when present', () => {
+    test('should not dispatch getEntries when entries present', () => {
       vitest.useFakeTimers();
-      const entries = [new LocoModel({runNo: 1})];
-      component.entries$ = of(entries);
+      vitest.spyOn(store, 'dispatch').mockImplementation(() => undefined);
+      (component as any).entries$ = of([new LocoModel({runNo: 1})]);
 
       component.ngOnInit();
       vitest.advanceTimersByTime(1000);
 
-      expect(component.entries).toEqual(entries);
-      expect(component.hasEntries).toBe(true);
+      expect(store.dispatch).not.toHaveBeenCalledWith(EntriesActions.getEntries());
       vitest.useRealTimers();
-    });
-
-    test('should store config', () => {
-      const config = {...initialState};
-      (component as any).config$ = of(config);
-
-      component.ngOnInit();
-
-      expect(component.config).toEqual(config);
-    });
-
-    test('should ignore falsy config', () => {
-      (component as any).config$ = of(null);
-      component.config = undefined as any;
-
-      component.ngOnInit();
-
-      expect(component.config).toBeUndefined();
     });
   });
 

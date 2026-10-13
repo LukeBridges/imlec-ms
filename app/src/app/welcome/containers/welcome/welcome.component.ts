@@ -1,14 +1,11 @@
-import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
 import {LightboxComponent} from '../../../components/components/lightbox/lightbox.component';
-import {Observable, Subject} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {selectConfig} from '../../../core/selectors/config.selector';
 import {State} from '../../../core/models/state.model';
-import {filter, takeUntil} from 'rxjs/operators';
-import {Content} from '../../../core/models/content.model';
 import {selectContent} from '../../../core/selectors/content.selector';
-import {Config} from "../../../../../../common/models/config.model";
 
 @Component({
     selector: 'app-welcome',
@@ -18,35 +15,12 @@ import {Config} from "../../../../../../common/models/config.model";
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class WelcomeComponent implements OnInit, OnDestroy {
+export class WelcomeComponent {
 
-  // @ts-ignore
-  public config: Config;
-  private config$: Observable<Config> = new Observable<Config>();
-  // @ts-ignore
-  public content: Content;
-  private content$: Observable<Content> = new Observable<Content>();
-  private ngUnsubscribe$: Subject<any> = new Subject<any>();
+  public config = toSignal(this.store.pipe(select(selectConfig)));
+  public content = toSignal(this.store.pipe(select(selectContent)));
 
   constructor(private store: Store<State>, @Inject(MatDialog) public dialog: MatDialog) {
-    this.config$ = this.store.pipe(select(selectConfig));
-    this.content$ = this.store.pipe(select(selectContent));
-  }
-
-  ngOnInit() {
-    this.config$.pipe(takeUntil(this.ngUnsubscribe$), filter(config => !!config)).
-      subscribe(config => {
-        this.config = config;
-      });
-    this.content$.pipe(takeUntil(this.ngUnsubscribe$), filter(content => !!content)).
-      subscribe(content => {
-        this.content = content;
-      });
-  }
-
-  ngOnDestroy() {
-    this.ngUnsubscribe$.next(true);
-    this.ngUnsubscribe$.complete();
   }
 
   openGMap() {

@@ -1,13 +1,13 @@
 import {Component, Inject, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {Observable, Subject} from 'rxjs';
 import {LocoModel} from '../../../core/models/loco.model';
 import {select, Store} from '@ngrx/store';
 import {selectEntries} from '../../selectors/entries.selector';
 import * as EntriesActions from '../../actions/entries.actions';
-import {delay, filter, take, takeUntil} from 'rxjs/operators';
+import {delay, take, takeUntil} from 'rxjs/operators';
 import {State} from '../../../core/models/state.model';
 import {selectConfig} from '../../../core/selectors/config.selector';
-import {Config} from "../../../../../../common/models/config.model";
 
 @Component({
     selector: 'app-listings',
@@ -18,19 +18,14 @@ import {Config} from "../../../../../../common/models/config.model";
 })
 export class ListingsComponent implements OnInit, OnDestroy {
 
-  public entries$: Observable<LocoModel[]>;
-  // @ts-ignore
-  public entries: LocoModel[];
-
-  // @ts-ignore
-  public config: Config;
-  private config$: Observable<Config> = new Observable<Config>();
+  private entries$: Observable<LocoModel[]>;
+  public entries = toSignal(this.store.pipe(select(selectEntries)));
+  public config = toSignal(this.store.pipe(select(selectConfig)));
 
   protected ngUnsubscribe$: Subject<any> = new Subject();
 
   constructor(@Inject(Store) private store: Store<State>) {
     this.entries$ = this.store.pipe(select(selectEntries));
-    this.config$ = this.store.pipe(select(selectConfig));
   }
 
   ngOnInit() {
@@ -38,13 +33,7 @@ export class ListingsComponent implements OnInit, OnDestroy {
       subscribe((entries: LocoModel[]) => {
         if (!entries || entries && entries.length < 1) {
           this.store.dispatch(EntriesActions.getEntries());
-        } else {
-          this.entries = entries;
         }
-      });
-    this.config$.pipe(takeUntil(this.ngUnsubscribe$), filter(config => !!config)).
-      subscribe(config => {
-        this.config = config;
       });
   }
 
@@ -55,6 +44,6 @@ export class ListingsComponent implements OnInit, OnDestroy {
   }
 
   get hasEntries(): boolean {
-    return this.entries?.length > 0;
+    return !!this.entries()?.length;
   }
 }
