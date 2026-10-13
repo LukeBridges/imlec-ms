@@ -17,6 +17,7 @@ export interface AppOptions {
     repoRoot: string;
     dataRoot: string;
     apiDir: string;
+    appDistDir: string;
     authUsersFile: string;
     sessionSecret: string;
     loginDelayMs: number;
@@ -28,6 +29,7 @@ export const defaultOptions = (): AppOptions => {
     return {
         repoRoot,
         apiDir,
+        appDistDir: process.env.APP_DIST_DIR || path.join(repoRoot, 'dist', 'browser'),
         dataRoot: process.env.DATA_ROOT || path.join(repoRoot, 'data'),
         authUsersFile: process.env.AUTH_USERS_FILE || path.join(apiDir, 'auth_users.json'),
         sessionSecret: process.env.SESSION_SECRET || '',

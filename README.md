@@ -23,6 +23,18 @@ cd api && npm install
 cd ../app && npm install
 ```
 
+### Single host (build + serve app and API together)
+
+From repo root:
+
+```bash
+npm start
+```
+
+Builds the app, builds the API, and serves both from one host/port (http://localhost:4201, or `PORT`). The API serves the built app's static files and falls back to its `index.html` for client-side routes, alongside its own `/api`, `/files` and `/backend` routes.
+
+### Separate dev servers
+
 Run the API (port 4201, or `PORT`) from `api/`:
 
 ```bash
