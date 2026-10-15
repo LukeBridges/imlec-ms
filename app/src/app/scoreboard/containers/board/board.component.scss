@@ -1,20 +1,143 @@
 #score-container {
   display: block;
   margin-top: 5px !important;
+  margin-left: 24px;
+  margin-right: 24px;
   overflow-x: auto;
 }
 
 app-score, app-score-mobile {
   margin: 0 auto;
-
-  .mat-mdc-cell.mat-column-place {
-    background-color: black;
-    color: white;
-  }
 }
 
 .scrollpoint {
   height: 1px;
+}
+
+app-score, app-score-mobile {
+  .mat-mdc-table {
+    perspective: 1200px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .mat-mdc-header-row {
+    background-color: var(--mat-sys-primary);
+  }
+
+  .mat-mdc-header-cell {
+    color: var(--mat-sys-on-primary, #fff);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: none;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+
+  .mat-mdc-row {
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+    border-left: 4px solid transparent;
+  }
+
+  .mat-mdc-row:nth-child(even) {
+    background-color: var(--mat-sys-surface-container-low);
+  }
+
+  .mat-mdc-row:nth-child(odd) {
+    background-color: var(--mat-sys-surface);
+  }
+
+  .mat-mdc-row.leader {
+    background-color: var(--mat-sys-primary-container, #ece0ff);
+    border-left-color: var(--mat-sys-primary);
+  }
+
+  .mat-mdc-row.row-landed {
+    animation: rowLanded 900ms ease-out;
+  }
+
+  .mat-mdc-cell.mat-column-place {
+    background-color: transparent;
+    color: inherit;
+  }
+
+  .rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background-color: var(--mat-sys-surface-container-high);
+    color: var(--mat-sys-on-surface);
+    font-weight: 700;
+  }
+
+  .rank-badge.rank-1 {
+    background-color: var(--mat-sys-primary);
+    color: var(--mat-sys-on-primary, #fff);
+  }
+
+  .rank-badge.rank-2 {
+    background-color: var(--mat-sys-secondary-container);
+    color: var(--mat-sys-on-secondary-container);
+  }
+
+  .rank-badge.rank-3 {
+    background-color: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+  }
+
+  .trend {
+    margin-left: 4px;
+    font-size: 11px;
+    vertical-align: middle;
+  }
+
+  .trend-up {
+    color: #2e7d32;
+  }
+
+  .trend-down {
+    color: #c62828;
+  }
+
+  .score-value {
+    color: var(--mat-sys-primary);
+    font-size: 1.05em;
+  }
+
+  .score-value.pending {
+    color: var(--mat-sys-outline);
+    font-weight: 400;
+    font-size: 1em;
+  }
+
+  .mat-column-runNo, .mat-column-load, .mat-column-runningTime, .mat-column-distanceTravelled,
+  .mat-column-workDone, .mat-column-averageHP, .mat-column-coalUsed, .mat-column-specificConsumption {
+    font-variant-numeric: tabular-nums;
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+  }
+}
+
+@keyframes rowLanded {
+  from {
+    background-color: var(--mat-sys-primary-container, #ece0ff);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-score .mat-mdc-row.row-landed, app-score-mobile .mat-mdc-row.row-landed {
+    animation: none;
+  }
 }
 
 app-score {
@@ -30,10 +153,10 @@ app-score {
 
   .mat-column-place {
     flex: unset;
-    width: 30px;
+    width: 44px;
     padding: 0 7px 0 7px;
     margin-right: 7px;
-    border-right: 1px solid #efefef;
+    border-right: 1px solid var(--mat-sys-outline-variant, #efefef);
     font-weight: bold;
     font-size: 16px;
   }
@@ -119,7 +242,7 @@ app-score-mobile {
 
   .mat-column-place {
     flex: unset;
-    width: 26px;
+    width: 40px;
     padding: 0 7px 0 7px;
     margin-right: 7px;
   }
@@ -138,4 +261,3 @@ app-score-mobile {
     padding-left: 7px;
   }
 }
-

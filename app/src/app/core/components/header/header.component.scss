@@ -3,6 +3,12 @@ a {
   color: white;
 }
 
+a:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  color: lightgray;
+}
+
 a:hover, a:active {
   color: lightgray;
 }
@@ -13,11 +19,17 @@ a:hover, a:active {
   margin: 0;
 }
 
-mat-toolbar {
+mat-toolbar.mat-primary {
+  background-color: var(--mat-sys-primary);
+  color: white;
   border-radius: 3px;
 
   div {
     margin-right: 15px;
+  }
+
+  .mat-icon {
+    color: white;
   }
 }
 

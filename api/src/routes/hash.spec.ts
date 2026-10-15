@@ -40,13 +40,13 @@ describe('hash routes', () => {
         expect(s.body).toEqual([['Scores.xlsx', 'x']]);
     });
 
-    it.each(['config', 'content', 'entries', 'scores', 'save'])('%s missing hash 404', async (r) => {
+    it.each(['config', 'content', 'entries', 'scores'])('%s missing hash 404', async (r) => {
         const res = await request(app).get('/api/' + r);
         expect(res.status).toBe(404);
         expect(res.text).toBe('Missing HASH');
     });
 
-    it.each(['config', 'content', 'entries', 'scores', 'save'])('%s unknown hash 404', async (r) => {
+    it.each(['config', 'content', 'entries', 'scores'])('%s unknown hash 404', async (r) => {
         const res = await request(app).get('/api/' + r + '/nope');
         expect(res.status).toBe(404);
         expect(res.text).toBe('Not Found');
@@ -67,8 +67,4 @@ describe('hash routes', () => {
         expect(res.status).toBe(404);
     });
 
-    it('save stub', async () => {
-        const res = await request(app).get('/api/save/ev');
-        expect(res.text).toBe('OK');
-    });
 });

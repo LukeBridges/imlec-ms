@@ -22,6 +22,7 @@ import {selectEntries} from '../../../listings/selectors/entries.selector';
 import {State} from '../../../core/models/state.model';
 import {WINDOW} from '../../../core/services/window.service';
 import {ScoreComponent} from '../../components/score/score.component';
+import {SpinnerComponent} from '../../../components/components/spinner/spinner.component';
 
 @Component({
     selector: 'app-imlec-board',
@@ -29,12 +30,13 @@ import {ScoreComponent} from '../../components/score/score.component';
     styleUrls: ['./board.component.scss'],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [SpinnerComponent]
 })
 export class BoardComponent implements OnInit, OnDestroy {
   public scores$: Observable<ScoreModel[]>;
   public scores: ScoreModel[];
-  private rawScores: string;
+  private recordedScores: ScoreModel[];
+  private lastScoresJson: string;
   public entries$: Observable<LocoModel[]>;
   public entries: LocoModel[];
   private completeScores: Subject<ScoreModel[]> = new Subject<ScoreModel[]>();
@@ -65,7 +67,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   ) {
     this.scores$ = this.store.pipe(select(selectScores));
     this.scores = [];
-    this.rawScores = '';
+    this.recordedScores = [];
+    this.lastScoresJson = '';
     this.entries$ = this.store.pipe(select(selectEntries));
     this.entries = [];
   }
@@ -82,28 +85,34 @@ export class BoardComponent implements OnInit, OnDestroy {
       } else {
         this.entries = entries;
         this.store.dispatch(ScoresActions.getScores());
+        this.rebuildBoard();
       }
       this.cdr.markForCheck();
     });
     this.scores$.pipe(
       filter(scores => !!(scores && scores.length)),
-      filter(scores => JSON.stringify(scores) !== this.rawScores),
+      filter(scores => JSON.stringify(scores) !== this.lastScoresJson),
       takeUntil(this.ngUnsubscribe$),
     ).subscribe((scores: ScoreModel[]) => {
-      this.rawScores = JSON.stringify(scores);
-      this.scores = [];
-      scores.forEach(score => {
-        this.scores.push(new ScoreModel({
-          ...score,
-          loco: this.entries.find(entry => entry.runNo === score.runNo),
-        }));
-      });
-      this.ngOnChanges();
+      this.lastScoresJson = JSON.stringify(scores);
+      this.recordedScores = scores.map(score => new ScoreModel({
+        ...score,
+        loco: this.entries.find(entry => entry.runNo === score.runNo),
+      }));
+      this.rebuildBoard();
       this.cdr.markForCheck();
     });
     this.scoreInterval = this.window.setInterval(() => {
       this.store.dispatch(ScoresActions.getScores());
     }, BoardComponent.SCORE_REFRESH);
+  }
+
+  rebuildBoard(): void {
+    const byRunNo = new Map(this.recordedScores.map(score => [score.runNo, score]));
+    this.scores = this.entries
+      .map(entry => byRunNo.get(entry.runNo) ?? new ScoreModel({runNo: entry.runNo, loco: entry}))
+      .sort(ScoreModel.scoreSort);
+    this.ngOnChanges();
   }
 
   async ngOnChanges() {
@@ -114,8 +123,10 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.scoreInstance.ngOnInit();
     }
     if (this.hasScores) {
+      const prevRects = this.scoreInstance.captureRowRects();
       this.completeScores.next(this.scores);
       this.scoreInstance.changeDetection.detectChanges();
+      this.scoreInstance.playFlap(prevRects);
     }
   }
 

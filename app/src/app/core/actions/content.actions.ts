@@ -3,3 +3,4 @@ import {Content} from '../models/content.model';
 
 export const getContent = createAction('[Content] getContent');
 export const updateContent = createAction('[Content] updateContent', props<{ payload: Content }>());
+export const getContentFailure = createAction('[Content] getContentFailure', props<{ error: string }>());

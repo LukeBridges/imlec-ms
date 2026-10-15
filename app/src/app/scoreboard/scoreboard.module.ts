@@ -1,35 +1,27 @@
 import {NgModule} from '@angular/core';
-import {BoardComponent} from './containers/board/board.component';
-import {RouterModule} from '@angular/router';
-import {EffectsModule} from '@ngrx/effects';
-import {ScoresEffects} from './effects/scores.effects';
+import {RouterModule, Routes} from '@angular/router';
 import {StoreModule} from '@ngrx/store';
-import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
+import {EffectsModule} from '@ngrx/effects';
 import * as fromScores from './reducers/scores.reducer';
-import {CoreModule} from '../core/core.module';
-import {ScoreboardRoutingModule} from './scoreboard-routing.module';
-import {ListingsModule} from '../listings/listings.module';
-import {SpinnerComponent} from "../components/components/spinner/spinner.component";
+import {ScoresEffects} from './effects/scores.effects';
+import * as fromEntries from '../listings/reducers/entries.reducer';
+import {EntriesEffects} from '../listings/effects/entries.effects';
+
+// istanbul ignore next
+const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () => import('./containers/board/board.component').then(m => m.BoardComponent),
+  },
+];
 
 @NgModule({
-  declarations: [
-    BoardComponent,
-  ],
-  exports: [
-    RouterModule,
-  ],
   imports: [
-    ScoreboardRoutingModule,
+    RouterModule.forChild(routes),
     StoreModule.forFeature('scores', fromScores.reducer),
-    EffectsModule.forFeature([ScoresEffects]),
-    CoreModule,
-    ListingsModule,
-    SpinnerComponent
+    StoreModule.forFeature('entries', fromEntries.reducer),
+    EffectsModule.forFeature([ScoresEffects, EntriesEffects]),
   ],
-  providers: [
-    provideHttpClient(withXhr(), withInterceptorsFromDi())
-  ]
 })
 export class ScoreboardModule {
-
 }

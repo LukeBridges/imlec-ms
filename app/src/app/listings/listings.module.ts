@@ -1,34 +1,24 @@
 import {NgModule} from '@angular/core';
-import {CoreModule} from '../core/core.module';
-import {ListingsRoutingModule} from './listings-routing.module';
-import {ListingsComponent} from './containers/listings/listings.component';
-import {CountComponent} from './components/count/count.component';
-import {EntryComponent} from './components/entry/entry.component';
+import {RouterModule, Routes} from '@angular/router';
 import {StoreModule} from '@ngrx/store';
-import * as fromEntries from './reducers/entries.reducer';
 import {EffectsModule} from '@ngrx/effects';
+import * as fromEntries from './reducers/entries.reducer';
 import {EntriesEffects} from './effects/entries.effects';
-import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
-import {ContentBoxComponent} from '../components/components/contentBox/contentBox.component';
-import {SpinnerComponent} from "../components/components/spinner/spinner.component";
+
+// istanbul ignore next
+const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () => import('./containers/listings/listings.component').then(m => m.ListingsComponent),
+  },
+];
 
 @NgModule({
-  declarations: [
-    ListingsComponent,
-    CountComponent,
-    EntryComponent
-  ],
   imports: [
-    ListingsRoutingModule,
-    CoreModule,
+    RouterModule.forChild(routes),
     StoreModule.forFeature('entries', fromEntries.reducer),
     EffectsModule.forFeature([EntriesEffects]),
-    ContentBoxComponent,
-    SpinnerComponent
   ],
-  providers: [
-    provideHttpClient(withXhr(), withInterceptorsFromDi())
-  ]
 })
 export class ListingsModule {
 }

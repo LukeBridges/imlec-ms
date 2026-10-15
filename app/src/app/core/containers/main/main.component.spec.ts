@@ -3,6 +3,8 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppModule} from '../../../app.module';
 import {AppRoutingModule} from '../../app-routing.module';
 import {CUSTOM_ELEMENTS_SCHEMA, DOCUMENT} from '@angular/core';
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {of} from 'rxjs';
 import {Store} from '@ngrx/store';
 import * as ConfigActions from '../../actions/config.actions';
 import * as ContentActions from '../../actions/content.actions';
@@ -19,8 +21,8 @@ describe('MainComponent', () => {
       imports: [
         AppModule,
         AppRoutingModule,
+        MainComponent,
       ],
-      declarations: [MainComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
@@ -29,6 +31,34 @@ describe('MainComponent', () => {
     store = TestBed.inject(Store);
     document = TestBed.inject(DOCUMENT);
     fixture.detectChanges();
+  });
+
+  describe('isDesktop', () => {
+    test('reflects a matching breakpoint as true', async () => {
+      await TestBed.resetTestingModule().configureTestingModule({
+        imports: [AppModule, AppRoutingModule, MainComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [{provide: BreakpointObserver, useValue: {observe: () => of({matches: true})}}]
+      }).compileComponents();
+
+      const desktopFixture = TestBed.createComponent(MainComponent);
+      desktopFixture.detectChanges();
+
+      expect(desktopFixture.componentInstance.isDesktop()).toBe(true);
+    });
+
+    test('reflects a non-matching breakpoint as false', async () => {
+      await TestBed.resetTestingModule().configureTestingModule({
+        imports: [AppModule, AppRoutingModule, MainComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [{provide: BreakpointObserver, useValue: {observe: () => of({matches: false})}}]
+      }).compileComponents();
+
+      const mobileFixture = TestBed.createComponent(MainComponent);
+      mobileFixture.detectChanges();
+
+      expect(mobileFixture.componentInstance.isDesktop()).toBe(false);
+    });
   });
 
   test('should create', () => {
@@ -51,16 +81,16 @@ describe('MainComponent', () => {
       store.dispatch(ConfigActions.updateConfig({payload: {...initialState, primaryColour: '#ab1234'}}));
       fixture.detectChanges();
 
-      expect(document.documentElement.style.getPropertyValue('--primary-colour')).toBe('#ab1234');
+      expect(document.documentElement.style.getPropertyValue('--mat-sys-primary')).toBe('#ab1234');
     });
 
     test('does nothing when config has no primary colour', () => {
-      document.documentElement.style.removeProperty('--primary-colour');
+      document.documentElement.style.removeProperty('--mat-sys-primary');
 
       store.dispatch(ConfigActions.updateConfig({payload: {...initialState, primaryColour: ''}}));
       fixture.detectChanges();
 
-      expect(document.documentElement.style.getPropertyValue('--primary-colour')).toBe('');
+      expect(document.documentElement.style.getPropertyValue('--mat-sys-primary')).toBe('');
     });
   });
 });

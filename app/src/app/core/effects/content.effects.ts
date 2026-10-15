@@ -10,7 +10,7 @@ export class ContentEffects {
     ofType(ContentActions.getContent),
     mergeMap(() => this.contentService.fetchFromJson().then(
       content => ContentActions.updateContent({payload: content}),
-    )),
+    ).catch(error => ContentActions.getContentFailure({error: error?.message ?? 'Unknown error'}))),
   ));
 
   constructor(

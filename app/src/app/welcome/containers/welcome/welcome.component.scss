@@ -1,19 +1,24 @@
 a {
-  color: #0b72b8;
+  color: var(--mat-sys-primary, #0b72b8);
+}
+
+app-contentbox.logo-card {
+  display: block;
+  float: left;
+  width: 180px;
+  margin: 24px 20px 16px 24px;
 }
 
 .logo {
-  float: left;
-  max-width: 250px;
-  width: 15%;
-  margin: 10px;
+  display: block;
+  width: 100%;
+  border-radius: 6px;
 }
 
-app-contentbox {
-  flex-grow: 1;
+app-contentbox.links {
   text-align: center;
 
-  a {
+  a, button {
     height: auto !important;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -26,15 +31,66 @@ app-contentbox {
     }
 
     img {
-      height: 150px;
+      height: 96px;
+      width: 96px;
       margin-bottom: 5px;
     }
   }
 }
 
+app-contentbox.archive {
+  width: 320px;
+}
+
+.archiveWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.archiveIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  text-align: center;
+
+  img {
+    height: 96px;
+    width: 96px;
+    margin-bottom: 5px;
+    object-fit: cover;
+  }
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.archiveBody {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  font-size: 14px;
+
+  p {
+    margin: 0 0 6px;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+}
+
 @media all and (min-width: 600px) {
   .content {
-    margin-left: 270px;
+    margin-left: 224px;
   }
 }
 

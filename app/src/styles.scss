@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+      tertiary: mat.$magenta-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+
+  // M3's neutral surface tones are tinted by the primary hue by default; this app's
+  // existing look is flat white/grey, so override the surfaces back to neutral.
+  //
+  // One shared tone (--mat-sys-background / --mat-sys-surface-container-low) is the
+  // page "chrome" — the sidenav rail and the router-outlet canvas both sit on it, so
+  // they read as one continuous plane. Actual content (cards, dialogs) sits on plain
+  // white (--mat-sys-surface) above that plane for a clear base/elevated distinction.
+  --mat-sys-background: #f2f2f5;
+  --mat-sys-surface: #ffffff;
+  --mat-sys-surface-bright: #ffffff;
+  --mat-sys-surface-container: #ebebf0;
+  --mat-sys-surface-container-high: #e2e2e9;
+  --mat-sys-surface-container-highest: #d9d9e2;
+  --mat-sys-surface-container-low: #f2f2f5;
+  --mat-sys-surface-container-lowest: #ffffff;
+  --mat-sys-surface-dim: #d2d2db;
+  --mat-sys-surface-variant: #e2e2e9;
+}
+
+/* for sidenav to take a whole page */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

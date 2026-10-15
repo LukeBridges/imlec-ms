@@ -10,7 +10,7 @@ export class EntriesEffects {
     ofType(EntriesActions.getEntries),
     mergeMap(() => this.entriesService.fetchFromJson().then(
       entries => EntriesActions.updateEntries({payload: this.entriesService.getEntries()}),
-    )),
+    ).catch(error => EntriesActions.getEntriesFailure({error: error?.message ?? 'Unknown error'}))),
   ));
 
   constructor(

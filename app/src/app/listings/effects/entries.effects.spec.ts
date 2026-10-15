@@ -23,4 +23,36 @@ describe('EntriesEffects', () => {
     expect(service.fetchFromJson).toHaveBeenCalled();
     expect(result).toEqual(Actions.updateEntries({payload}));
   });
+
+  test('should dispatch failure action on fetch error', async () => {
+    const service = {fetchFromJson: vitest.fn().mockRejectedValue(new Error('boom')), getEntries: vitest.fn()};
+    TestBed.configureTestingModule({
+      providers: [
+        EntriesEffects,
+        provideMockActions(() => of(Actions.getEntries())),
+        {provide: EntriesService, useValue: service},
+      ],
+    });
+    const effects = TestBed.inject(EntriesEffects);
+
+    const result = await new Promise(resolve => effects.getEntries$.subscribe(resolve));
+
+    expect(result).toEqual(Actions.getEntriesFailure({error: 'boom'}));
+  });
+
+  test('should dispatch failure action with default message when error has no message', async () => {
+    const service = {fetchFromJson: vitest.fn().mockRejectedValue(undefined), getEntries: vitest.fn()};
+    TestBed.configureTestingModule({
+      providers: [
+        EntriesEffects,
+        provideMockActions(() => of(Actions.getEntries())),
+        {provide: EntriesService, useValue: service},
+      ],
+    });
+    const effects = TestBed.inject(EntriesEffects);
+
+    const result = await new Promise(resolve => effects.getEntries$.subscribe(resolve));
+
+    expect(result).toEqual(Actions.getEntriesFailure({error: 'Unknown error'}));
+  });
 });

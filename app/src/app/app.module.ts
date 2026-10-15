@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './core/containers/app/app.component';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
-import {APP_BASE_HREF, PlatformLocation} from '@angular/common';
+import {APP_BASE_HREF} from '@angular/common';
 import {
   FullRouterStateSerializer,
   RouterStateSerializer,
@@ -14,7 +14,7 @@ import {RouterModule} from '@angular/router';
 import {metaReducers, reducers} from './core/reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
-import {WINDOW, WINDOW_PROVIDERS} from './core/services/window.service';
+import {WINDOW_PROVIDERS} from './core/services/window.service';
 import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
 import {CustomRouterStateSerializer} from './core/services/custom-serializer.service';
 
@@ -47,7 +47,6 @@ import {CustomRouterStateSerializer} from './core/services/custom-serializer.ser
     {
       provide: APP_BASE_HREF,
       useFactory: getBaseHref,
-      deps: [PlatformLocation, WINDOW],
     },
     {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
     provideHttpClient(withXhr(), withInterceptorsFromDi()),
@@ -58,7 +57,6 @@ export class AppModule {
   }
 }
 
-export function getBaseHref(window: Window): string {
-  const path = window.location?.pathname || '';
-  return '/' + path.split('/')[1];
+export function getBaseHref(): string {
+  return '/';
 }

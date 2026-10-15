@@ -86,39 +86,43 @@ describe('ScoreModel', () => {
     });
   });
 
+  describe('averageDrawBarPullToDisplay', () => {
+    test('should return formatted average drawbar pull', () => {
+      expect(model.averageDrawBarPullToDisplay).toEqual(7.5);
+    });
+  });
+
   describe('scoreSort', () => {
-    let scoreA: ScoreModel;
-    let scoreB: ScoreModel;
+    test('should rank the higher score first when both have scored', () => {
+      const scoreA = new ScoreModel({runNo: 1, workDone: 10000, coalUsed: 1.5});
+      const scoreB = new ScoreModel({runNo: 2, workDone: 20000, coalUsed: 1.5});
 
-    beforeEach(() => {
-      scoreA = new ScoreModel({
-        runNo: 1,
-        workDone: 0,
-        coalUsed: 0,
-      });
-      scoreB = new ScoreModel({
-        runNo: 2,
-        workDone: 0,
-        coalUsed: 0,
-      });
+      expect(ScoreModel.scoreSort(scoreA, scoreB)).toBeGreaterThan(0);
+      expect(ScoreModel.scoreSort(scoreB, scoreA)).toBeLessThan(0);
     });
 
-    test('should return -1 if score a is dnf', () => {
-      scoreB = new ScoreModel({
-        runNo: 1,
-        workDone: 10000,
-        coalUsed: 1.5,
-      });
-      expect(ScoreModel.scoreSort(scoreA, scoreB)).toEqual(1.0612);
+    test('should rank a scored run before a dnf run', () => {
+      const scored = new ScoreModel({runNo: 1, workDone: 10000, coalUsed: 1.5});
+      const dnf = new ScoreModel({runNo: 2, workDone: 0, coalUsed: 0});
+
+      expect(ScoreModel.scoreSort(scored, dnf)).toBeLessThan(0);
+      expect(ScoreModel.scoreSort(dnf, scored)).toBeGreaterThan(0);
     });
 
-    test('should return 0 if score b is dnf', () => {
-      scoreA = new ScoreModel({
-        runNo: 1,
-        workDone: 10000,
-        coalUsed: 1.5,
-      });
-      expect(ScoreModel.scoreSort(scoreA, scoreB)).toEqual(-0.0612);
+    test('should rank a scored run before a run that has not happened yet', () => {
+      const scored = new ScoreModel({runNo: 1, workDone: 10000, coalUsed: 1.5});
+      const notYetRun = new ScoreModel({runNo: 2});
+
+      expect(ScoreModel.scoreSort(scored, notYetRun)).toBeLessThan(0);
+      expect(ScoreModel.scoreSort(notYetRun, scored)).toBeGreaterThan(0);
+    });
+
+    test('should keep unscored runs (dnf or not yet run) in run order', () => {
+      const dnf = new ScoreModel({runNo: 2, workDone: 0, coalUsed: 0});
+      const notYetRun = new ScoreModel({runNo: 5});
+
+      expect(ScoreModel.scoreSort(dnf, notYetRun)).toBeLessThan(0);
+      expect(ScoreModel.scoreSort(notYetRun, dnf)).toBeGreaterThan(0);
     });
   });
 
@@ -135,6 +139,10 @@ describe('ScoreModel', () => {
 
     test('should return null coal consumption', () => {
       expect(empty.specificCoalConsumptionToDisplay).toBeNull();
+    });
+
+    test('should return null average drawbar pull', () => {
+      expect(empty.averageDrawBarPullToDisplay).toBeNull();
     });
   });
 });

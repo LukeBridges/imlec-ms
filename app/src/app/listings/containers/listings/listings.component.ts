@@ -8,13 +8,16 @@ import * as EntriesActions from '../../actions/entries.actions';
 import {delay, take, takeUntil} from 'rxjs/operators';
 import {State} from '../../../core/models/state.model';
 import {selectConfig} from '../../../core/selectors/config.selector';
+import {SpinnerComponent} from '../../../components/components/spinner/spinner.component';
+import {EntryComponent} from '../../components/entry/entry.component';
+import {CountComponent} from '../../components/count/count.component';
 
 @Component({
     selector: 'app-listings',
     templateUrl: './listings.component.html',
     styleUrls: ['./listings.component.css'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [SpinnerComponent, EntryComponent, CountComponent]
 })
 export class ListingsComponent implements OnInit, OnDestroy {
 

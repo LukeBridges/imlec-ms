@@ -10,7 +10,7 @@ export class ConfigEffects {
     ofType(ConfigActions.getConfig),
     mergeMap(() => this.configService.fetchFromJson().then(
       config => ConfigActions.updateConfig({payload: config}),
-    )),
+    ).catch(error => ConfigActions.getConfigFailure({error: error?.message ?? 'Unknown error'}))),
   ));
 
   constructor(

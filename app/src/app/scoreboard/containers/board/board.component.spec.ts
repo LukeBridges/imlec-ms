@@ -9,14 +9,10 @@ import {ScoreModel} from '../../../core/models/score.model';
 import {Observable, of} from 'rxjs';
 import * as EntriesActions from '../../../listings/actions/entries.actions';
 import {LocoModel} from '../../../core/models/loco.model';
-import {ScoreboardRoutingModule} from '../../scoreboard-routing.module';
 import {EffectsModule} from '@ngrx/effects';
 import {ScoresEffects} from '../../effects/scores.effects';
 import {EntriesEffects} from '../../../listings/effects/entries.effects';
 import * as fromEntries from '../../../listings/reducers/entries.reducer';
-import {MatTableModule} from '@angular/material/table';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {CoreModule} from '../../../core/core.module';
 import {State} from '../../../core/models/state.model';
 import {WINDOW_PROVIDERS} from '../../../core/services/window.service';
 import {ScoresService} from '../../services/scores.service';
@@ -32,17 +28,11 @@ describe('BoardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         AppModule,
-        CoreModule,
-        ScoreboardRoutingModule,
+        BoardComponent,
         StoreModule.forFeature('scores', fromScores.reducer),
         StoreModule.forFeature('entries', fromEntries.reducer),
         EffectsModule.forFeature([ScoresEffects, EntriesEffects]),
         HttpClientTestingModule,
-        MatTableModule,
-        MatExpansionModule,
-      ],
-      declarations: [
-        BoardComponent,
       ],
       providers: [
         WINDOW_PROVIDERS,
@@ -79,24 +69,20 @@ describe('BoardComponent', () => {
   });
 
   describe('hasScores', () => {
-    test('should return true then scores loaded', () => {
-      component.scores$ = new Observable<ScoreModel[]>(sub => {
-        sub.next(null);
-        sub.next([
-          new ScoreModel({runNo: 1}),
-          new ScoreModel({runNo: 2}),
-        ]);
-        sub.complete();
-      });
+    test('should return true once entries are loaded, even with no scores yet', () => {
+      component.entries$ = of([new LocoModel({runNo: 1}), new LocoModel({runNo: 2})]);
+      component.scores$ = new Observable<ScoreModel[]>();
 
       component.ngOnInit();
 
       expect(component.hasScores).toBeTruthy();
+      expect(component.scores.length).toEqual(2);
 
       clearInterval((component as any).scoreInterval);
     });
 
-    test('should return false when no scores', () => {
+    test('should return false when no entries', () => {
+      component.entries$ = of(null as any);
       component.scores$ = new Observable<ScoreModel[]>();
 
       component.ngOnInit();
@@ -106,16 +92,15 @@ describe('BoardComponent', () => {
       clearInterval((component as any).scoreInterval);
     });
 
-    test('should return false even if empty scores list', () => {
-      component.scores$ = new Observable<ScoreModel[]>(sub => {
-        sub.next(null);
-        sub.next([]);
-        sub.complete();
-      });
+    test('should return false when entries list is empty', () => {
+      component.entries$ = of([]);
+      component.scores$ = new Observable<ScoreModel[]>();
 
       component.ngOnInit();
 
       expect(component.hasScores).toBeFalsy();
+
+      clearInterval((component as any).scoreInterval);
     });
   });
 
@@ -166,7 +151,8 @@ describe('BoardComponent', () => {
 
       expect(component.scores.length).toEqual(1);
       expect(component.scores[0].loco?.name).toEqual('one');
-      expect(changes).toHaveBeenCalledTimes(1);
+      // once when the entries alone arrive (placeholder board), once when the real score lands
+      expect(changes).toHaveBeenCalledTimes(2);
     });
 
     test('should be mobile on narrow window', () => {
@@ -175,6 +161,34 @@ describe('BoardComponent', () => {
       component.ngOnInit();
 
       expect(component.isMobile).toBe(true);
+    });
+  });
+
+  describe('rebuildBoard', () => {
+    test('should show every entry in run order as a placeholder before any score arrives', () => {
+      component.ngOnChanges = vitest.fn().mockResolvedValue(undefined);
+      // entries deliberately out of run order, to prove the merge sorts them rather than just passing them through
+      component.entries = [new LocoModel({runNo: 2}), new LocoModel({runNo: 1})];
+
+      component.rebuildBoard();
+
+      expect(component.scores.map(s => s.runNo)).toEqual([1, 2]);
+      expect(component.scores.every(s => s.score === undefined)).toBeTruthy();
+      expect(component.ngOnChanges).toHaveBeenCalled();
+    });
+
+    test('should use the recorded score for an entry once it has one, keeping others as placeholders', () => {
+      component.ngOnChanges = vitest.fn().mockResolvedValue(undefined);
+      component.entries = [new LocoModel({runNo: 1}), new LocoModel({runNo: 2})];
+      component['recordedScores'] = [new ScoreModel({runNo: 2, workDone: 10000, coalUsed: 1.5})];
+
+      component.rebuildBoard();
+
+      const [first, second] = component.scores;
+      expect(first.runNo).toEqual(2);
+      expect(typeof first.score).toEqual('number');
+      expect(second.runNo).toEqual(1);
+      expect(second.score).toBeUndefined();
     });
   });
 
@@ -187,6 +201,8 @@ describe('BoardComponent', () => {
         desktop: true,
         ngOnInit: vitest.fn(),
         changeDetection: {detectChanges: vitest.fn()},
+        captureRowRects: vitest.fn().mockReturnValue(new Map()),
+        playFlap: vitest.fn(),
       };
       vitest.spyOn(component, 'getScoreComponent').mockResolvedValue(instance);
       component.innerWidth = 1000;
@@ -208,6 +224,18 @@ describe('BoardComponent', () => {
 
       expect(component.getScoreComponent).toHaveBeenCalledTimes(1);
       expect(instance.changeDetection.detectChanges).toHaveBeenCalled();
+    });
+
+    test('should capture and replay row positions when pushing scores', async () => {
+      await component.ngOnChanges();
+      component.scores = [new ScoreModel({runNo: 1})];
+      const prevRects = new Map([[1, {} as DOMRect]]);
+      instance.captureRowRects.mockReturnValue(prevRects);
+
+      await component.ngOnChanges();
+
+      expect(instance.captureRowRects).toHaveBeenCalled();
+      expect(instance.playFlap).toHaveBeenCalledWith(prevRects);
     });
 
     test('should recreate component when switching to mobile', async () => {

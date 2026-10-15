@@ -3,16 +3,12 @@ import {of} from 'rxjs';
 import {Store, StoreModule} from '@ngrx/store';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ListingsComponent} from './listings.component';
-import {EntryComponent} from '../../components/entry/entry.component';
-import {CountComponent} from '../../components/count/count.component';
 import * as EntriesActions from '../../actions/entries.actions';
 import * as fromEntries from '../../reducers/entries.reducer';
 import * as fromConfig from '../../../core/reducers/config.reducer';
 import * as ConfigActions from '../../../core/actions/config.actions';
 import {LocoModel} from '../../../core/models/loco.model';
 import {initialState} from '../../../core/reducers/config.reducer';
-import {SpinnerComponent} from '../../../components/components/spinner/spinner.component';
-import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 
 describe('ListingsComponent', () => {
   let component: ListingsComponent;
@@ -24,13 +20,7 @@ describe('ListingsComponent', () => {
       imports: [
         RouterTestingModule,
         StoreModule.forRoot({entries: fromEntries.reducer, config: fromConfig.reducer}),
-        ContentBoxComponent,
-        SpinnerComponent,
-      ],
-      declarations: [
         ListingsComponent,
-        EntryComponent,
-        CountComponent,
       ],
     });
     fixture = TestBed.createComponent(ListingsComponent);

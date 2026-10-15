@@ -4,3 +4,4 @@ import {LocoModel} from '../../core/models/loco.model';
 export const getEntries = createAction('[Entries] getEntries');
 export const updateEntries = createAction(
   '[Entries] updateEntries', props<{ payload: LocoModel[] }>());
+export const getEntriesFailure = createAction('[Entries] getEntriesFailure', props<{ error: string }>());

@@ -5,8 +5,7 @@ import {Component, Input, ViewEncapsulation, ChangeDetectionStrategy} from '@ang
     templateUrl: './count.component.html',
     styleUrls: ['./count.component.scss'],
     encapsulation: ViewEncapsulation.ShadowDom,
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class CountComponent {
 

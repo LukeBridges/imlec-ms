@@ -1,13 +1,15 @@
 import {Component, Input, OnChanges, ChangeDetectionStrategy} from '@angular/core';
+import {NgTemplateOutlet} from '@angular/common';
 import {LocoModel} from '../../../core/models/loco.model';
 import {environment} from '../../../../environments/environment';
+import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 
 @Component({
     selector: 'app-entry',
     templateUrl: './entry.component.html',
     styleUrls: ['./entry.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [NgTemplateOutlet, ContentBoxComponent]
 })
 export class EntryComponent implements OnChanges {
 

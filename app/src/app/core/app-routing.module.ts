@@ -20,38 +20,33 @@ const routes: Routes = [
       },
       {
         path: 'rules',
-        loadChildren: () => import('./../rules/rules.module').then(
-          m => m.RulesModule),
+        loadComponent: () => import('./../rules/containers/rules/rules.component').then(
+          m => m.RulesComponent),
       },
       {
         path: 'hotels',
-        loadChildren: () => import('./../hotels/hotels.module').then(
-          m => m.HotelsModule),
+        loadComponent: () => import('./../hotels/containers/hotels/hotels.component').then(
+          m => m.HotelsComponent),
       },
       {
         path: 'food',
-        loadChildren: () => import('./../food/food.module').then(
-          m => m.FoodModule),
-      },
-      {
-        path: 'winners',
-        loadChildren: () => import('./../winners/winners.module').then(
-          m => m.WinnersModule),
+        loadComponent: () => import('./../food/containers/food/food.component').then(
+          m => m.FoodComponent),
       },
       {
         path: 'welcome',
-        loadChildren: () => import('./../welcome/welcome.module').then(
-          m => m.WelcomeModule),
+        loadComponent: () => import('./../welcome/containers/welcome/welcome.component').then(
+          m => m.WelcomeComponent),
       },
       {
         path: 'about',
-        loadChildren: () => import('./../about/about.module').then(
-          m => m.AboutModule),
+        loadComponent: () => import('./../about/containers/about/about.component').then(
+          m => m.AboutComponent),
       },
       {
         path: '',
-        loadChildren: () => import('./../welcome/welcome.module').then(
-          m => m.WelcomeModule),
+        loadComponent: () => import('./../welcome/containers/welcome/welcome.component').then(
+          m => m.WelcomeComponent),
       },
     ],
   },

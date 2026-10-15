@@ -1,0 +1,16 @@
+{
+  "name": "imlec-ms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Builds the app and serves app + api from a single host/port.",
+  "scripts": {
+    "build:app": "npm --prefix app run build",
+    "build:api": "npm --prefix api run build",
+    "build": "npm run build:app && npm run build:api",
+    "start": "npm run build && npm --prefix api start",
+    "start:watch": "nodemon --watch app/src --watch api/src --watch common --ext ts,html,scss,css,json --exec \"npm run start\""
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

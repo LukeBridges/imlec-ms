@@ -3,8 +3,6 @@ import {ScoresService} from '../../services/scores.service';
 import {ScoresServiceMock} from '../../../../test/mock/services/scores.service.mock';
 import {ScoreComponent} from './score.component';
 import {WINDOW_PROVIDERS} from '../../../core/services/window.service';
-import {MatTableModule} from '@angular/material/table';
-import {DetailRowDirective} from '../../directives/detail-row.directive';
 import {of} from 'rxjs';
 import {ScoreModel} from '../../../core/models/score.model';
 import {ContextService} from "../../../core/services/context.service";
@@ -19,11 +17,7 @@ describe('ScoreComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        MatTableModule,
-      ],
-      declarations: [
         ScoreComponent,
-        DetailRowDirective,
       ],
       providers: [
         provideHttpClient(),
@@ -89,6 +83,111 @@ describe('ScoreComponent', () => {
       component.scrollBottom();
 
       expect(component.scrollTo).toHaveBeenCalledWith(1000, ScoreComponent.SCROLL_TIME * 2);
+    });
+  });
+
+  describe('captureRowRects', () => {
+    test('should return empty map when no rows rendered', () => {
+      component.rowEls = undefined as any;
+
+      expect(component.captureRowRects().size).toEqual(0);
+    });
+
+    test('should key rects and record places by run number', () => {
+      component.scores = [new ScoreModel({runNo: 7})];
+      component.rowEls = {
+        forEach: (cb: any) => [{nativeElement: {
+          style: {},
+          classList: {remove: vi.fn()},
+          getBoundingClientRect: () => ({top: 42} as DOMRect),
+        }}].forEach(cb),
+      } as any;
+
+      const rects = component.captureRowRects();
+
+      expect(rects.get(7)?.top).toEqual(42);
+      expect(component.trend(7, 1)).toEqual('same');
+    });
+
+    test('should record a numeric score signature', () => {
+      component.scores = [new ScoreModel({runNo: 1, workDone: 10000, coalUsed: 1.5})];
+      component.rowEls = {
+        forEach: (cb: any) => [{nativeElement: {
+          style: {},
+          classList: {remove: vi.fn()},
+          getBoundingClientRect: () => ({top: 10} as DOMRect),
+        }}].forEach(cb),
+      } as any;
+
+      component.captureRowRects();
+
+      expect(component['previousScores'].get(1)).toEqual(component.scores[0].score);
+    });
+
+    test('should record a dnf score signature', () => {
+      component.scores = [new ScoreModel({runNo: 1, workDone: 0, coalUsed: 0})];
+      component.rowEls = {
+        forEach: (cb: any) => [{nativeElement: {
+          style: {},
+          classList: {remove: vi.fn()},
+          getBoundingClientRect: () => ({top: 10} as DOMRect),
+        }}].forEach(cb),
+      } as any;
+
+      component.captureRowRects();
+
+      expect(component['previousScores'].get(1)).toEqual('dnf');
+    });
+
+    test('should skip rows with no matching score', () => {
+      component.scores = [];
+      component.rowEls = {
+        forEach: (cb: any) => [{nativeElement: {
+          style: {},
+          classList: {remove: vi.fn()},
+          getBoundingClientRect: () => ({top: 1} as DOMRect),
+        }}].forEach(cb),
+      } as any;
+
+      expect(component.captureRowRects().size).toEqual(0);
+    });
+  });
+
+  describe('hasScored', () => {
+    test('should return true for a numeric score', () => {
+      expect(component.hasScored(new ScoreModel({runNo: 1, workDone: 10000, coalUsed: 1.5}))).toBeTruthy();
+    });
+
+    test('should return false for a dnf row', () => {
+      expect(component.hasScored(new ScoreModel({runNo: 1, workDone: 0, coalUsed: 0}))).toBeFalsy();
+    });
+
+    test('should return false for a row that has not run yet', () => {
+      expect(component.hasScored(new ScoreModel({runNo: 1}))).toBeFalsy();
+    });
+  });
+
+  describe('trend', () => {
+    test('should return same when no previous place recorded', () => {
+      expect(component.trend(1, 1)).toEqual('same');
+    });
+
+    test('should return same when place unchanged', () => {
+      component['previousPlaces'].set(1, 2);
+
+      expect(component.trend(1, 2)).toEqual('same');
+    });
+
+    test('should return up when place improved to a lower number', () => {
+      component['previousPlaces'].set(1, 5);
+
+      expect(component.trend(1, 2)).toEqual('up');
+    });
+
+    test('should return down when place worsened to a higher number', () => {
+      component['previousPlaces'].set(1, 2);
+
+      expect(component.trend(1, 5)).toEqual('down');
     });
   });
 

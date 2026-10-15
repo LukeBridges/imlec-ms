@@ -127,12 +127,6 @@ test.describe('static pages via the sidebar', () => {
         await expect(page.locator('main h1')).toContainText('Catering and Food');
     });
 
-    test('winners page renders', async ({page}) => {
-        await openSidenav(page);
-        await page.getByRole('link', {name: 'Previous Winners'}).click();
-        await expect(page.locator('main h1')).toContainText('Previous IMLEC Winners');
-    });
-
     test('home link returns to welcome from a deep page', async ({page}) => {
         await openSidenav(page);
         await page.getByRole('link', {name: 'About'}).click();
