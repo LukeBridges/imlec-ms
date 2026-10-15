@@ -1,7 +1,10 @@
-import {Component, Inject, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, ChangeDetectionStrategy} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {RouterLink} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 import {LightboxComponent} from '../../../components/components/lightbox/lightbox.component';
+import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 import {select, Store} from '@ngrx/store';
 import {selectConfig} from '../../../core/selectors/config.selector';
 import {State} from '../../../core/models/state.model';
@@ -11,9 +14,8 @@ import {selectContent} from '../../../core/selectors/content.selector';
     selector: 'app-welcome',
     templateUrl: './welcome.component.html',
     styleUrls: ['./welcome.component.scss'],
-    encapsulation: ViewEncapsulation.ShadowDom,
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [RouterLink, MatButtonModule, ContentBoxComponent]
 })
 export class WelcomeComponent {
 

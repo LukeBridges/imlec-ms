@@ -23,4 +23,36 @@ describe('ContentEffects', () => {
     expect(service.fetchFromJson).toHaveBeenCalled();
     expect(result).toEqual(Actions.updateContent({payload}));
   });
+
+  test('should dispatch failure action on fetch error', async () => {
+    const service = {fetchFromJson: vitest.fn().mockRejectedValue(new Error('boom'))};
+    TestBed.configureTestingModule({
+      providers: [
+        ContentEffects,
+        provideMockActions(() => of(Actions.getContent())),
+        {provide: ContentService, useValue: service},
+      ],
+    });
+    const effects = TestBed.inject(ContentEffects);
+
+    const result = await new Promise(resolve => effects.getContent$.subscribe(resolve));
+
+    expect(result).toEqual(Actions.getContentFailure({error: 'boom'}));
+  });
+
+  test('should dispatch failure action with default message when error has no message', async () => {
+    const service = {fetchFromJson: vitest.fn().mockRejectedValue(undefined)};
+    TestBed.configureTestingModule({
+      providers: [
+        ContentEffects,
+        provideMockActions(() => of(Actions.getContent())),
+        {provide: ContentService, useValue: service},
+      ],
+    });
+    const effects = TestBed.inject(ContentEffects);
+
+    const result = await new Promise(resolve => effects.getContent$.subscribe(resolve));
+
+    expect(result).toEqual(Actions.getContentFailure({error: 'Unknown error'}));
+  });
 });

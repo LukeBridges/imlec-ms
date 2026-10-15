@@ -1,10 +1,49 @@
-a {
-  text-decoration: none;
-  color: white;
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-a:hover, a:active {
-  color: lightgray;
+mat-nav-list {
+  padding-top: 8px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--mat-sys-on-surface-variant);
+  border-left: 3px solid transparent;
+  border-radius: 0 !important;
+  margin: 0;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+a mat-icon {
+  color: var(--mat-sys-on-surface-variant);
+  transition: color 120ms ease;
+}
+
+a:hover {
+  background-color: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface);
+}
+
+a:hover mat-icon {
+  color: var(--mat-sys-on-surface);
+}
+
+a.active-link {
+  background-color: var(--mat-sys-surface-container-high);
+  border-left-color: var(--mat-sys-primary);
+  color: var(--mat-sys-primary);
+  font-weight: 500;
+}
+
+a.active-link mat-icon {
+  color: var(--mat-sys-primary);
+}
+
+mat-divider {
+  margin: 8px 0;
 }
 
 .nav-caption {

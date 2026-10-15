@@ -1,13 +1,6 @@
 import {HeaderComponent} from './header.component';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppRoutingModule} from '../../app-routing.module';
-import {MatListModule} from '@angular/material/list';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MainComponent} from '../../containers/main/main.component';
-import {SidebarComponent} from '../sidebar/sidebar.component';
 import {AppModule} from '../../../app.module';
 
 describe('HeaderComponent', () => {
@@ -19,13 +12,8 @@ describe('HeaderComponent', () => {
       imports: [
         AppModule,
         AppRoutingModule,
-        MatListModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatButtonModule,
+        HeaderComponent,
       ],
-      declarations: [HeaderComponent, MainComponent, SidebarComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

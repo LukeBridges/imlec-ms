@@ -1,80 +1,44 @@
+<ng-template #dayBlock let-entries="entries" let-showTime="showTime">
+  @for (entry of entries; track entry.runNo) {
+    <app-contentbox class="entry">
+      <div>
+        <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span
+        class="driver">{{ entry.driver.name }}</span>@if (showTime) {&nbsp;<span
+        class="time">{{ parseTime(entry.time) }}</span>}<br/>
+        <span>{{ entry.driver.club }}</span><br/>
+        <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
+      </div>
+      @if (entry.img) {
+        <img class="entryPhoto" alt="Photo of {{entry.model}}"
+             src="{{url}}/assets/photos/{{entry.img}}">
+      }
+    </app-contentbox>
+  }
+</ng-template>
+
 <div class="day">
   <h1>Friday</h1>
   <div class="entries">
-    @for (entry of fridayEntries; track entry.runNo) {
-      <app-contentbox class="entry">
-        <div>
-          <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span
-          class="driver">{{ entry.driver.name }}</span>&nbsp;<span
-          class="time">{{ parseTime(entry.time) }}</span><br/>
-          <span>{{ entry.driver.club }}</span><br/>
-          <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
-        </div>
-        @if (entry.img) {
-          <img class="entryPhoto" alt="Photo of {{entry.model}}"
-               src="{{url}}/assets/photos/{{entry.img}}">
-        }
-      </app-contentbox>
-    }
+    <ng-container *ngTemplateOutlet="dayBlock; context: {entries: fridayEntries, showTime: true}"></ng-container>
   </div>
 </div>
 <div class="day">
   <h1>Saturday</h1>
   <div class="entries">
-    @for (entry of saturdayEntries; track entry.runNo) {
-      <app-contentbox class="entry">
-        <div>
-          <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span
-          class="driver">{{ entry.driver.name }}</span>&nbsp;<span
-          class="time">{{ parseTime(entry.time) }}</span><br/>
-          <span>{{ entry.driver.club }}</span><br/>
-          <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
-        </div>
-        @if (entry.img) {
-          <img class="entryPhoto" alt="Photo of {{entry.model}}"
-               src="{{url}}/assets/photos/{{entry.img}}">
-        }
-      </app-contentbox>
-    }
+    <ng-container *ngTemplateOutlet="dayBlock; context: {entries: saturdayEntries, showTime: true}"></ng-container>
   </div>
 </div>
 <div class="day">
   <h1>Sunday</h1>
   <div class="entries">
-    @for (entry of sundayEntries; track entry.runNo) {
-      <app-contentbox class="entry">
-        <div>
-          <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span
-          class="driver">{{ entry.driver.name }}</span>&nbsp;<span
-          class="time">{{ parseTime(entry.time) }}</span><br/>
-          <span>{{ entry.driver.club }}</span><br/>
-          <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
-        </div>
-        @if (entry.img) {
-          <img class="entryPhoto" alt="Photo of {{entry.model}}"
-               src="{{url}}/assets/photos/{{entry.img}}">
-        }
-      </app-contentbox>
-    }
+    <ng-container *ngTemplateOutlet="dayBlock; context: {entries: sundayEntries, showTime: true}"></ng-container>
   </div>
 </div>
 @if (hasReserves) {
   <div class="day">
     <h1>Reserves</h1>
     <div class="entries">
-      @for (entry of reserveEntries; track entry.runNo) {
-        <app-contentbox class="entry">
-          <div>
-            <span class="runNo">{{ entry.runNo }}.</span>&nbsp;<span class="driver">{{ entry.driver.name }}</span><br/>
-            <span>{{ entry.driver.club }}</span><br/>
-            <span>{{ entry.gauge }}" {{ entry.model }}</span><br/>
-          </div>
-          @if (entry.img) {
-            <img class="entryPhoto" alt="Photo of {{entry.model}}"
-                 src="{{url}}/assets/photos/{{entry.img}}">
-          }
-        </app-contentbox>
-      }
+      <ng-container *ngTemplateOutlet="dayBlock; context: {entries: reserveEntries, showTime: false}"></ng-container>
     </div>
   </div>
 }

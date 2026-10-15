@@ -3,11 +3,11 @@
 }
 
 router-outlet {
-  background-color: #efefef;
+  background-color: var(--mat-sys-background);
 }
 
 .content {
-  margin: 5px;
+  margin: 24px;
 }
 
 .center {
@@ -15,6 +15,7 @@ router-outlet {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 16px;
 }
 
 app-main {

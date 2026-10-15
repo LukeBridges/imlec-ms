@@ -1,4 +1,8 @@
 import {Component, EventEmitter, HostListener, Input, Output, ChangeDetectionStrategy} from '@angular/core';
+import {RouterLink} from '@angular/router';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import {Config} from "../../../../../../common/models/config.model";
 
 @Component({
@@ -6,7 +10,7 @@ import {Config} from "../../../../../../common/models/config.model";
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [RouterLink, MatToolbarModule, MatButtonModule, MatIconModule]
 })
 export class HeaderComponent {
 

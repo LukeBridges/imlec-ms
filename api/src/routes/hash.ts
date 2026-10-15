@@ -57,9 +57,5 @@ export const hashRouter = (opts: AppOptions): Router => {
     router.get('/api/entries{/:hash}', sheet('entries'));
     router.get('/api/scores{/:hash}', sheet('scores'));
 
-    router.get('/api/save{/:hash}', async (req: Request, res: Response) => {
-        if (await load(res, req.params.hash as string | undefined)) res.send('OK');
-    });
-
     return router;
 };

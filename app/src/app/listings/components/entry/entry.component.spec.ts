@@ -1,5 +1,4 @@
 import {EntryComponent} from './entry.component';
-import {ContentBoxComponent} from '../../../components/components/contentBox/contentBox.component';
 import {LocoModel} from '../../../core/models/loco.model';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {environment} from '../../../../environments/environment';
@@ -13,8 +12,7 @@ describe('ListingsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ContentBoxComponent],
-      declarations: [EntryComponent],
+      imports: [EntryComponent],
     });
     fixture = TestBed.createComponent(EntryComponent);
     component = fixture.componentInstance;
@@ -49,6 +47,10 @@ describe('ListingsComponent', () => {
   });
 
   describe('parseTime', () => {
+    test('should return empty string for falsy time', () => {
+      expect(component.parseTime('')).toEqual('');
+    });
+
     test('should pad short times', () => {
       expect(component.parseTime('930')).toEqual('09:30');
     });

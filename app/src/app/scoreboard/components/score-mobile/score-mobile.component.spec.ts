@@ -3,8 +3,6 @@ import {ScoresService} from '../../services/scores.service';
 import {ScoresServiceMock} from '../../../../test/mock/services/scores.service.mock';
 import {ScoreMobileComponent} from './score-mobile.component';
 import {WINDOW_PROVIDERS} from '../../../core/services/window.service';
-import {MatTableModule} from '@angular/material/table';
-import {DetailRowDirective} from '../../directives/detail-row.directive';
 
 describe('ScoreMobileComponent', () => {
   let component: ScoreMobileComponent;
@@ -12,11 +10,7 @@ describe('ScoreMobileComponent', () => {
 
   TestBed.configureTestingModule({
     imports: [
-      MatTableModule,
-    ],
-    declarations: [
       ScoreMobileComponent,
-      DetailRowDirective,
     ],
     providers: [
       {provide: ScoresService, useClass: ScoresServiceMock},

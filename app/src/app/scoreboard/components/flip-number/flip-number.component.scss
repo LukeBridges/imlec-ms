@@ -1,0 +1,39 @@
+:host {
+  display: inline-flex;
+  perspective: 240px;
+}
+
+.flip-number {
+  display: inline-block;
+  min-width: 1.6ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  transform-origin: center 60%;
+}
+
+.flip-number.flip {
+  animation: flip-number-tick 150ms ease-in-out;
+}
+
+@keyframes flip-number-tick {
+  0% {
+    transform: rotateX(0deg);
+  }
+  45% {
+    transform: rotateX(80deg);
+    opacity: 0.4;
+  }
+  55% {
+    transform: rotateX(-80deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-number.flip {
+    animation: none;
+  }
+}

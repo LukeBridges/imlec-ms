@@ -2,7 +2,6 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  NgModule,
   OnDestroy,
   OnInit,
   ViewEncapsulation,
@@ -10,15 +9,17 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import {ScoreComponent} from '../score/score.component';
-
-import {ScoreboardImportsModule} from '../../scoreboard-imports.module';
+import {MatTableModule} from '@angular/material/table';
+import {MatRippleModule} from '@angular/material/core';
+import {DetailRowDirective} from '../../directives/detail-row.directive';
+import {FlipNumberComponent} from '../flip-number/flip-number.component';
 
 @Component({
     selector: 'app-score-mobile',
     templateUrl: '../score/score.component.html',
     encapsulation: ViewEncapsulation.Emulated,
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [MatTableModule, MatRippleModule, DetailRowDirective, FlipNumberComponent]
 })
 export class ScoreMobileComponent extends ScoreComponent
   implements OnInit, OnDestroy {
@@ -56,11 +57,4 @@ export class ScoreMobileComponent extends ScoreComponent
   // istanbul ignore next
   async scrollBottom() {
   }
-}
-
-@NgModule({
-  declarations: [ScoreMobileComponent],
-  imports: [ScoreboardImportsModule],
-})
-export class ScoreMobileComponentModule {
 }

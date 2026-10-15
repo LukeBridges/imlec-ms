@@ -10,7 +10,7 @@ export class ScoresEffects {
     ofType(ScoresActions.getScores),
     mergeMap(() => this.scoresService.fetchFromJson().then(
       scores => ScoresActions.updateScores({payload: this.scoresService.getScores()}),
-    )),
+    ).catch(error => ScoresActions.getScoresFailure({error: error?.message ?? 'Unknown error'}))),
   ));
 
   constructor(

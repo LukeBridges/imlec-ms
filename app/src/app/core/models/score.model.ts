@@ -42,7 +42,7 @@ export class ScoreModel {
 
   get calculatedScoreToDisplay(): number|null {
     const score = this.calculatedScore;
-    return isNaN(score) ? null : Math.round(score * 10000) / 10000;
+    return isFinite(score) ? Math.round(score * 10000) / 10000 : null;
   }
 
   get averageDbHorsepower(): number {
@@ -51,7 +51,7 @@ export class ScoreModel {
 
   get averageDbHorsepowerToDisplay(): number|null {
     const hp = this.averageDbHorsepower;
-    return isNaN(hp) ? null : Math.round(hp * 10000) / 10000;
+    return isFinite(hp) ? Math.round(hp * 10000) / 10000 : null;
   }
 
   get coalConsumptionRate(): number {
@@ -64,20 +64,23 @@ export class ScoreModel {
 
   get specificCoalConsumptionToDisplay(): number|null {
     const consumption = this.specificCoalConsumption;
-    return isNaN(consumption) ? null : Math.round(consumption * 100) / 100;
+    return isFinite(consumption) ? Math.round(consumption * 100) / 100 : null;
   }
 
   get averageDrawBarPull(): number {
     return this.workDone / this.distanceTravelled;
   }
 
-  static scoreSort(a: ScoreModel, b: ScoreModel) {
-    if (a.workDone == 0 || typeof a.score == 'string') {
-      a.score = -1;
-    }
-    if (b.workDone == 0 || typeof b.score == 'string') {
-      b.score = 0;
-    }
-    return b.score - a.score;
+  get averageDrawBarPullToDisplay(): number|null {
+    const pull = this.averageDrawBarPull;
+    return isFinite(pull) ? Math.round(pull * 10000) / 10000 : null;
+  }
+
+  static scoreSort(a: ScoreModel, b: ScoreModel): number {
+    const scoredA = typeof a.score === 'number';
+    const scoredB = typeof b.score === 'number';
+    if (scoredA && scoredB) return b.score - a.score;
+    if (scoredA !== scoredB) return scoredA ? -1 : 1;
+    return a.runNo - b.runNo;
   }
 }

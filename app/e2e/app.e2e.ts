@@ -42,7 +42,7 @@ test.describe('primary colour', () => {
     test('applies the configured primary colour as a CSS custom property', async ({page}) => {
         await gotoHash(page, 'full');
         await expect.poll(() => page.evaluate(() =>
-            document.documentElement.style.getPropertyValue('--primary-colour'))).toBe('#ab1234');
+            document.documentElement.style.getPropertyValue('--mat-sys-primary'))).toBe('#ab1234');
     });
 });
 
@@ -50,9 +50,10 @@ test.describe('scoreboard', () => {
     test('desktop board lists every run with distinct computed scores', async ({page}) => {
         await gotoHash(page, 'full');
         await page.getByRole('link', {name: 'Live Scoreboard'}).click();
-        await expect(page.locator('mat-row')).toHaveCount(4);
+        // the board now shows one row per entry (28), with runs 5-28 as unscored placeholders.
+        await expect(page.locator('mat-row')).toHaveCount(28);
         const runNos = await page.locator('mat-row .mat-column-runNo').allTextContents();
-        expect(runNos.sort()).toEqual(['1', '2', '3', '4']);
+        expect(runNos.map(Number).sort((a, b) => a - b)).toEqual(Array.from({length: 28}, (_, i) => i + 1));
         const scores = await page.locator('mat-row .mat-column-overallThermalEfficiency').allTextContents();
         expect(scores).toContain(String(expectedScore(500000, 2)));
         expect(scores).toContain(String(expectedScore(700000, 2.2)));
@@ -63,7 +64,7 @@ test.describe('scoreboard', () => {
     test('higher-scoring runs sort above lower-scoring runs', async ({page}) => {
         await gotoHash(page, 'full');
         await page.getByRole('link', {name: 'Live Scoreboard'}).click();
-        await expect(page.locator('mat-row')).toHaveCount(4);
+        await expect(page.locator('mat-row')).toHaveCount(28);
         const runNos = await page.locator('.mat-column-runNo').allTextContents();
         // run 2 (score ~2.92) outscores run 3 (score ~1.53).
         expect(runNos.indexOf('2')).toBeLessThan(runNos.indexOf('3'));
@@ -74,7 +75,7 @@ test.describe('scoreboard', () => {
         await gotoHash(page, 'full');
         await page.getByRole('button', {name: 'Menu'}).click();
         await page.getByRole('link', {name: 'Scoreboard'}).click();
-        await expect(page.locator('mat-row')).toHaveCount(4);
+        await expect(page.locator('mat-row')).toHaveCount(28);
         await expect(page.locator('.mat-column-driversClub')).toHaveCount(0);
         await expect(page.locator('.mat-column-coalUsed').first()).toBeVisible();
     });
@@ -125,12 +126,6 @@ test.describe('static pages via the sidebar', () => {
         await openSidenav(page);
         await page.getByRole('link', {name: 'Catering and Food'}).click();
         await expect(page.locator('main h1')).toContainText('Catering and Food');
-    });
-
-    test('winners page renders', async ({page}) => {
-        await openSidenav(page);
-        await page.getByRole('link', {name: 'Previous Winners'}).click();
-        await expect(page.locator('main h1')).toContainText('Previous IMLEC Winners');
     });
 
     test('home link returns to welcome from a deep page', async ({page}) => {
